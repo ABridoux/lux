@@ -5,8 +5,19 @@ public struct XmlInjector {
 
     // MARK: - Properties
 
-    var target: RegexPattern
-    var delegate: XmlDelegate?
+    public var target: RegexPattern
+    public var delegate: XmlDelegate?
+
+
+    // MARK: - Initialisation
+
+    public init(type: TextType, delegate: XmlDelegate? = nil) {
+        switch type {
+        case .plain: target = .plainXml
+        case .html: target = .htmlXml
+        }
+        self.delegate = delegate
+    }
 
     // MARK: - Functions
 

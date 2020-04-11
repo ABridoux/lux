@@ -138,4 +138,6 @@ struct XmlInjector {
 
 
 ## Miscellaneous
-[Useful link](https://stackoverflow.com/questions/4842424/list-of-ansi-color-escape-sequences) to colorise the output in the terminal.
+
+- [Colorize terminal with Swift](https://stackoverflow.com/questions/4842424/list-of-ansi-color-escape-sequences) to colorise the output in the terminal.
+- [Terminal colors list](https://misc.flogisoft.com/bash/tip_colors_and_formatting)

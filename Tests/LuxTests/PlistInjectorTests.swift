@@ -50,7 +50,7 @@ final class PlistInjectorTests: XCTestCase {
             \(tagColor)</dict>\(resetColor)
             """
 
-        let result = PlistInjector(target: .plainXml).inject(in: stubPlistString)
+        let result = PlistInjector(type: .plain).inject(in: stubPlistString)
 
         XCTAssertEqual(result, expectedResult)
     }
@@ -69,7 +69,7 @@ final class PlistInjectorTests: XCTestCase {
             <span class="plist-tag">&lt;/dict&gt;</span>
             """
 
-        let result = PlistInjector(target: .htmlXml).inject(in: stubHtmlPlistString)
+        let result = PlistInjector(type: .html).inject(in: stubHtmlPlistString)
 
         XCTAssertEqual(result, expectedResult)
     }
