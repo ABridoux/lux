@@ -19,17 +19,9 @@ public struct PlistInjector {
 
             if case let XmlCategory.tag(tag) = xmlCategory {
                 category = .tag(tag)
-                if tag == "key" {
-                    currentOpenedTagIsKey = true
-                } else {
-                    currentOpenedTagIsKey = false
-                }
+                currentOpenedTagIsKey = tag == "key"
             } else {
-                if currentOpenedTagIsKey {
-                    category = .keyName(match)
-                } else {
-                    category = .keyValue(match)
-                }
+                category = currentOpenedTagIsKey ? .keyName(match) : .keyValue(match)
                 currentOpenedTagIsKey = false
             }
 

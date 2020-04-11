@@ -5,7 +5,7 @@ public enum XmlCategory: Category {
 
     // MARK: - Constants
 
-    /// A Xml tag between angles like `<tag>`
+    /// A Xml tag between brackets like `<tag>`
     case tag(Substring)
     /// A Xml key between tags like `<tag>key</tag>`
     case key(Substring)
@@ -14,7 +14,7 @@ public enum XmlCategory: Category {
     static let keyDefault = XmlCategory.key("")
 
     // MARK: - Properties
-    
+
     public var cssClass: String {
         switch self {
         case .tag: return "xml-tag"

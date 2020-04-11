@@ -1,6 +1,6 @@
 import Foundation
 
-/// A wrapper around `String` to store more robustly regular expression patterns
+/// A wrapper around `String` to store regular expression patterns more robustly.
 public struct RegexPattern {
 
     // MARK: - Properties
@@ -11,7 +11,7 @@ public struct RegexPattern {
     // MARK: - Initialisation
 
     public init(_ pattern: String, type: TextType) {
-        self.stringValue = pattern
+        stringValue = pattern
         self.type = type
     }
 }

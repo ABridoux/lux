@@ -2,14 +2,14 @@ import Foundation
 
 public struct Injector {
 
-    /// Parse the given text with the given regular expression pattern, calling the injectio closure parameter when a match is found to give the opporunity to modify it.
+    /// Parse the given text with the given regular expression pattern, calling the injection closure parameter when a match is found to give the opportunity to modify it.
     /// - Parameters:
     ///   - text: The text to parse.
     ///   - pattern: A `RegexPattern` to use to build the regular expression which will find matches in the text.
     ///   - injectionClosure: Called by the service when a match is found by the regular expression.
     /// - Throws: If the regular expression cannot be built with the given `RegexPattern`
     /// - Returns: The modified text
-    public static func inject(in text: String, following pattern: RegexPattern, using injectionClosure: @escaping (Substring) -> String) throws -> String {
+    public static func inject(in text: String, following pattern: RegexPattern, using injectionClosure: (Substring) -> String) throws -> String {
         let regex = try NSRegularExpression(pattern: pattern.stringValue, options: [])
         let textRange = text.nsRange
         let matches = regex.matches(in: text, options: [], range: textRange)

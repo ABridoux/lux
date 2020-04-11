@@ -3,9 +3,9 @@
 A Swift library to colorise code blocks, with a dedicated command-line tool to colorise terminal output.
 
 Currently supported:
-- Xml
-- Plist
-- Json
+- [x] Xml
+- [x] Plist
+- [x] Json
 
 ### Quick example
 With the following Plist file
@@ -56,7 +56,7 @@ For HTML text, the library will take a HTML string as input. In HTML, chevrons a
 ## How to use it
 
 ### Swift
-They are two level of customisation to use Lux. The first and simpler one is to use the existing Injector classes. For each format, two injector exist today. One css classes injector to inject css classes into the string, and one to insert terminal colors.
+They are two level of customisation to use **Lux**. The first and simpler one is to use the existing Injector classes. For each format, two injector exist today. One css classes injector to inject css classes into the string, and one to insert terminal colors.
 
 #### First customisation level
 To use them, instantiate one format injector, specifying the type of the text:

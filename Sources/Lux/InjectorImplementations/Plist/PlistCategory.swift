@@ -5,7 +5,7 @@ public enum PlistCategory: Category {
 
     // MARK: - Constants
 
-    /// A Plist tag between angles like `<key>` or `</dict>`
+    /// A Plist tag between brackets like `<key>` or `</dict>`
     case tag(Substring)
     /// A Plist key name between key tags like `<key>keyName</key>`
     case keyName(Substring)

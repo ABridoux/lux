@@ -5,7 +5,7 @@ public enum TextType {
     /// Escape code to reset the color in the terminal. Used to stop the colorisation.
     static let terminalResetColor = "\033[39m"
 
-    /// Inject a given string into the text. The injection will be different depending on the case
+    /// Inject a given string into the text. The injection will be different depending on the text type
     /// - Parameters:
     ///   - stringtoInject: The string to inject: a css class, a terminal color...
     ///   - text: The text where to inject
