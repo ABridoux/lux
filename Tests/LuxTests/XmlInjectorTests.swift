@@ -35,7 +35,7 @@ final class XmlInjectorTests: XCTestCase {
             \(tagColor)</properties>\(resetColor)
             """
 
-        let result = XmlInjector(target: .plainXml).inject(in: stubXmlString)
+        let result = XmlInjector(type: .plain).inject(in: stubXmlString)
 
         XCTAssertEqual(result, expectedResult)
     }
@@ -50,7 +50,7 @@ final class XmlInjectorTests: XCTestCase {
             <span class="xml-tag">&lt;/properties&gt;</span>
             """
 
-        let result = XmlInjector(target: .htmlXml).inject(in: stubHTMLString)
+        let result = XmlInjector(type: .html).inject(in: stubHTMLString)
 
         XCTAssertEqual(result, expectedResult)
     }

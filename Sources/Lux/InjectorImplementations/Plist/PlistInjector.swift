@@ -5,8 +5,18 @@ public struct PlistInjector {
 
     // MARK: - Properties
 
-    var target: RegexPattern
-    var delegate: PlistDelegate?
+    public var target: RegexPattern
+    public var delegate: PlistDelegate?
+
+    // MARK: - Initialisation
+
+    public init(type: TextType, delegate: PlistDelegate? = nil) {
+        switch type {
+        case .plain: target = .plainXml
+        case .html: target = .htmlXml
+        }
+        self.delegate = delegate
+    }
 
     // MARK: - Functions
 

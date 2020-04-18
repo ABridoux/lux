@@ -1,9 +1,9 @@
 /// Different text formats which has to be colorised. Plain, Html.
-public enum TextType {
+public enum TextType: String {
     case plain, html
 
     /// Escape code to reset the color in the terminal. Used to stop the colorisation.
-    static let terminalResetColor = "\033[39m"
+    static let terminalResetColor = "\u{001B}[0;0m"
 
     /// Inject a given string into the text. The injection will be different depending on the text type
     /// - Parameters:

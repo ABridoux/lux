@@ -24,8 +24,8 @@ public enum XmlCategory: Category {
 
     public var terminalColor: String {
         switch self {
-        case .tag: return "\033[38;5;8m"
-        case .key: return "\033[39m" // standard color
+        case .tag: return "\u{001B}[38;5;197m"
+        case .key: return "\u{001B}[0;0m" // standard color
         }
     }
 
