@@ -23,7 +23,7 @@ public struct PlistInjector {
     public func inject(in text: String) -> String {
         var currentOpenedTagIsKey = false
 
-        let modifiedText = try? Injector.inject(in: text, following: target) { match in
+        let modifiedText = try? InjectionService.inject(in: text, following: target) { match, _ in
             let xmlCategory = XmlCategory(from: match)
             let category: PlistCategory
 
@@ -35,16 +35,15 @@ public struct PlistInjector {
                 currentOpenedTagIsKey = false
             }
 
-            let modifiedMatch: String
+            let stringToInject: String
 
             if let delegate = self.delegate {
-                modifiedMatch = delegate.injection(for: category)
+                stringToInject = delegate.injection(for: category)
             } else {
-                let stringToInject = category.injection(for: self.target.type)
-                modifiedMatch = self.target.type.inject(stringToInject, in: match)
+                stringToInject = category.injection(for: self.target.type)
             }
 
-            return modifiedMatch
+            return category.inject(stringToInject, in: target.type, match)
         }
 
          guard let finalText = modifiedText else {

@@ -32,18 +32,27 @@ public enum XmlCategory: Category {
     // MARK: - Initialisation
 
     init(from match: Substring) {
-        if match.hasPrefix("<") && match.hasSuffix(">") {
+        switch match {
+        case \.isPlainTag:
             var tag = match
             tag.removeFirst()
             tag.removeLast()
             self = .tag(tag)
-        } else if match.hasPrefix("&lt;") && match.hasSuffix("&gt;") {
+
+        case \.isHtmlTag:
             var tag = match
             tag.removeFirst(4)
             tag.removeLast(4)
             self = .tag(tag)
-        } else {
+
+        default:
             self = .key(match)
         }
     }
+}
+
+private extension Substring {
+
+    var isPlainTag: Bool { self.hasPrefix("<") && self.hasSuffix(">") }
+    var isHtmlTag: Bool { self.hasPrefix("&lt;") && self.hasSuffix("&gt;") }
 }

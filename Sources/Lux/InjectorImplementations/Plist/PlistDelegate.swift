@@ -1,5 +1,5 @@
 public protocol PlistDelegate {
 
-    /// Called by the injector to get the string to inject for the given Xml category
+    /// Called by the injector to get the string to inject for the given Plist category
     func injection(for category: PlistCategory) -> String
 }

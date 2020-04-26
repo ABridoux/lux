@@ -8,7 +8,6 @@ public struct XmlInjector {
     public var target: RegexPattern
     public var delegate: XmlDelegate?
 
-
     // MARK: - Initialisation
 
     public init(type: TextType, delegate: XmlDelegate? = nil) {
@@ -22,7 +21,7 @@ public struct XmlInjector {
     // MARK: - Functions
 
     public func inject(in text: String) -> String {
-        let modifiedText = try? Injector.inject(in: text, following: target) { match in
+        let modifiedText = try? InjectionService.inject(in: text, following: target) { match, _ in
             let category = XmlCategory(from: match)
             let stringToInject: String
 
@@ -32,9 +31,7 @@ public struct XmlInjector {
                 stringToInject = category.injection(for: self.target.type)
             }
 
-            let modifiedMatch = self.target.type.inject(stringToInject, in: match)
-
-            return modifiedMatch
+            return category.inject(stringToInject, in: target.type, match)
         }
 
         guard let finalText = modifiedText else {

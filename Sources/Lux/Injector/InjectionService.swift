@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Injector {
+public struct InjectionService {
 
     /// Parse the given text with the given regular expression pattern, calling the injection closure parameter when a match is found to give the opportunity to modify it.
     /// - Parameters:
@@ -9,7 +9,7 @@ public struct Injector {
     ///   - injectionClosure: Called by the service when a match is found by the regular expression.
     /// - Throws: If the regular expression cannot be built with the given `RegexPattern`
     /// - Returns: The modified text
-    public static func inject(in text: String, following pattern: RegexPattern, using injectionClosure: (Substring) -> String) throws -> String {
+    public static func inject(in text: String, following pattern: RegexPattern, using injectionClosure: (Substring, Substring?) -> String) throws -> String {
         let regex = try NSRegularExpression(pattern: pattern.stringValue, options: [])
         let textRange = text.nsRange
         let matches = regex.matches(in: text, options: [], range: textRange)
@@ -24,7 +24,8 @@ public struct Injector {
 
             // get the modified match
             let matchString = text[match.range]
-            let modifiedMatch = injectionClosure(matchString)
+            let nextMatchString = text[nextMatch.range]
+            let modifiedMatch = injectionClosure(matchString, nextMatchString)
 
             modifiedText.append(modifiedMatch)
 
@@ -32,15 +33,18 @@ public struct Injector {
             let noMatchLength = nextMatch.range.lowerBound - match.range.upperBound
             let noMatchRange = NSRange(location: match.range.upperBound, length: noMatchLength)
 
-            let noMatchString = text[noMatchRange]
+            if noMatchRange.length > 0 {
+                // if we have something between two matches, offer the opprtunity to inject a string in it
+                let noMatchString = text[noMatchRange]
 
-            let modifiedNoMatch = noMatchString.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? String(noMatchString) : injectionClosure(noMatchString)
+                let modifiedNoMatch = noMatchString.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? String(noMatchString) : injectionClosure(noMatchString, nextMatchString)
 
-            modifiedText.append(modifiedNoMatch)
+                modifiedText.append(modifiedNoMatch)
+            }
         }
 
         // append the last match and no match
-        let lastMatchString = injectionClosure(text[lastMatch.range])
+        let lastMatchString = injectionClosure(text[lastMatch.range], nil)
         modifiedText.append(lastMatchString)
 
         let lastNoMatchLength = textRange.upperBound - lastMatch.range.upperBound
@@ -53,7 +57,7 @@ public struct Injector {
         let range = NSRange(location: lastMatch.range.upperBound, length: lastNoMatchLength)
         let remainingString = text[range]
 
-        let modifiedRemainingString = remainingString.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? String(remainingString) : injectionClosure(remainingString)
+        let modifiedRemainingString = remainingString.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? String(remainingString) : injectionClosure(remainingString, nil)
 
         modifiedText.append(modifiedRemainingString)
 
