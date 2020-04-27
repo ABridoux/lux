@@ -22,7 +22,7 @@ public struct XmlInjector {
 
     public func inject(in text: String) -> String {
         let modifiedText = try? InjectionService.inject(in: text, following: target) { match, _ in
-            let category = XmlCategory(from: match)
+            let category = XMLCategory(from: match)
             let stringToInject: String
 
             if let delegate = self.delegate {

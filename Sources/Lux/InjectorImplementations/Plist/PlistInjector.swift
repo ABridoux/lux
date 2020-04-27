@@ -24,10 +24,10 @@ public struct PlistInjector {
         var currentOpenedTagIsKey = false
 
         let modifiedText = try? InjectionService.inject(in: text, following: target) { match, _ in
-            let xmlCategory = XmlCategory(from: match)
-            let category: PlistCategory
+            let xmlCategory = XMLCategory(from: match)
+            let category: PLISTCategory
 
-            if case let XmlCategory.tag(tag) = xmlCategory {
+            if case let XMLCategory.tag(tag) = xmlCategory {
                 category = .tag(tag)
                 currentOpenedTagIsKey = tag == "key"
             } else {

@@ -22,9 +22,9 @@ final class XmlInjectorTests: XCTestCase {
        """
 
     func testInjectTerminalColor() {
-        let tag = XmlCategory.tagDefault.terminalColor
-        let key = XmlCategory.keyDefault.terminalColor
-        let reset = XmlCategory.terminalResetColor
+        let tag = XMLCategory.tagDefault.terminalColor
+        let key = XMLCategory.keyDefault.terminalColor
+        let reset = XMLCategory.terminalResetColor
 
         let expectedResult =
             """
@@ -41,8 +41,8 @@ final class XmlInjectorTests: XCTestCase {
     }
 
     func testInjectCssClasses() {
-        let tag = XmlCategory.tagDefault.cssClass
-        let key = XmlCategory.keyDefault.cssClass
+        let tag = XMLCategory.tagDefault.cssClass
+        let key = XMLCategory.keyDefault.cssClass
 
         let expectedResult =
             """

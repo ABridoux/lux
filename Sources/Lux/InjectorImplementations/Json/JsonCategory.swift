@@ -1,6 +1,6 @@
 import Foundation
 
-public enum JsonCategory: Category {
+public enum JSONCategory: Category {
 
     // MARK: - Constants
 
@@ -52,7 +52,11 @@ public enum JsonCategory: Category {
         switch self {
         case .punctuation: return terminalColor + text + Self.terminalResetColor
         case .keyValue:
-            var modifiedText = " \(terminalColor)\(text.trimmingCharacters(in: .whitespacesAndNewlines))\(Self.terminalResetColor)"
+            var modifiedText = ""
+            if text.hasPrefix(" ") { // inject the color after the white space
+                modifiedText.append(" ")
+            }
+            modifiedText += "\(terminalColor)\(text.trimmingCharacters(in: .whitespacesAndNewlines))\(Self.terminalResetColor)"
             if text.hasSuffix("\n") { // inject the color before the new line
                 modifiedText.append("\n")
             }
@@ -68,7 +72,11 @@ public enum JsonCategory: Category {
         switch self {
         case .punctuation: return #"<span class="\#(cssClass)">\#(text)</span>"#
         case .keyValue:
-            var modifiedText = #" <span class="\#(cssClass)">\#(text.trimmingCharacters(in: .whitespacesAndNewlines))</span>"#
+            var modifiedText = ""
+            if text.hasPrefix(" ") { // inject the color after the white space
+                modifiedText.append(" ")
+            }
+            modifiedText += #"<span class="\#(cssClass)">\#(text.trimmingCharacters(in: .whitespacesAndNewlines))</span>"#
             if text.hasSuffix("\n") { // inject the color before the new line
                 modifiedText.append("\n")
             }

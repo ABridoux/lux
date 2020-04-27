@@ -15,10 +15,10 @@ final class JsonInjectorTests: XCTestCase {
     """
 
     func testInjectTerminalColor() {
-        let punctuation = JsonCategory.punctuation.terminalColor
-        let keyName = JsonCategory.keyName.terminalColor
-        let keyValue = JsonCategory.keyValue.terminalColor
-        let reset = JsonCategory.terminalResetColor
+        let punctuation = JSONCategory.punctuation.terminalColor
+        let keyName = JSONCategory.keyName.terminalColor
+        let keyValue = JSONCategory.keyValue.terminalColor
+        let reset = JSONCategory.terminalResetColor
 
         let expectedResult =
             """
@@ -29,15 +29,15 @@ final class JsonInjectorTests: XCTestCase {
             \(punctuation)}\(reset)
             """
 
-        let result = JsonInjector(type: .plain).inject(in: stubPlistString)
+        let result = JSONInjector(type: .plain).inject(in: stubPlistString)
 
         XCTAssertEqual(result, expectedResult)
     }
 
     func testInjectCssClasses() {
-        let punctuation = JsonCategory.punctuation.cssClass
-        let keyName = JsonCategory.keyName.cssClass
-        let keyValue = JsonCategory.keyValue.cssClass
+        let punctuation = JSONCategory.punctuation.cssClass
+        let keyName = JSONCategory.keyName.cssClass
+        let keyValue = JSONCategory.keyValue.cssClass
 
         let expectedResult =
         """
@@ -48,7 +48,7 @@ final class JsonInjectorTests: XCTestCase {
         <span class="\(punctuation)">}</span>
         """
 
-        let result = JsonInjector(type: .html).inject(in: stubPlistString)
+        let result = JSONInjector(type: .html).inject(in: stubPlistString)
 
         XCTAssertEqual(result, expectedResult)
     }

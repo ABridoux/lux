@@ -1,17 +1,17 @@
 import Foundation
 
 /// Inject strings into a text depending on the configuration or the delegate.
-public struct JsonInjector {
+public struct JSONInjector {
 
     // MARK: - Properties
 
     /// All Json reserved characters are treated as literal in HTML
     public let type: TextType
-    public var delegate: JsonDelegate?
+    public var delegate: JSONDelegate?
 
     // MARK: - Initialisation
 
-    public init(type: TextType, delegate: JsonDelegate? = nil) {
+    public init(type: TextType, delegate: JSONDelegate? = nil) {
         self.type = type
         self.delegate = delegate
     }
@@ -20,7 +20,7 @@ public struct JsonInjector {
 
     public func inject(in text: String) -> String {
         let modifiedText = try? InjectionService.inject(in: text, following: .json) { match, _ in
-            let category = JsonCategory(from: match)
+            let category = JSONCategory(from: match)
             let stringToInject: String
 
             if let delegate = self.delegate {

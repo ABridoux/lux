@@ -75,14 +75,14 @@ Doing so, the injectors will inject default strings in the text. For example, th
 But it is possible to customise this behavior. This is the first customisation level. The injectors have delegate, which you can use to change the string which will be injected. For example, the Xml injector has an optional delegate with one function:
 
 ```swift
-func injection(for category: XmlCategory) -> String
+func injection(for category: XMLCategory) -> String
 ```
 
 You can make a `struct` implement this protocol and return the string to inject for the given category. For Xml format, there are two options as you might imagine: `tag` and `key`. So for example, to change the css classes for the Xml format, here is what you could do.
 
 ```swift
 struct  XmlCssDelegate: XmlDelegate {
-    func injection(for category: XmlCategory) -> String {
+    func injection(for category: XMLCategory) -> String {
         switch category {
             case .tag: return "specific-xml-tag"
             case .key: return "specific-xml-key"
@@ -111,7 +111,7 @@ struct XmlInjector {
 
     func inject(in text: String) -> String {
         let modifiedText = try? Injector.inject(in: text, following: target) { match in
-            let category = XmlCategory(from: match)
+            let category = XMLCategory(from: match)
             let stringToInject: String
 
             if let delegate = self.delegate {

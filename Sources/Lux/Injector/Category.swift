@@ -16,6 +16,7 @@ public protocol Category {
 extension Category {
 
     // MARK: - Constants
+
     /// Escape code to reset the color in the terminal. Used to stop the colorisation.
     static var terminalResetColor: String { "\u{001B}[0;0m" }
 

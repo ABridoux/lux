@@ -1,7 +1,7 @@
 import Foundation
 
 /// Categories when dealing with Plist format: tag, key.
-public enum XmlCategory: Category {
+public enum XMLCategory: Category {
 
     // MARK: - Constants
 
@@ -10,8 +10,8 @@ public enum XmlCategory: Category {
     /// A Xml key between tags like `<tag>key</tag>`
     case key(Substring)
 
-    static let tagDefault = XmlCategory.tag("")
-    static let keyDefault = XmlCategory.key("")
+    static let tagDefault = XMLCategory.tag("")
+    static let keyDefault = XMLCategory.key("")
 
     // MARK: - Properties
 
