@@ -1,7 +1,7 @@
 import Foundation
 
 /// Categories when dealing with Plist format: tag, key name and key value
-public enum PlistCategory: Category {
+public enum PLISTCategory: Category {
 
     // MARK: - Constants
 
@@ -12,9 +12,9 @@ public enum PlistCategory: Category {
     /// A Plist key value between value tags like `<string>Hello</string>` or `<real>2.5</real>`
     case keyValue(Substring)
 
-    static let tagDefault = PlistCategory.tag("")
-    static let keyNameDefault = PlistCategory.keyName("")
-    static let keyValueDefault = PlistCategory.keyValue("")
+    static let tagDefault = PLISTCategory.tag("")
+    static let keyNameDefault = PLISTCategory.keyName("")
+    static let keyValueDefault = PLISTCategory.keyValue("")
 
     // MARK: - Properties
 

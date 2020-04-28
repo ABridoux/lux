@@ -32,22 +32,22 @@ final class PlistInjectorTests: XCTestCase {
         """
 
     func testInjectTerminalColor() {
-        let tagColor = PlistCategory.tagDefault.terminalColor
-        let keyNameColor = PlistCategory.keyNameDefault.terminalColor
-        let keyValueColor = PlistCategory.keyValueDefault.terminalColor
-        let resetColor = TextType.terminalResetColor
+        let tag = PLISTCategory.tagDefault.terminalColor
+        let keyName = PLISTCategory.keyNameDefault.terminalColor
+        let keyValue = PLISTCategory.keyValueDefault.terminalColor
+        let reset = PLISTCategory.terminalResetColor
 
         let expectedResult =
             """
-            \(tagColor)<key>\(resetColor)\(keyNameColor)properties\(resetColor)\(tagColor)</key>\(resetColor)
-            \(tagColor)<dict>\(resetColor)
-                \(tagColor)<key>\(resetColor)\(keyNameColor)Type\(resetColor)\(tagColor)</key>\(resetColor)
-                \(tagColor)<string>\(resetColor)\(keyValueColor)Input\(resetColor)\(tagColor)</string>\(resetColor)
-                \(tagColor)<key>\(resetColor)\(keyNameColor)InputType\(resetColor)\(tagColor)</key>\(resetColor)
-                \(tagColor)<string>\(resetColor)\(keyValueColor)List\(resetColor)\(tagColor)</string>\(resetColor)
-                \(tagColor)<key>\(resetColor)\(keyNameColor)IsAllowed\(resetColor)\(tagColor)</key>\(resetColor)
-                \(tagColor)<true/>\(resetColor)
-            \(tagColor)</dict>\(resetColor)
+            \(tag)<key>\(reset)\(keyName)properties\(reset)\(tag)</key>\(reset)
+            \(tag)<dict>\(reset)
+                \(tag)<key>\(reset)\(keyName)Type\(reset)\(tag)</key>\(reset)
+                \(tag)<string>\(reset)\(keyValue)Input\(reset)\(tag)</string>\(reset)
+                \(tag)<key>\(reset)\(keyName)InputType\(reset)\(tag)</key>\(reset)
+                \(tag)<string>\(reset)\(keyValue)List\(reset)\(tag)</string>\(reset)
+                \(tag)<key>\(reset)\(keyName)IsAllowed\(reset)\(tag)</key>\(reset)
+                \(tag)<true/>\(reset)
+            \(tag)</dict>\(reset)
             """
 
         let result = PlistInjector(type: .plain).inject(in: stubPlistString)
@@ -56,17 +56,21 @@ final class PlistInjectorTests: XCTestCase {
     }
 
     func testInjectCssClasses() {
+        let tag = PLISTCategory.tagDefault.cssClass
+        let keyName = PLISTCategory.keyNameDefault.cssClass
+        let keyValue = PLISTCategory.keyValueDefault.cssClass
+
         let expectedResult =
             """
-            <span class="plist-tag">&lt;key&gt;</span><span class="plist-key-name">properties</span><span class="plist-tag">&lt;/key&gt;</span>
-            <span class="plist-tag">&lt;dict&gt;</span>
-                <span class="plist-tag">&lt;key&gt;</span><span class="plist-key-name">Type</span><span class="plist-tag">&lt;/key&gt;</span>
-                <span class="plist-tag">&lt;string&gt;</span><span class="plist-key-value">Input</span><span class="plist-tag">&lt;/string&gt;</span>
-                <span class="plist-tag">&lt;key&gt;</span><span class="plist-key-name">InputType</span><span class="plist-tag">&lt;/key&gt;</span>
-                <span class="plist-tag">&lt;string&gt;</span><span class="plist-key-value">List</span><span class="plist-tag">&lt;/string&gt;</span>
-                <span class="plist-tag">&lt;key&gt;</span><span class="plist-key-name">IsAllowed</span><span class="plist-tag">&lt;/key&gt;</span>
-                <span class="plist-tag">&lt;true/&gt;</span>
-            <span class="plist-tag">&lt;/dict&gt;</span>
+            <span class="\(tag)">&lt;key&gt;</span><span class="\(keyName)">properties</span><span class="\(tag)">&lt;/key&gt;</span>
+            <span class="\(tag)">&lt;dict&gt;</span>
+                <span class="\(tag)">&lt;key&gt;</span><span class="\(keyName)">Type</span><span class="\(tag)">&lt;/key&gt;</span>
+                <span class="\(tag)">&lt;string&gt;</span><span class="\(keyValue)">Input</span><span class="\(tag)">&lt;/string&gt;</span>
+                <span class="\(tag)">&lt;key&gt;</span><span class="\(keyName)">InputType</span><span class="\(tag)">&lt;/key&gt;</span>
+                <span class="\(tag)">&lt;string&gt;</span><span class="\(keyValue)">List</span><span class="\(tag)">&lt;/string&gt;</span>
+                <span class="\(tag)">&lt;key&gt;</span><span class="\(keyName)">IsAllowed</span><span class="\(tag)">&lt;/key&gt;</span>
+                <span class="\(tag)">&lt;true/&gt;</span>
+            <span class="\(tag)">&lt;/dict&gt;</span>
             """
 
         let result = PlistInjector(type: .html).inject(in: stubHtmlPlistString)

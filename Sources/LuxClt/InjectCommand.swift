@@ -33,9 +33,9 @@ struct InjectCommand: ParsableCommand {
         switch format {
         case .xml: output = XmlInjector(type: type).inject(in: input)
         case .plist: output = PlistInjector(type: type).inject(in: input)
+        case .json: output = JSONInjector(type: type).inject(in: input)
         }
 
         print(output)
     }
 }
-  

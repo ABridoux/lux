@@ -1,7 +1,7 @@
 import Foundation
 
 /// Categories when dealing with Plist format: tag, key.
-public enum XmlCategory: Category {
+public enum XMLCategory: Category {
 
     // MARK: - Constants
 
@@ -10,8 +10,8 @@ public enum XmlCategory: Category {
     /// A Xml key between tags like `<tag>key</tag>`
     case key(Substring)
 
-    static let tagDefault = XmlCategory.tag("")
-    static let keyDefault = XmlCategory.key("")
+    static let tagDefault = XMLCategory.tag("")
+    static let keyDefault = XMLCategory.key("")
 
     // MARK: - Properties
 
@@ -32,18 +32,27 @@ public enum XmlCategory: Category {
     // MARK: - Initialisation
 
     init(from match: Substring) {
-        if match.hasPrefix("<") && match.hasSuffix(">") {
+        switch match {
+        case \.isPlainTag:
             var tag = match
             tag.removeFirst()
             tag.removeLast()
             self = .tag(tag)
-        } else if match.hasPrefix("&lt;") && match.hasSuffix("&gt;") {
+
+        case \.isHtmlTag:
             var tag = match
             tag.removeFirst(4)
             tag.removeLast(4)
             self = .tag(tag)
-        } else {
+
+        default:
             self = .key(match)
         }
     }
+}
+
+private extension Substring {
+
+    var isPlainTag: Bool { self.hasPrefix("<") && self.hasSuffix(">") }
+    var isHtmlTag: Bool { self.hasPrefix("&lt;") && self.hasSuffix("&gt;") }
 }

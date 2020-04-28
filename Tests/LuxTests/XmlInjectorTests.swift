@@ -22,17 +22,17 @@ final class XmlInjectorTests: XCTestCase {
        """
 
     func testInjectTerminalColor() {
-        let tagColor = XmlCategory.tagDefault.terminalColor
-        let keyColor = XmlCategory.keyDefault.terminalColor
-        let resetColor = TextType.terminalResetColor
+        let tag = XMLCategory.tagDefault.terminalColor
+        let key = XMLCategory.keyDefault.terminalColor
+        let reset = XMLCategory.terminalResetColor
 
         let expectedResult =
             """
-            \(tagColor)<properties>\(resetColor)
-                \(tagColor)<type>\(resetColor)\(keyColor)Input\(resetColor)\(tagColor)</type>\(resetColor)
-                \(tagColor)<inputType>\(resetColor)\(keyColor)List\(resetColor)\(tagColor)</inputType>\(resetColor)
-                \(tagColor)<isAllowed>\(resetColor)\(keyColor)true\(resetColor)\(tagColor)</isAllowed>\(resetColor)
-            \(tagColor)</properties>\(resetColor)
+            \(tag)<properties>\(reset)
+                \(tag)<type>\(reset)\(key)Input\(reset)\(tag)</type>\(reset)
+                \(tag)<inputType>\(reset)\(key)List\(reset)\(tag)</inputType>\(reset)
+                \(tag)<isAllowed>\(reset)\(key)true\(reset)\(tag)</isAllowed>\(reset)
+            \(tag)</properties>\(reset)
             """
 
         let result = XmlInjector(type: .plain).inject(in: stubXmlString)
@@ -41,13 +41,16 @@ final class XmlInjectorTests: XCTestCase {
     }
 
     func testInjectCssClasses() {
+        let tag = XMLCategory.tagDefault.cssClass
+        let key = XMLCategory.keyDefault.cssClass
+
         let expectedResult =
             """
-            <span class="xml-tag">&lt;properties&gt;</span>
-                <span class="xml-tag">&lt;type&gt;</span><span class="xml-key">Input</span><span class="xml-tag">&lt;/type&gt;</span>
-                <span class="xml-tag">&lt;inputType&gt;</span><span class="xml-key">List</span><span class="xml-tag">&lt;/inputType&gt;</span>
-                <span class="xml-tag">&lt;isAllowed&gt;</span><span class="xml-key">true</span><span class="xml-tag">&lt;/isAllowed&gt;</span>
-            <span class="xml-tag">&lt;/properties&gt;</span>
+            <span class="\(tag)">&lt;properties&gt;</span>
+                <span class="\(tag)">&lt;type&gt;</span><span class="\(key)">Input</span><span class="\(tag)">&lt;/type&gt;</span>
+                <span class="\(tag)">&lt;inputType&gt;</span><span class="\(key)">List</span><span class="\(tag)">&lt;/inputType&gt;</span>
+                <span class="\(tag)">&lt;isAllowed&gt;</span><span class="\(key)">true</span><span class="\(tag)">&lt;/isAllowed&gt;</span>
+            <span class="\(tag)">&lt;/properties&gt;</span>
             """
 
         let result = XmlInjector(type: .html).inject(in: stubHTMLString)

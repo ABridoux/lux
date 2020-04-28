@@ -1,5 +1,5 @@
 import ArgumentParser
 
 enum Format: String, ExpressibleByArgument {
-    case plist, xml
+    case plist, xml, json
 }
