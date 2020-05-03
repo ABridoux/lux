@@ -50,7 +50,7 @@ final class PlistInjectorTests: XCTestCase {
             \(tag)</dict>\(reset)
             """
 
-        let result = PlistInjector(type: .plain).inject(in: stubPlistString)
+        let result = PLISTInjector(type: .plain).inject(in: stubPlistString)
 
         XCTAssertEqual(result, expectedResult)
     }
@@ -73,7 +73,7 @@ final class PlistInjectorTests: XCTestCase {
             <span class="\(tag)">&lt;/dict&gt;</span>
             """
 
-        let result = PlistInjector(type: .html).inject(in: stubHtmlPlistString)
+        let result = PLISTInjector(type: .html).inject(in: stubHtmlPlistString)
 
         XCTAssertEqual(result, expectedResult)
     }

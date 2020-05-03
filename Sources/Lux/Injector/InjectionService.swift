@@ -78,16 +78,16 @@ public struct InjectionService {
 
     /// Inject the given string in the text. The insertion method depends on the category and the text type
     /// - Parameters:
-    ///   - stringtoInject: The string to inject (Css class, terminal color code...)
+    ///   - stringToInject: The string to inject (Css class, terminal color code...)
     ///   - type: The text type: Html or plain
     ///   - text: The text in which to insert the string
     /// - Returns: the modified match with the inserted string
-    static public func inject(_ stringtoInject: String, in type: TextType, _ text: String) -> String {
+    static public func inject(_ stringToInject: String, in type: TextType, _ text: String) -> String {
         switch type {
         case .plain:
-            return stringtoInject + text + TerminalColor.reset
+            return stringToInject + text + TerminalColor.reset
         case .html:
-            return #"<span class="\#(stringtoInject)">\#(text)</span>"#
+            return #"<span class="\#(stringToInject)">\#(text)</span>"#
         }
     }
 }

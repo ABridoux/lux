@@ -1,7 +1,7 @@
 import Foundation
 
 /// Inject strings into a text depending on the configuration or the delegate.
-public struct XmlInjector: Injector {
+public struct XMLInjector: Injector {
 
     // MARK: - Constants
 
@@ -31,7 +31,7 @@ public struct XmlInjector: Injector {
 
             if let delegate = self.delegate {
                 stringToInject = delegate.injection(for: category)
-                return delegate.self.inject(category, stringToInject, in: target.type, match)
+                return delegate.self.inject(stringToInject, in: target.type, match)
             } else {
                 stringToInject = category.injection(for: self.target.type)
                 return  InjectionService.inject(stringToInject, in: target.type, match)

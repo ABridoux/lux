@@ -1,7 +1,7 @@
 import Foundation
 
 /// Inject strings into a text depending on the configuration or the delegate.
-public struct PlistInjector: Injector {
+public struct PLISTInjector: Injector {
 
     // MARK: - Constants
 
@@ -10,11 +10,11 @@ public struct PlistInjector: Injector {
     // MARK: - Properties
 
     public var target: RegexPattern
-    public var delegate: PlistDelegate?
+    public var delegate: PLISTDelegate?
 
     // MARK: - Initialisation
 
-    public init(type: TextType, delegate: PlistDelegate? = nil) {
+    public init(type: TextType, delegate: PLISTDelegate? = nil) {
         switch type {
         case .plain: target = .plainXml
         case .html: target = .htmlXml
@@ -43,7 +43,7 @@ public struct PlistInjector: Injector {
 
             if let delegate = self.delegate {
                 stringToInject = delegate.injection(for: category)
-                return delegate.inject(category, stringToInject, in: target.type, match)
+                return delegate.inject(stringToInject, in: target.type, match)
             } else {
                 stringToInject = category.injection(for: self.target.type)
                 return InjectionService.inject(stringToInject, in: target.type, match)
