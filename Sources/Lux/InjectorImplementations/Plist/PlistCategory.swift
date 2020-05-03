@@ -6,11 +6,11 @@ public enum PLISTCategory: Category {
     // MARK: - Constants
 
     /// A Plist tag between brackets like `<key>` or `</dict>`
-    case tag(Substring)
+    case tag(String)
     /// A Plist key name between key tags like `<key>keyName</key>`
-    case keyName(Substring)
+    case keyName(String)
     /// A Plist key value between value tags like `<string>Hello</string>` or `<real>2.5</real>`
-    case keyValue(Substring)
+    case keyValue(String)
 
     static let tagDefault = PLISTCategory.tag("")
     static let keyNameDefault = PLISTCategory.keyName("")

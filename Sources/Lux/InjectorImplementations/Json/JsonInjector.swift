@@ -1,7 +1,11 @@
 import Foundation
 
 /// Inject strings into a text depending on the configuration or the delegate.
-public struct JSONInjector {
+public struct JSONInjector: Injector {
+
+    // MARK: - Constants
+
+    public var languageIdentifiers: Set<String> = ["json", "Json", "JSON", "language-json", "language-Json", "language-JSON"]
 
     // MARK: - Properties
 
@@ -19,17 +23,16 @@ public struct JSONInjector {
     // MARK: - Functions
 
     public func inject(in text: String) -> String {
-        let modifiedText = try? InjectionService.inject(in: text, following: .json) { match, _ in
+        let modifiedText = try? InjectionService.inject(in: text, following: .json) { match in
             let category = JSONCategory(from: match)
             let stringToInject: String
 
             if let delegate = self.delegate {
                 stringToInject = delegate.injection(for: category)
+                return delegate.inject(category, stringToInject, in: type, text)
             } else {
-                stringToInject = category.injection(for: self.type)
+                return category.inject(in: type, match)
             }
-
-            return category.inject(stringToInject, in: type, match)
         }
 
         guard let finalText = modifiedText else {
