@@ -27,7 +27,7 @@ public struct PlistInjector: Injector {
     public func inject(in text: String) -> String {
         var currentOpenedTagIsKey = false
 
-        let modifiedText = try? InjectionService.inject(in: text, following: target) { match in
+        let modifiedText = try? InjectionService.inject(String.self, in: text, following: target) { match in
             let xmlCategory = XMLCategory(from: match)
             let category: PlistCategory
 
@@ -56,5 +56,33 @@ public struct PlistInjector: Injector {
          }
 
          return finalText
+    }
+
+    public func injectAttributed(in text: String) -> NSMutableAttributedString {
+        var currentOpenedTagIsKey = false
+
+        let modifiedText = try? InjectionService.inject(AttributedString.self, in: text, following: target) { match in
+            let xmlCategory = XMLCategory(from: match)
+            let category: PlistCategory
+
+            if case let XMLCategory.tag(tag) = xmlCategory {
+                category = .tag(tag)
+                currentOpenedTagIsKey = tag == "key"
+            } else {
+                category = currentOpenedTagIsKey ? .keyName(match) : .keyValue(match)
+                currentOpenedTagIsKey = false
+            }
+
+            let color = category.color
+            let attrString = category.inject(color: color, in: match)
+            return attrString
+        }
+
+         guard let finalText = modifiedText else {
+             assertionFailure("The default regular expression pattern \(target.stringValue) has failed to build a regular expression")
+            return NSMutableAttributedString(string: text)
+         }
+
+        return finalText.attrString
     }
 }

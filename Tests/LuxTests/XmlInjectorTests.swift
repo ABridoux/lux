@@ -24,7 +24,7 @@ final class XMLInjectorTests: XCTestCase {
     func testInjectTerminalColor() {
         let tag = XMLCategory.tagDefault.terminalColor
         let key = XMLCategory.keyDefault.terminalColor
-        let reset = TerminalColor.reset
+        let reset = Colors.terminalReset
 
         let expectedResult =
             """

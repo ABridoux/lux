@@ -1,4 +1,9 @@
 import Foundation
+#if !os(macOS)
+import UIKit
+#else
+import AppKit
+#endif
 
 /// Categories when dealing with Plist format: tag, key.
 public enum XMLCategory: Category {
@@ -48,6 +53,22 @@ public enum XMLCategory: Category {
         default:
             self = .key(match)
         }
+    }
+
+    public var color: Color {
+        #if !os(macOS)
+        switch self {
+        case .tag: return UIColor.red
+        case .key: return UIColor.black
+        }
+
+        #else
+
+        switch self {
+        case .tag: return NSColor.systemOrange
+        case .key: return NSColor.labelColor
+        }
+        #endif
     }
 }
 

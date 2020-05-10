@@ -25,7 +25,7 @@ public struct XMLInjector: Injector {
     // MARK: - Functions
 
     public func inject(in text: String) -> String {
-        let modifiedText = try? InjectionService.inject(in: text, following: target) { match in
+        let modifiedText = try? InjectionService.inject(String.self, in: text, following: target) { match in
             let category = XMLCategory(from: match)
             let stringToInject: String
 
@@ -44,5 +44,21 @@ public struct XMLInjector: Injector {
         }
 
         return finalText
+    }
+
+    public func injectAttributed(in text: String) -> NSMutableAttributedString {
+        let modifiedText = try? InjectionService.inject(AttributedString.self, in: text, following: target) { match in
+
+            let category = XMLCategory(from: match)
+            let color = category.color
+            return category.inject(color: color, in: match)
+        }
+
+        guard let finalText = modifiedText else {
+            assertionFailure("The default regular expression pattern \(target.stringValue) has failed to build a regular expression")
+            return NSMutableAttributedString(string: text)
+        }
+
+        return finalText.attrString
     }
 }

@@ -17,7 +17,7 @@ final class InjectorTests: XCTestCase {
     // MARK: - Functions
 
     func testInjectorShouldInjectNA_Plain() throws {
-        let result = try InjectionService.inject(in: stubXmlString, following: .plainXml) { match in
+        let result = try InjectionService.inject(String.self, in: stubXmlString, following: .plainXml) { match in
             if match.hasPrefix("<"), match.hasSuffix(">") {
                 return "<NA>"
             } else {

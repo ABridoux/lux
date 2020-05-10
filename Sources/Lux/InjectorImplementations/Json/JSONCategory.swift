@@ -1,4 +1,9 @@
 import Foundation
+#if !os(macOS)
+import UIKit
+#else
+import AppKit
+#endif
 
 public enum JSONCategory: Category {
 
@@ -29,6 +34,24 @@ public enum JSONCategory: Category {
         }
     }
 
+    public var color: Color {
+        #if !os(macOS)
+        switch self {
+        case .keyName: return UIColor.red
+        case .keyValue: return UIColor.black
+        case .punctuation: return UIColor.lightgray
+        }
+
+        #else
+
+        switch self {
+        case .keyName: return NSColor.systemOrange
+        case .keyValue: return NSColor.labelColor
+        case .punctuation: return NSColor.systemGray
+        }
+        #endif
+    }
+
     // MARK: - Initialisation
 
     init(from match: String) {
@@ -50,13 +73,13 @@ public enum JSONCategory: Category {
 
     func plainTextInjection(in text: String) -> String {
         switch self {
-        case .punctuation: return terminalColor + text + TerminalColor.reset
+        case .punctuation: return terminalColor + text + Colors.terminalReset
         case .keyValue:
             var modifiedText = ""
             if text.hasPrefix(" ") { // inject the color after the white space
                 modifiedText.append(" ")
             }
-            modifiedText += "\(terminalColor)\(text.trimmingCharacters(in: .whitespacesAndNewlines))\(TerminalColor.reset)"
+            modifiedText += "\(terminalColor)\(text.trimmingCharacters(in: .whitespacesAndNewlines))\(Colors.terminalReset)"
             if text.hasSuffix("\n") { // inject the color before the new line
                 modifiedText.append("\n")
             }
@@ -64,7 +87,7 @@ public enum JSONCategory: Category {
         case .keyName:
             var injection = Self.punctuation.terminalColor + String(text[NSRange(location: 0, length: 1)]) // "
             injection += Self.keyName.terminalColor + String(text[NSRange(location: 1, length: text.count - 3)]) // string between brackets
-            injection += Self.punctuation.terminalColor + String(text[NSRange(location: text.count - 2, length: 2)]) + TerminalColor.reset // ":
+            injection += Self.punctuation.terminalColor + String(text[NSRange(location: text.count - 2, length: 2)]) + Colors.terminalReset // ":
 
             return injection
         }
@@ -90,6 +113,29 @@ public enum JSONCategory: Category {
             injection +=  #"<span class="\#(Self.punctuation.cssClass)">\#(text[NSRange(location: text.count - 2, length: 2)])</span>"# // ":
 
             return injection
+        }
+    }
+
+    public func injectAttributed(in text: String) -> AttributedString {
+        switch self {
+        case .punctuation, .keyValue:
+            var attrString = AttributedString(text)
+            attrString.textColor = color
+            return attrString
+        case .keyName:
+            var openingQuote = AttributedString(text[NSRange(location: 0, length: 1)])
+            openingQuote.textColor = Self.punctuation.color
+            var stringBetweenBrackets = AttributedString(text[NSRange(location: 1, length: text.count - 3)])
+            stringBetweenBrackets.textColor = Self.keyName.color
+            var closingQuote = AttributedString(text[NSRange(location: text.count - 2, length: 2)])
+            closingQuote.textColor = Self.punctuation.color
+
+            let attrString = AttributedString()
+            attrString.append(openingQuote)
+            attrString.append(stringBetweenBrackets)
+            attrString.append(closingQuote)
+
+            return attrString
         }
     }
 }

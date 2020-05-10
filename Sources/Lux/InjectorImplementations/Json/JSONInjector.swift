@@ -23,12 +23,12 @@ public struct JSONInjector: Injector {
     // MARK: - Functions
 
     public func inject(in text: String) -> String {
-        let modifiedText = try? InjectionService.inject(in: text, following: .json) { match in
+        let modifiedText = try? InjectionService.inject(String.self, in: text, following: .json) { match in
             let category = JSONCategory(from: match)
             let stringToInject: String
 
             if let delegate = self.delegate {
-                stringToInject = delegate.injection(for: category)
+                stringToInject = delegate.injection(for: category, textType: type)
                 return delegate.inject(category, stringToInject, in: type, text)
             } else {
                 return category.inject(in: type, match)
@@ -42,4 +42,20 @@ public struct JSONInjector: Injector {
 
         return finalText
     }
+
+    public func injectAttributed(in text: String) -> NSMutableAttributedString {
+        let modifiedText = try? InjectionService.inject(AttributedString.self, in: text, following: .json) { match in
+            let category = JSONCategory(from: match)
+
+            return category.injectAttributed(in: match)
+        }
+
+        guard let finalText = modifiedText else {
+            assertionFailure("The default regular expression pattern \(RegexPattern.json.stringValue) has failed to build a regular expression")
+            return NSMutableAttributedString(string: text)
+        }
+
+        return finalText.attrString
+    }
+
 }
