@@ -96,8 +96,8 @@ public enum JSONCategory: Category {
 
 private extension String {
 
-    static let puntuationSet: Set<String> = ["]", "[", "(", ")", "{", "}", ","]
+    static let punctuationSet: Set<String> = ["]", "[", "(", ")", "{", "}", ","]
 
-    var isPunctuation: Bool { Self.puntuationSet.contains(self) }
+    var isPunctuation: Bool { Self.punctuationSet.contains(self) }
     var isKeyName: Bool { self.hasPrefix("\"") && self.hasSuffix("\":") }
 }

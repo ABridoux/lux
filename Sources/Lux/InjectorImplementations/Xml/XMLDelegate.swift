@@ -6,9 +6,9 @@ public protocol XMLDelegate {
     func inject(_ stringToInject: String, in type: TextType, _ text: String) -> String
 }
 
-public extension XMLDelegate {
+extension XMLDelegate {
 
-    func inject(_ stringToInject: String, in type: TextType, _ text: String) -> String {
+    public func inject(_ stringToInject: String, in type: TextType, _ text: String) -> String {
         InjectionService.inject(stringToInject, in: type, text)
     }
 }

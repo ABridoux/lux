@@ -124,7 +124,7 @@ public struct FileInjectionService {
 
 extension FileInjectionService {
 
-    public static func injectPlist(in text: String) throws -> String { try inject(in: text, using: PLISTInjector(type: .html)) }
+    public static func injectPlist(in text: String) throws -> String { try inject(in: text, using: PlistInjector(type: .html)) }
     public static func injectXml(in text: String) throws -> String { try inject(in: text, using: XMLInjector(type: .html)) }
     public static func injectJson(in text: String) throws -> String { try inject(in: text, using: JSONInjector(type: .html)) }
 }

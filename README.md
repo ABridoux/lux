@@ -56,7 +56,7 @@ For HTML text, the library will take a HTML string as input. In HTML, chevrons a
 ## How to use it
 
 ### Swift
-They are three level of customisation to use **Lux**. The first use the default `Injector` classes. You can customise the injection in a closure called each time a match is found. By implementing the corresponding delegate of the `Injector`, you can either specify the string that will be used by the `Injector` when modifying the match, or modify the match directly . The second let you modify directly a match.. For each format, two injectors exist today. One css classes injector to inject css classes into the string, and one to insert terminal colors.
+They are three level of customisation to use **Lux**. The first use the default `Injector` classes. You can customise the injection in a closure called each time a match is found. By implementing the corresponding delegate of the `Injector`, you can either specify the string that will be used by the `Injector` when modifying the match, or modify the match directly. The second let you modify directly a match. For each format, two injectors exist today: a css classes injector to inject css classes into the string and one to insert terminal colors.
 
 #### First customisation level
 To use them, instantiate one format injector, specifying the type of the text:
@@ -81,7 +81,7 @@ func injection(for category: XMLCategory) -> String
 You can make a `struct` implement this protocol and return the string to inject for the given category. For Xml format, there are two options as you might imagine: `tag` and `key`. So for example, to change the css classes for the Xml format, here is what you could do.
 
 ```swift
-struct XmlCssDelegate: XmlDelegate {
+struct XmlCSSDelegate: XmlDelegate {
     func injection(for category: XMLCategory) -> String {
         switch category {
             case .tag: return "specific-xml-tag"

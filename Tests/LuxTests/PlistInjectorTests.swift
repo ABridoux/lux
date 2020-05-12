@@ -32,9 +32,9 @@ final class PlistInjectorTests: XCTestCase {
         """
 
     func testInjectTerminalColor() {
-        let tag = PLISTCategory.tagDefault.terminalColor
-        let keyName = PLISTCategory.keyNameDefault.terminalColor
-        let keyValue = PLISTCategory.keyValueDefault.terminalColor
+        let tag = PlistCategory.tagDefault.terminalColor
+        let keyName = PlistCategory.keyNameDefault.terminalColor
+        let keyValue = PlistCategory.keyValueDefault.terminalColor
         let reset = TerminalColor.reset
 
         let expectedResult =
@@ -50,15 +50,15 @@ final class PlistInjectorTests: XCTestCase {
             \(tag)</dict>\(reset)
             """
 
-        let result = PLISTInjector(type: .plain).inject(in: stubPlistString)
+        let result = PlistInjector(type: .plain).inject(in: stubPlistString)
 
         XCTAssertEqual(result, expectedResult)
     }
 
     func testInjectCssClasses() {
-        let tag = PLISTCategory.tagDefault.cssClass
-        let keyName = PLISTCategory.keyNameDefault.cssClass
-        let keyValue = PLISTCategory.keyValueDefault.cssClass
+        let tag = PlistCategory.tagDefault.cssClass
+        let keyName = PlistCategory.keyNameDefault.cssClass
+        let keyValue = PlistCategory.keyValueDefault.cssClass
 
         let expectedResult =
             """
@@ -73,7 +73,7 @@ final class PlistInjectorTests: XCTestCase {
             <span class="\(tag)">&lt;/dict&gt;</span>
             """
 
-        let result = PLISTInjector(type: .html).inject(in: stubHtmlPlistString)
+        let result = PlistInjector(type: .html).inject(in: stubHtmlPlistString)
 
         XCTAssertEqual(result, expectedResult)
     }

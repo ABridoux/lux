@@ -7,9 +7,9 @@ public protocol JSONDelegate {
     func inject(_ category: JSONCategory, _ stringToInject: String, in type: TextType, _ text: String) -> String
 }
 
-public extension JSONDelegate {
+extension JSONDelegate {
 
-    func inject(_ category: JSONCategory, _ stringToInject: String, in type: TextType, _ text: String) -> String {
+    public func inject(_ category: JSONCategory, _ stringToInject: String, in type: TextType, _ text: String) -> String {
         return category.inject(in: type, text)
     }
 }

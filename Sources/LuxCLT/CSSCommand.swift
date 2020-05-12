@@ -2,7 +2,7 @@ import Foundation
 import ArgumentParser
 import Lux
 
-struct CssCommand: ParsableCommand {
+struct CSSCommand: ParsableCommand {
     static let configuration = CommandConfiguration(commandName: "css", abstract: "Inject Css classes in a HTML file")
 
     @Option(name: [.short, .customLong("input")], help: "A path to a file to read to inject Css classes")
