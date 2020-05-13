@@ -56,13 +56,13 @@ For HTML text, the library will take a HTML string as input. In HTML, chevrons a
 ## How to use it
 
 ### Swift
-They are two level of customisation to use **Lux**. The first and simpler one is to use the existing Injector classes. For each format, two injector exist today. One css classes injector to inject css classes into the string, and one to insert terminal colors.
+They are three level of customisation to use **Lux**. The first use the default `Injector` classes. You can customise the injection in a closure called each time a match is found. By implementing the corresponding delegate of the `Injector`, you can either specify the string that will be used by the `Injector` when modifying the match, or modify the match directly. The second let you modify directly a match. For each format, two injectors exist today: a css classes injector to inject css classes into the string and one to insert terminal colors.
 
 #### First customisation level
 To use them, instantiate one format injector, specifying the type of the text:
 
 ```swift
-let injector = PlistInjector(target: .plainXml)
+let injector = PLISTInjector(type: .plain)
 ```
 The text type can take `plain` and `html` options. You can then simply use the injector to modify the desired string:
 
@@ -72,7 +72,7 @@ let colorisedText = injector.inject(in: text)
 
 Doing so, the injectors will inject default strings in the text. For example, the Xml css classes injector will inject two classes: `xml-tag` and `xml-key` while the Plist css injector will inject three: `plist-tag`, `plist-key-name` and `plist-key-value`. The same goes for terminal colors.
 
-But it is possible to customise this behavior. This is the first customisation level. The injectors have delegate, which you can use to change the string which will be injected. For example, the Xml injector has an optional delegate with one function:
+It is possible to customise this behavior. This is the first customisation level. An `Injector` has a delegate, which you can use to change the string which will be injected. For example, the Xml injector has an optional delegate with one function:
 
 ```swift
 func injection(for category: XMLCategory) -> String
@@ -81,7 +81,7 @@ func injection(for category: XMLCategory) -> String
 You can make a `struct` implement this protocol and return the string to inject for the given category. For Xml format, there are two options as you might imagine: `tag` and `key`. So for example, to change the css classes for the Xml format, here is what you could do.
 
 ```swift
-struct  XmlCssDelegate: XmlDelegate {
+struct XmlCSSDelegate: XmlDelegate {
     func injection(for category: XMLCategory) -> String {
         switch category {
             case .tag: return "specific-xml-tag"
@@ -89,7 +89,25 @@ struct  XmlCssDelegate: XmlDelegate {
 	}
 }
 
-let injector = XmlInjector(target: .htmlXml, delegate: XmlCssDelegate())
+let injector = XMLInjector(target: .html, delegate: XmlCssDelegate())
+let colorisedText = injector.inject(in: text)
+```
+
+Also, you could go a bit further and choose how to modify the match associated to the category with the following  function (optional). It will pass the string to be injected as a parameter, as it does for the default function.
+
+```swift
+struct XmlCssDelegate: XmlDelegate {
+    func inject(_ stringToInject: String, in type: TextType, _ text: String) -> String { 
+            switch type {
+        case .plain:
+            return stringToInject + text + TerminalColor.reset
+        case .html:
+            return #"<span class="\#(stringToInject)">\#(text)</span>"#
+        }
+	}
+}
+
+let injector = XMLInjector(target: .html, delegate: XmlCssDelegate())
 let colorisedText = injector.inject(in: text)
 ```
 
@@ -101,34 +119,34 @@ If the delegate pattern does not suit your need, or if you need to customise mor
 
 > Thanks to [John Sundell](https://github.com/JohnSundell) for the idea with the [Ink](https://github.com/JohnSundell/Ink) library!
 
-For example, here is the quite simple implementation of `XmlInjector` which uses the `Injector` service:
+For example, here is the quite simple implementation of `XMLInjector` which uses the `Injector` service:
 
 ```swift
-struct XmlInjector {
+public struct XMLInjector: Injector {
 
-    var target: RegexPattern
-    var delegate: XmlDelegate? = nil
+   ...
 
-    func inject(in text: String) -> String {
-        let modifiedText = try? Injector.inject(in: text, following: target) { match in
+    // MARK: - Functions
+
+    public func inject(in text: String) -> String {
+        let modifiedText = try? InjectionService.inject(in: text, following: target) { match in
             let category = XMLCategory(from: match)
             let stringToInject: String
 
             if let delegate = self.delegate {
                 stringToInject = delegate.injection(for: category)
+                return delegate.self.inject(stringToInject, in: target.type, match)
             } else {
                 stringToInject = category.injection(for: self.target.type)
+                return  InjectionService.inject(stringToInject, in: target.type, match)
             }
-
-            let modifiedMatch = self.target.type.inject(stringToInject, in: match)
-
-            return modifiedMatch
         }
 
         guard let finalText = modifiedText else {
             assertionFailure("The default regular expression pattern \(target.stringValue) has failed to build a regular expression")
             return text
         }
+
         return finalText
     }
 }

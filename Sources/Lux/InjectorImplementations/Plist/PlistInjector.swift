@@ -1,7 +1,11 @@
 import Foundation
 
 /// Inject strings into a text depending on the configuration or the delegate.
-public struct PlistInjector {
+public struct PlistInjector: Injector {
+
+    // MARK: - Constants
+
+    public var languageIdentifiers: Set<String> = ["plist", "Plist", "PLIST", "language-plist", "language-Plist", "language-PLIST"]
 
     // MARK: - Properties
 
@@ -23,9 +27,9 @@ public struct PlistInjector {
     public func inject(in text: String) -> String {
         var currentOpenedTagIsKey = false
 
-        let modifiedText = try? InjectionService.inject(in: text, following: target) { match, _ in
+        let modifiedText = try? InjectionService.inject(in: text, following: target) { match in
             let xmlCategory = XMLCategory(from: match)
-            let category: PLISTCategory
+            let category: PlistCategory
 
             if case let XMLCategory.tag(tag) = xmlCategory {
                 category = .tag(tag)
@@ -39,11 +43,11 @@ public struct PlistInjector {
 
             if let delegate = self.delegate {
                 stringToInject = delegate.injection(for: category)
+                return delegate.inject(stringToInject, in: target.type, match)
             } else {
                 stringToInject = category.injection(for: self.target.type)
+                return InjectionService.inject(stringToInject, in: target.type, match)
             }
-
-            return category.inject(stringToInject, in: target.type, match)
         }
 
          guard let finalText = modifiedText else {

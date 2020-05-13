@@ -32,10 +32,10 @@ final class PlistInjectorTests: XCTestCase {
         """
 
     func testInjectTerminalColor() {
-        let tag = PLISTCategory.tagDefault.terminalColor
-        let keyName = PLISTCategory.keyNameDefault.terminalColor
-        let keyValue = PLISTCategory.keyValueDefault.terminalColor
-        let reset = PLISTCategory.terminalResetColor
+        let tag = PlistCategory.tagDefault.terminalColor
+        let keyName = PlistCategory.keyNameDefault.terminalColor
+        let keyValue = PlistCategory.keyValueDefault.terminalColor
+        let reset = TerminalColor.reset
 
         let expectedResult =
             """
@@ -56,9 +56,9 @@ final class PlistInjectorTests: XCTestCase {
     }
 
     func testInjectCssClasses() {
-        let tag = PLISTCategory.tagDefault.cssClass
-        let keyName = PLISTCategory.keyNameDefault.cssClass
-        let keyValue = PLISTCategory.keyValueDefault.cssClass
+        let tag = PlistCategory.tagDefault.cssClass
+        let keyName = PlistCategory.keyNameDefault.cssClass
+        let keyValue = PlistCategory.keyValueDefault.cssClass
 
         let expectedResult =
             """

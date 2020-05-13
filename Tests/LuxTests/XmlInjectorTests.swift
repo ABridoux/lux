@@ -1,7 +1,7 @@
 import XCTest
 @testable import Lux
 
-final class XmlInjectorTests: XCTestCase {
+final class XMLInjectorTests: XCTestCase {
 
     let stubXmlString =
     """
@@ -24,7 +24,7 @@ final class XmlInjectorTests: XCTestCase {
     func testInjectTerminalColor() {
         let tag = XMLCategory.tagDefault.terminalColor
         let key = XMLCategory.keyDefault.terminalColor
-        let reset = XMLCategory.terminalResetColor
+        let reset = TerminalColor.reset
 
         let expectedResult =
             """
@@ -35,7 +35,7 @@ final class XmlInjectorTests: XCTestCase {
             \(tag)</properties>\(reset)
             """
 
-        let result = XmlInjector(type: .plain).inject(in: stubXmlString)
+        let result = XMLInjector(type: .plain).inject(in: stubXmlString)
 
         XCTAssertEqual(result, expectedResult)
     }
@@ -53,7 +53,7 @@ final class XmlInjectorTests: XCTestCase {
             <span class="\(tag)">&lt;/properties&gt;</span>
             """
 
-        let result = XmlInjector(type: .html).inject(in: stubHTMLString)
+        let result = XMLInjector(type: .html).inject(in: stubHTMLString)
 
         XCTAssertEqual(result, expectedResult)
     }

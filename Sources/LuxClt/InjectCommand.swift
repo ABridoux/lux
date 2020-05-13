@@ -5,11 +5,8 @@ import Lux
 struct InjectCommand: ParsableCommand {
     static let configuration = CommandConfiguration(commandName: "inject", abstract: "Inject color markers in the input text")
 
-    @Option(name: [.short, .customLong("input")], help: "A path to a file to read to inject the colorr markers")
+    @Option(name: [.short, .customLong("input")], help: "A path to a file to read to inject the color markers")
     var inputFilePath: String?
-
-    @Option(name: [.short, .long])
-    var type: TextType
 
     @Option(name: [.short, .long])
     var format: Format
@@ -28,14 +25,7 @@ struct InjectCommand: ParsableCommand {
         }
 
         // get the output
-        let output: String
-
-        switch format {
-        case .xml: output = XmlInjector(type: type).inject(in: input)
-        case .plist: output = PlistInjector(type: type).inject(in: input)
-        case .json: output = JSONInjector(type: type).inject(in: input)
-        }
-
+        let output = format.injectorPlain.inject(in: input)
         print(output)
     }
 }

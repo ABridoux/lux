@@ -6,9 +6,9 @@ public enum XMLCategory: Category {
     // MARK: - Constants
 
     /// A Xml tag between brackets like `<tag>`
-    case tag(Substring)
+    case tag(String)
     /// A Xml key between tags like `<tag>key</tag>`
-    case key(Substring)
+    case key(String)
 
     static let tagDefault = XMLCategory.tag("")
     static let keyDefault = XMLCategory.key("")
@@ -31,7 +31,7 @@ public enum XMLCategory: Category {
 
     // MARK: - Initialisation
 
-    init(from match: Substring) {
+    init(from match: String) {
         switch match {
         case \.isPlainTag:
             var tag = match
@@ -51,7 +51,7 @@ public enum XMLCategory: Category {
     }
 }
 
-private extension Substring {
+private extension String {
 
     var isPlainTag: Bool { self.hasPrefix("<") && self.hasSuffix(">") }
     var isHtmlTag: Bool { self.hasPrefix("&lt;") && self.hasSuffix("&gt;") }

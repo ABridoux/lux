@@ -31,7 +31,7 @@ public enum JSONCategory: Category {
 
     // MARK: - Initialisation
 
-    init(from match: Substring) {
+    init(from match: String) {
         switch match {
         case \.isPunctuation: self = .punctuation
         case \.isKeyName: self = .keyName
@@ -41,34 +41,36 @@ public enum JSONCategory: Category {
 
     // MARK: - Functions
 
-    public func inject(_ stringToInject: String, in type: TextType, _ text: Substring) -> String {
+    public func inject(in type: TextType, _ text: String) -> String {
         switch type {
         case .plain: return plainTextInjection(in: text)
         case .html: return htmlTextInjection(in: text)
         }
     }
 
-    func plainTextInjection(in text: Substring) -> String {
+    func plainTextInjection(in text: String) -> String {
         switch self {
-        case .punctuation: return terminalColor + text + Self.terminalResetColor
+        case .punctuation: return terminalColor + text + TerminalColor.reset
         case .keyValue:
             var modifiedText = ""
             if text.hasPrefix(" ") { // inject the color after the white space
                 modifiedText.append(" ")
             }
-            modifiedText += "\(terminalColor)\(text.trimmingCharacters(in: .whitespacesAndNewlines))\(Self.terminalResetColor)"
+            modifiedText += "\(terminalColor)\(text.trimmingCharacters(in: .whitespacesAndNewlines))\(TerminalColor.reset)"
             if text.hasSuffix("\n") { // inject the color before the new line
                 modifiedText.append("\n")
             }
             return modifiedText
         case .keyName:
-            return Self.punctuation.terminalColor + String(text[NSRange(location: 0, length: 1)]) // "
-                + Self.keyName.terminalColor + String(text[NSRange(location: 1, length: text.count - 3)]) // string between brackets
-                + Self.punctuation.terminalColor + String(text[NSRange(location: text.count - 2, length: 2)]) + Self.terminalResetColor // ":
+            var injection = Self.punctuation.terminalColor + String(text[NSRange(location: 0, length: 1)]) // "
+            injection += Self.keyName.terminalColor + String(text[NSRange(location: 1, length: text.count - 3)]) // string between brackets
+            injection += Self.punctuation.terminalColor + String(text[NSRange(location: text.count - 2, length: 2)]) + TerminalColor.reset // ":
+
+            return injection
         }
     }
 
-    func htmlTextInjection(in text: Substring) -> String {
+    func htmlTextInjection(in text: String) -> String {
         switch self {
         case .punctuation: return #"<span class="\#(cssClass)">\#(text)</span>"#
         case .keyValue:
@@ -80,19 +82,22 @@ public enum JSONCategory: Category {
             if text.hasSuffix("\n") { // inject the color before the new line
                 modifiedText.append("\n")
             }
+
             return modifiedText
         case .keyName:
-            return #"<span class="\#(Self.punctuation.cssClass)">\#(text[NSRange(location: 0, length: 1)])</span>"# // "
-                + #"<span class="\#(Self.keyName.cssClass)">\#(text[NSRange(location: 1, length: text.count - 3)])</span>"# // string between brackets
-                + #"<span class="\#(Self.punctuation.cssClass)">\#(text[NSRange(location: text.count - 2, length: 2)])</span>"# // ":
+            var injection =  #"<span class="\#(Self.punctuation.cssClass)">\#(text[NSRange(location: 0, length: 1)])</span>"# // "
+            injection +=  #"<span class="\#(Self.keyName.cssClass)">\#(text[NSRange(location: 1, length: text.count - 3)])</span>"# // string between brackets
+            injection +=  #"<span class="\#(Self.punctuation.cssClass)">\#(text[NSRange(location: text.count - 2, length: 2)])</span>"# // ":
+
+            return injection
         }
     }
 }
 
-private extension Substring {
+private extension String {
 
-    static let puntuationSet: Set<Substring> = ["]", "[", "(", ")", "{", "}", ","]
+    static let punctuationSet: Set<String> = ["]", "[", "(", ")", "{", "}", ","]
 
-    var isPunctuation: Bool { Self.puntuationSet.contains(self) }
+    var isPunctuation: Bool { Self.punctuationSet.contains(self) }
     var isKeyName: Bool { self.hasPrefix("\"") && self.hasSuffix("\":") }
 }
