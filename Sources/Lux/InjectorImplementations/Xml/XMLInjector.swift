@@ -1,64 +1,13 @@
 import Foundation
 
 /// Inject strings into a text depending on the configuration or the delegate.
-public struct XMLInjector: Injector {
+public final class XMLInjector: BaseInjector<XMLCategory> {
 
-    // MARK: - Constants
+    override var defaultLanguageIdentifiers: Set<String> { ["xml", "Xml", "XML", "language-xml", "language-Xml", "language-XML"] }
+    override var plainRegexPattern: RegexPattern { .plainXml }
+    override var htmlRegexPattern: RegexPattern { .htmlXml }
 
-    public var languageIdentifiers: Set<String> = ["xml", "Xml", "XML", "language-xml", "language-Xml", "language-XML"]
-
-    // MARK: - Properties
-
-    public var target: RegexPattern
-    public var delegate: XMLDelegate?
-
-    // MARK: - Initialisation
-
-    public init(type: TextType, delegate: XMLDelegate? = nil) {
-        switch type {
-        case .plain: target = .plainXml
-        case .html: target = .htmlXml
-        }
-        self.delegate = delegate
-    }
-
-    // MARK: - Functions
-
-    public func inject(in text: String) -> String {
-        let modifiedText = try? InjectionService.inject(String.self, in: text, following: target) { match in
-            let category = XMLCategory(from: match)
-            let stringToInject: String
-
-            if let delegate = self.delegate {
-                stringToInject = delegate.injection(for: category)
-                return delegate.self.inject(stringToInject, in: target.type, match)
-            } else {
-                stringToInject = category.injection(for: self.target.type)
-                return  InjectionService.inject(stringToInject, in: target.type, match)
-            }
-        }
-
-        guard let finalText = modifiedText else {
-            assertionFailure("The default regular expression pattern \(target.stringValue) has failed to build a regular expression")
-            return text
-        }
-
-        return finalText
-    }
-
-    public func injectAttributed(in text: String) -> NSMutableAttributedString {
-        let modifiedText = try? InjectionService.inject(AttributedString.self, in: text, following: target) { match in
-
-            let category = XMLCategory(from: match)
-            let color = category.color
-            return category.inject(color: color, in: match)
-        }
-
-        guard let finalText = modifiedText else {
-            assertionFailure("The default regular expression pattern \(target.stringValue) has failed to build a regular expression")
-            return NSMutableAttributedString(string: text)
-        }
-
-        return finalText.attrString
+    override public init(type: TextType, delegate: BaseInjector<XMLCategory>.Delegate = XMLDelegate()) {
+        super.init(type: type, delegate: delegate)
     }
 }

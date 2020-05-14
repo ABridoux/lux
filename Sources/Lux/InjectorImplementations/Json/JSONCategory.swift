@@ -39,7 +39,7 @@ public enum JSONCategory: Category {
         switch self {
         case .keyName: return UIColor.red
         case .keyValue: return UIColor.black
-        case .punctuation: return UIColor.lightgray
+        case .punctuation: return UIColor.lightGray
         }
 
         #else
@@ -54,88 +54,11 @@ public enum JSONCategory: Category {
 
     // MARK: - Initialisation
 
-    init(from match: String) {
+    public init(from match: String) {
         switch match {
         case \.isPunctuation: self = .punctuation
         case \.isKeyName: self = .keyName
         default: self = .keyValue
-        }
-    }
-
-    // MARK: - Functions
-
-    public func inject(in type: TextType, _ text: String) -> String {
-        switch type {
-        case .plain: return plainTextInjection(in: text)
-        case .html: return htmlTextInjection(in: text)
-        }
-    }
-
-    func plainTextInjection(in text: String) -> String {
-        switch self {
-        case .punctuation: return terminalColor + text + Colors.terminalReset
-        case .keyValue:
-            var modifiedText = ""
-            if text.hasPrefix(" ") { // inject the color after the white space
-                modifiedText.append(" ")
-            }
-            modifiedText += "\(terminalColor)\(text.trimmingCharacters(in: .whitespacesAndNewlines))\(Colors.terminalReset)"
-            if text.hasSuffix("\n") { // inject the color before the new line
-                modifiedText.append("\n")
-            }
-            return modifiedText
-        case .keyName:
-            var injection = Self.punctuation.terminalColor + String(text[NSRange(location: 0, length: 1)]) // "
-            injection += Self.keyName.terminalColor + String(text[NSRange(location: 1, length: text.count - 3)]) // string between brackets
-            injection += Self.punctuation.terminalColor + String(text[NSRange(location: text.count - 2, length: 2)]) + Colors.terminalReset // ":
-
-            return injection
-        }
-    }
-
-    func htmlTextInjection(in text: String) -> String {
-        switch self {
-        case .punctuation: return #"<span class="\#(cssClass)">\#(text)</span>"#
-        case .keyValue:
-            var modifiedText = ""
-            if text.hasPrefix(" ") { // inject the color after the white space
-                modifiedText.append(" ")
-            }
-            modifiedText += #"<span class="\#(cssClass)">\#(text.trimmingCharacters(in: .whitespacesAndNewlines))</span>"#
-            if text.hasSuffix("\n") { // inject the color before the new line
-                modifiedText.append("\n")
-            }
-
-            return modifiedText
-        case .keyName:
-            var injection =  #"<span class="\#(Self.punctuation.cssClass)">\#(text[NSRange(location: 0, length: 1)])</span>"# // "
-            injection +=  #"<span class="\#(Self.keyName.cssClass)">\#(text[NSRange(location: 1, length: text.count - 3)])</span>"# // string between brackets
-            injection +=  #"<span class="\#(Self.punctuation.cssClass)">\#(text[NSRange(location: text.count - 2, length: 2)])</span>"# // ":
-
-            return injection
-        }
-    }
-
-    public func injectAttributed(in text: String) -> AttributedString {
-        switch self {
-        case .punctuation, .keyValue:
-            var attrString = AttributedString(text)
-            attrString.textColor = color
-            return attrString
-        case .keyName:
-            var openingQuote = AttributedString(text[NSRange(location: 0, length: 1)])
-            openingQuote.textColor = Self.punctuation.color
-            var stringBetweenBrackets = AttributedString(text[NSRange(location: 1, length: text.count - 3)])
-            stringBetweenBrackets.textColor = Self.keyName.color
-            var closingQuote = AttributedString(text[NSRange(location: text.count - 2, length: 2)])
-            closingQuote.textColor = Self.punctuation.color
-
-            let attrString = AttributedString()
-            attrString.append(openingQuote)
-            attrString.append(stringBetweenBrackets)
-            attrString.append(closingQuote)
-
-            return attrString
         }
     }
 }

@@ -22,10 +22,10 @@ final class JsonInjectorTests: XCTestCase {
 
         let expectedResult =
             """
-            \(punctuation)"\(keyName)properties\(punctuation)":\(reset) \(punctuation){\(reset)
-                \(punctuation)"\(keyName)Type\(punctuation)":\(reset) \(keyValue)"Input"\(reset)\(punctuation),\(reset)
-                \(punctuation)"\(keyName)InputType\(punctuation)":\(reset) \(keyValue)"List"\(reset)\(punctuation),\(reset)
-                \(punctuation)"\(keyName)IsAllowed\(punctuation)":\(reset) \(keyValue)true\(reset)
+            \(punctuation)"\(reset)\(keyName)properties\(reset)\(punctuation)":\(reset) \(punctuation){\(reset)
+                \(punctuation)"\(reset)\(keyName)Type\(reset)\(punctuation)":\(reset) \(keyValue)"Input"\(reset)\(punctuation),\(reset)
+                \(punctuation)"\(reset)\(keyName)InputType\(reset)\(punctuation)":\(reset) \(keyValue)"List"\(reset)\(punctuation),\(reset)
+                \(punctuation)"\(reset)\(keyName)IsAllowed\(reset)\(punctuation)":\(reset) \(keyValue)true\(reset)
             \(punctuation)}\(reset)
             """
 

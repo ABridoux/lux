@@ -36,7 +36,7 @@ public enum XMLCategory: Category {
 
     // MARK: - Initialisation
 
-    init(from match: String) {
+    public init(from match: String) {
         switch match {
         case \.isPlainTag:
             var tag = match

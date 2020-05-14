@@ -1,3 +1,3 @@
 extension RegexPattern {
-    static let json = RegexPattern(#"(\{|\}|\(|\)|\[|\]|,|"[^"]*":|"[^"]*")"#, type: .plain)
+    public static let json = RegexPattern(#"(\{|\}|\(|\)|\[|\]|,|"[^"]*":|"[^"]*")"#, type: .plain)
 }

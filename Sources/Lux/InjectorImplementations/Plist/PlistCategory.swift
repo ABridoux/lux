@@ -42,7 +42,7 @@ public enum PlistCategory: Category {
     public var color: Color {
         #if !os(macOS)
         switch self {
-        case .tag: return UIColor.lightgray
+        case .tag: return UIColor.lightGray
         case .keyName: return UIColor.red
         case .keyValue: return UIColor.black
         }
@@ -55,5 +55,11 @@ public enum PlistCategory: Category {
         case .keyValue: return NSColor.labelColor
         }
         #endif
+    }
+
+    // MARK: - Initilisation
+
+    public init(from match: String) {
+        self = .tag(match)
     }
 }
