@@ -1,5 +1,8 @@
 import Foundation
 
+/// Inject colors as string (e.g. html tag or terminal color) or as attributes (for attributed string) inside a text depending on the categories
+/// of the found matches, and output the result.
+/// - note: The behavior can be customised by setting a custom delegate. This delegate can modify the color injected, or the way it is injected.
 open class BaseInjector<Cat: Category>: Injector {
 
     // MARK: - Constants
@@ -8,13 +11,19 @@ open class BaseInjector<Cat: Category>: Injector {
 
     // MARK: - Properties
 
+    /// Type of the text to parse
     var type: TextType
+
     public var delegate: Delegate
 
+    /// Set of already know language identifiers, used as a base
     var defaultLanguageIdentifiers: Set<String> { [] }
     public var languageIdentifiers: Set<String> = []
 
+    /// RegexPattern used when the type of the parsed text is `plain`
     var plainRegexPattern: RegexPattern { .emptyPlain }
+
+    /// RegexPattern used when the type of the parsed text is `html`
     var htmlRegexPattern: RegexPattern { .emptyHtml }
 
     var regexPattern: RegexPattern {
@@ -61,6 +70,6 @@ open class BaseInjector<Cat: Category>: Injector {
             return NSMutableAttributedString(string: text)
         }
 
-        return finalText.attrString
+        return finalText.nsAttributedString
     }
 }

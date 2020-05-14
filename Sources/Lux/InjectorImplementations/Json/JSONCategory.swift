@@ -5,6 +5,7 @@ import UIKit
 import AppKit
 #endif
 
+/// Categories for matches in a Json format
 public enum JSONCategory: Category {
 
     // MARK: - Constants

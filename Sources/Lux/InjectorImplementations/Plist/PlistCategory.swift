@@ -5,7 +5,7 @@ import UIKit
 import AppKit
 #endif
 
-/// Categories when dealing with Plist format: tag, key name and key value
+/// Categories for matches in a Plist format
 public enum PlistCategory: Category {
 
     // MARK: - Constants
@@ -61,5 +61,6 @@ public enum PlistCategory: Category {
 
     public init(from match: String) {
         self = .tag(match)
+        assertionFailure("The PlistCategory implements the Category protocol, but the injector will uses the XML category to determine the Plist one, with a previous match check")
     }
 }

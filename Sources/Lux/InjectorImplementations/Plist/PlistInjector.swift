@@ -60,6 +60,6 @@ open class PlistInjector: BaseInjector<PlistCategory> {
              return NSMutableAttributedString(string: text)
          }
 
-        return finalText.attrString
+        return finalText.nsAttributedString
     }
 }

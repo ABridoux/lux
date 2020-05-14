@@ -4,6 +4,7 @@ import UIKit
 import AppKit
 #endif
 
+/// A UIColor or NSColor
 public protocol Color {}
 
 #if !os(macOS)

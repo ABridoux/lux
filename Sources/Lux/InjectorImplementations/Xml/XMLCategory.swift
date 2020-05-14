@@ -5,7 +5,7 @@ import UIKit
 import AppKit
 #endif
 
-/// Categories when dealing with Plist format: tag, key.
+/// Categories for matches in a Plist format
 public enum XMLCategory: Category {
 
     // MARK: - Constants

@@ -12,10 +12,10 @@ open class JSONDelegate: InjectorDelegate<JSONCategory> {
         switch category {
         case .punctuation:
             return InjectionService.inject(punctuationMark, in: type, match)
-            
+
         case .keyValue:
             var modifiedText = ""
-            
+
             if match.hasPrefix(" ") { // inject the color after the white space
                 modifiedText.append(" ")
             }
