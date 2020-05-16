@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "Lux",
-    platforms: [.macOS("10.13"), .iOS("10.0"), .tvOS("9.0"), .watchOS("3.0")],
+    platforms: [.macOS("10.13"), .iOS("10.0")],
     products: [
         .library(
             name: "Lux",

@@ -1,6 +1,11 @@
 import Foundation
+#if !os(macOS)
+import UIKit
+#else
+import AppKit
+#endif
 
-/// Categories when dealing with Plist format: tag, key name and key value
+/// Categories for matches in a Plist format
 public enum PlistCategory: Category {
 
     // MARK: - Constants
@@ -32,5 +37,30 @@ public enum PlistCategory: Category {
         case .keyName: return "\u{001B}[38;5;197m"
         case .keyValue: return "\u{001B}[0;0m" // standard color
         }
+    }
+
+    public var color: Color {
+        #if !os(macOS)
+        switch self {
+        case .tag: return UIColor.lightGray
+        case .keyName: return UIColor.red
+        case .keyValue: return UIColor.black
+        }
+
+        #else
+
+        switch self {
+        case .tag: return NSColor.systemGray
+        case .keyName: return NSColor.systemOrange
+        case .keyValue: return NSColor.labelColor
+        }
+        #endif
+    }
+
+    // MARK: - Initilisation
+
+    public init(from match: String) {
+        self = .tag(match)
+        assertionFailure("The PlistCategory implements the Category protocol, but the injector will uses the XML category to determine the Plist one, with a previous match check")
     }
 }

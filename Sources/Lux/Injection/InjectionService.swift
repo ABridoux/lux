@@ -9,22 +9,22 @@ public struct InjectionService {
     ///   - injectionClosure: Called by the service when a match is found by the regular expression.
     /// - Throws: If the regular expression cannot be built with the given `RegexPattern`
     /// - Returns: The modified text
-    public static func inject(in text: String, following pattern: RegexPattern, using injectionClosure: (String) -> String) throws -> String {
+    public static func inject<StringType: Appendable>(_ type: StringType.Type, in text: String, following pattern: RegexPattern, using injectionClosure: (String) -> StringType) throws -> StringType {
         let regex = try NSRegularExpression(pattern: pattern.stringValue, options: [])
 
         let nsText = text as NSString
         let textRange = NSRange(location: 0, length: nsText.length)
         let matches = regex.matches(in: text, options: [], range: textRange)
 
-        var modifiedText = ""
+        var modifiedText = StringType.empty
 
         // append the gap between the text beginning and the first match
-        guard let firstMatch = matches.first else { return text }
+        guard let firstMatch = matches.first else { return StringType(text) }
         let firstGap = NSRange(location: 0, length: firstMatch.range.lowerBound)
 
         if firstGap.length > 0 {
             let gapString = nsText[firstGap]
-            let modifiedGapString = gapString.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? String(gapString) : injectionClosure(gapString)
+            let modifiedGapString = gapString.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? StringType(gapString) : injectionClosure(gapString)
             modifiedText.append(modifiedGapString)
         }
 
@@ -47,14 +47,14 @@ public struct InjectionService {
                 // if we have something between two matches, offer the opprtunity to inject a string in it
                 let noMatchString = nsText[noMatchRange]
 
-                let modifiedNoMatch = noMatchString.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? String(noMatchString) : injectionClosure(noMatchString)
+                let modifiedNoMatch = noMatchString.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? StringType(noMatchString) : injectionClosure(noMatchString)
 
                 modifiedText.append(modifiedNoMatch)
             }
         }
 
         // append the last match and no match
-        guard let lastMatch = matches.last else { return text }
+        guard let lastMatch = matches.last else { return StringType(text) }
 
         let lastMatchString = injectionClosure(nsText[lastMatch.range])
         modifiedText.append(lastMatchString)
@@ -69,7 +69,7 @@ public struct InjectionService {
         let range = NSRange(location: lastMatch.range.upperBound, length: lastNoMatchLength)
         let remainingString = nsText[range]
 
-        let modifiedRemainingString = remainingString.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? String(remainingString) : injectionClosure(remainingString)
+        let modifiedRemainingString = remainingString.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? StringType(remainingString) : injectionClosure(remainingString)
 
         modifiedText.append(modifiedRemainingString)
 
@@ -85,7 +85,7 @@ public struct InjectionService {
     static public func inject(_ stringToInject: String, in type: TextType, _ text: String) -> String {
         switch type {
         case .plain:
-            return stringToInject + text + TerminalColor.reset
+            return stringToInject + text + Colors.terminalReset
         case .html:
             return #"<span class="\#(stringToInject)">\#(text)</span>"#
         }

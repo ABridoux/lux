@@ -1,5 +1,11 @@
 import Foundation
+#if !os(macOS)
+import UIKit
+#else
+import AppKit
+#endif
 
+/// Categories for matches in a Json format
 public enum JSONCategory: Category {
 
     // MARK: - Constants
@@ -29,67 +35,31 @@ public enum JSONCategory: Category {
         }
     }
 
+    public var color: Color {
+        #if !os(macOS)
+        switch self {
+        case .keyName: return UIColor.red
+        case .keyValue: return UIColor.black
+        case .punctuation: return UIColor.lightGray
+        }
+
+        #else
+
+        switch self {
+        case .keyName: return NSColor.systemOrange
+        case .keyValue: return NSColor.labelColor
+        case .punctuation: return NSColor.systemGray
+        }
+        #endif
+    }
+
     // MARK: - Initialisation
 
-    init(from match: String) {
+    public init(from match: String) {
         switch match {
         case \.isPunctuation: self = .punctuation
         case \.isKeyName: self = .keyName
         default: self = .keyValue
-        }
-    }
-
-    // MARK: - Functions
-
-    public func inject(in type: TextType, _ text: String) -> String {
-        switch type {
-        case .plain: return plainTextInjection(in: text)
-        case .html: return htmlTextInjection(in: text)
-        }
-    }
-
-    func plainTextInjection(in text: String) -> String {
-        switch self {
-        case .punctuation: return terminalColor + text + TerminalColor.reset
-        case .keyValue:
-            var modifiedText = ""
-            if text.hasPrefix(" ") { // inject the color after the white space
-                modifiedText.append(" ")
-            }
-            modifiedText += "\(terminalColor)\(text.trimmingCharacters(in: .whitespacesAndNewlines))\(TerminalColor.reset)"
-            if text.hasSuffix("\n") { // inject the color before the new line
-                modifiedText.append("\n")
-            }
-            return modifiedText
-        case .keyName:
-            var injection = Self.punctuation.terminalColor + String(text[NSRange(location: 0, length: 1)]) // "
-            injection += Self.keyName.terminalColor + String(text[NSRange(location: 1, length: text.count - 3)]) // string between brackets
-            injection += Self.punctuation.terminalColor + String(text[NSRange(location: text.count - 2, length: 2)]) + TerminalColor.reset // ":
-
-            return injection
-        }
-    }
-
-    func htmlTextInjection(in text: String) -> String {
-        switch self {
-        case .punctuation: return #"<span class="\#(cssClass)">\#(text)</span>"#
-        case .keyValue:
-            var modifiedText = ""
-            if text.hasPrefix(" ") { // inject the color after the white space
-                modifiedText.append(" ")
-            }
-            modifiedText += #"<span class="\#(cssClass)">\#(text.trimmingCharacters(in: .whitespacesAndNewlines))</span>"#
-            if text.hasSuffix("\n") { // inject the color before the new line
-                modifiedText.append("\n")
-            }
-
-            return modifiedText
-        case .keyName:
-            var injection =  #"<span class="\#(Self.punctuation.cssClass)">\#(text[NSRange(location: 0, length: 1)])</span>"# // "
-            injection +=  #"<span class="\#(Self.keyName.cssClass)">\#(text[NSRange(location: 1, length: text.count - 3)])</span>"# // string between brackets
-            injection +=  #"<span class="\#(Self.punctuation.cssClass)">\#(text[NSRange(location: text.count - 2, length: 2)])</span>"# // ":
-
-            return injection
         }
     }
 }

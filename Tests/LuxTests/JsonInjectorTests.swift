@@ -5,7 +5,7 @@ final class JsonInjectorTests: XCTestCase {
 
     // MARK: - Constants
 
-    let stubPlistString =
+    let stubJsonString =
     """
     "properties": {
         "Type": "Input",
@@ -18,18 +18,18 @@ final class JsonInjectorTests: XCTestCase {
         let punctuation = JSONCategory.punctuation.terminalColor
         let keyName = JSONCategory.keyName.terminalColor
         let keyValue = JSONCategory.keyValue.terminalColor
-        let reset = TerminalColor.reset
+        let reset = Colors.terminalReset
 
         let expectedResult =
             """
-            \(punctuation)"\(keyName)properties\(punctuation)":\(reset) \(punctuation){\(reset)
-                \(punctuation)"\(keyName)Type\(punctuation)":\(reset) \(keyValue)"Input"\(reset)\(punctuation),\(reset)
-                \(punctuation)"\(keyName)InputType\(punctuation)":\(reset) \(keyValue)"List"\(reset)\(punctuation),\(reset)
-                \(punctuation)"\(keyName)IsAllowed\(punctuation)":\(reset) \(keyValue)true\(reset)
+            \(punctuation)"\(reset)\(keyName)properties\(reset)\(punctuation)":\(reset) \(punctuation){\(reset)
+                \(punctuation)"\(reset)\(keyName)Type\(reset)\(punctuation)":\(reset) \(keyValue)"Input"\(reset)\(punctuation),\(reset)
+                \(punctuation)"\(reset)\(keyName)InputType\(reset)\(punctuation)":\(reset) \(keyValue)"List"\(reset)\(punctuation),\(reset)
+                \(punctuation)"\(reset)\(keyName)IsAllowed\(reset)\(punctuation)":\(reset) \(keyValue)true\(reset)
             \(punctuation)}\(reset)
             """
 
-        let result = JSONInjector(type: .plain).inject(in: stubPlistString)
+        let result = JSONInjector(type: .plain).inject(in: stubJsonString)
 
         XCTAssertEqual(result, expectedResult)
     }
@@ -48,7 +48,7 @@ final class JsonInjectorTests: XCTestCase {
         <span class="\(punctuation)">}</span>
         """
 
-        let result = JSONInjector(type: .html).inject(in: stubPlistString)
+        let result = JSONInjector(type: .html).inject(in: stubJsonString)
 
         XCTAssertEqual(result, expectedResult)
     }

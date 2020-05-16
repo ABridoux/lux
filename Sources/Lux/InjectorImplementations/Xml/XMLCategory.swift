@@ -1,6 +1,11 @@
 import Foundation
+#if !os(macOS)
+import UIKit
+#else
+import AppKit
+#endif
 
-/// Categories when dealing with Plist format: tag, key.
+/// Categories for matches in a Plist format
 public enum XMLCategory: Category {
 
     // MARK: - Constants
@@ -31,7 +36,7 @@ public enum XMLCategory: Category {
 
     // MARK: - Initialisation
 
-    init(from match: String) {
+    public init(from match: String) {
         switch match {
         case \.isPlainTag:
             var tag = match
@@ -48,6 +53,22 @@ public enum XMLCategory: Category {
         default:
             self = .key(match)
         }
+    }
+
+    public var color: Color {
+        #if !os(macOS)
+        switch self {
+        case .tag: return UIColor.red
+        case .key: return UIColor.black
+        }
+
+        #else
+
+        switch self {
+        case .tag: return NSColor.systemOrange
+        case .key: return NSColor.labelColor
+        }
+        #endif
     }
 }
 
