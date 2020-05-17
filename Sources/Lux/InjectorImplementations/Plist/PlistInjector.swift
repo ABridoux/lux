@@ -12,20 +12,11 @@ open class PlistInjector: BaseInjector<PlistCategory> {
     }
 
     override open func inject(in text: String) -> String {
-        var currentOpenedTagIsKey = false
+        var currentOpenTagIsKey = false
 
         let modifiedText = try? InjectionService.inject(String.self, in: text, following: regexPattern) { match in
-            let xmlCategory = XMLCategory(from: match)
-            let category: PlistCategory
 
-            if case let XMLCategory.tag(tag) = xmlCategory {
-                category = .tag(tag)
-                currentOpenedTagIsKey = tag == "key"
-            } else {
-                category = currentOpenedTagIsKey ? .keyName(match) : .keyValue(match)
-                currentOpenedTagIsKey = false
-            }
-
+            let category = getCategory(from: match, currentOpenTagIsKey: &currentOpenTagIsKey)
             return delegate.inject(category, in: type, match)
         }
 
@@ -38,20 +29,11 @@ open class PlistInjector: BaseInjector<PlistCategory> {
     }
 
     override open func injectAttributed(in text: String) -> NSMutableAttributedString {
-        var currentOpenedTagIsKey = false
+        var currentOpenTagIsKey = false
 
         let modifiedText = try? InjectionService.inject(AttributedString.self, in: text, following: regexPattern) { match in
-            let xmlCategory = XMLCategory(from: match)
-            let category: PlistCategory
 
-            if case let XMLCategory.tag(tag) = xmlCategory {
-                category = .tag(tag)
-                currentOpenedTagIsKey = tag == "key"
-            } else {
-                category = currentOpenedTagIsKey ? .keyName(match) : .keyValue(match)
-                currentOpenedTagIsKey = false
-            }
-
+            let category = getCategory(from: match, currentOpenTagIsKey: &currentOpenTagIsKey)
             return delegate.inject(category: category, match)
         }
 
@@ -61,5 +43,34 @@ open class PlistInjector: BaseInjector<PlistCategory> {
          }
 
         return finalText.nsAttributedString
+    }
+
+    func getCategory(from match: String, currentOpenTagIsKey: inout Bool) -> PlistCategory {
+
+        let xmlCategory = XMLCategory(from: match)
+
+        switch xmlCategory {
+        case .tag(let tag):
+            if tag.contains("plist") {
+                // <plist version="1.0"> and </plist> are treated as headers
+                return .header
+            }
+
+            currentOpenTagIsKey = tag == "key"
+            return .tag(tag)
+
+        case .header:
+            return .header
+
+        case .comment:
+            return .comment
+
+        case .key:
+            let category: PlistCategory = currentOpenTagIsKey ? .keyName(match) : .keyValue(match)
+            currentOpenTagIsKey = false
+
+            return category
+
+        }
     }
 }
