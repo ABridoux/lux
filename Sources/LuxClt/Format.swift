@@ -4,11 +4,11 @@ import ArgumentParser
 enum Format: String, ExpressibleByArgument {
     case plist, xml, json
 
-    var injectorPlain: Injector {
+    func injector(type: TextType) -> Injector {
         switch self {
-        case .xml: return XMLEnhancedInjector(type: .plain)
-        case .plist: return PlistInjector(type: .plain)
-        case .json: return JSONInjector(type: .plain)
+        case .xml: return XMLEnhancedInjector(type: type)
+        case .plist: return PlistInjector(type: type)
+        case .json: return JSONInjector(type: type)
         }
     }
 }

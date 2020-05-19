@@ -1,6 +1,6 @@
 # Lux
 
-A Swift library to colorise code blocks, with a dedicated command-line tool to colorise terminal output.
+A Swift library to colorise code, with a dedicated command-line tool to colorise terminal output or HTML files code blocks.
 
 Currently supported:
 - [x] Xml
@@ -54,6 +54,14 @@ Here is how the library could inject terminal colors:
 For HTML text, the library will take a HTML string as input. In HTML, chevrons are written with `&lt;` for `<` and `&gt;` for `>`.
 
 ## How to use it
+
+### Command-line
+
+The program has two commands: `inject` (default) to inject color marks in an input stream then output it, and `css` to look for tag code blocks in an input HTML file, to inject color marks (span tags) in them.
+
+#### Inject command
+
+#### Css command
 
 ### Swift
 They are three level of customisation to use **Lux**. The first use the default `Injector` classes. You can customise the injection in a closure called each time a match is found. By implementing the corresponding delegate of the `Injector`, you can either specify the string that will be used by the `Injector` when modifying the match, or modify the match directly. The second let you modify directly a match. For each format, two injectors exist today: a css classes injector to inject css classes into the string and one to insert terminal colors.
@@ -151,9 +159,6 @@ public struct XMLInjector: Injector {
     }
 }
 ```
-
-### Command-line
-
 
 ## Miscellaneous
 
