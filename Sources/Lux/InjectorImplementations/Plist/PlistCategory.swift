@@ -54,7 +54,7 @@ public enum PlistCategory: Category {
         case .keyName: return UIColor.red
         case .keyValue: return UIColor.black
         case .header: return UIColor.lightGray
-        case .comment: return UIColor.green
+        case .comment: return UIColor(red: 100 / 255, green: 193 / 255, blue: 82 / 255, alpha: 1)
         }
 
         #else
