@@ -6,7 +6,7 @@ enum Format: String, ExpressibleByArgument {
 
     var injectorPlain: Injector {
         switch self {
-        case .xml: return XMLInjector(type: .plain)
+        case .xml: return XMLEnhancedInjector(type: .plain)
         case .plist: return PlistInjector(type: .plain)
         case .json: return JSONInjector(type: .plain)
         }

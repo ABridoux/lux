@@ -8,4 +8,22 @@ public enum TextType: String {
         case .html: return "</span>"
         }
     }
+
+    var openingBracket: String {
+        switch self {
+        case .plain:
+            return "<"
+        case .html:
+            return "&lt;"
+        }
+    }
+
+    var closingBracket: String {
+        switch self {
+        case .plain:
+            return ">"
+        case .html:
+            return "&gt;"
+        }
+    }
 }
