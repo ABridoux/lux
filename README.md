@@ -149,7 +149,7 @@ let package = Package (
     ...
 )
 ```
-You can then `import Scout` in a file.
+You can then `import Lux` in a file.
 
 <br />
 

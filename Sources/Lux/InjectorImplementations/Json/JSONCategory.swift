@@ -29,7 +29,7 @@ public enum JSONCategory: Category {
 
     public var terminalColor: String {
         switch self {
-        case .keyName: return "\u{001B}[38;5;197m"
+        case .keyName: return "\u{001B}[38;5;166m"
         case .keyValue: return "\u{001B}[0;0m"
         case .punctuation: return "\u{001B}[38;5;240m"
         }
@@ -69,5 +69,5 @@ private extension String {
     static let punctuationSet: Set<String> = ["]", "[", "(", ")", "{", "}", ","]
 
     var isPunctuation: Bool { Self.punctuationSet.contains(self) }
-    var isKeyName: Bool { self.hasPrefix("\"") && self.hasSuffix("\":") }
+    var isKeyName: Bool { self.hasPrefix("\"") && self.hasSuffix(":") }
 }
