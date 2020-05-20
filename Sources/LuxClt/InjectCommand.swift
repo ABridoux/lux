@@ -3,12 +3,15 @@ import ArgumentParser
 import Lux
 
 struct InjectCommand: ParsableCommand {
-    static let configuration = CommandConfiguration(commandName: "inject", abstract: "Inject color markers in the input text")
+    static let configuration = CommandConfiguration(commandName: "inject", abstract: "Inject color marks in the input text")
 
-    @Option(name: [.short, .customLong("input")], help: "A path to a file to read to inject the color markers")
+    @Option(name: [.short, .customLong("input")], help: "A path to a file to read to inject the color marks")
     var inputFilePath: String?
 
-    @Option(name: [.short, .long])
+    @Option(name: [.short, .long], help: "Specify HTML or plain text type. Default is plain")
+    var type: TextType?
+
+    @Option(name: [.short, .long], help: "plist, xml, json")
     var format: Format
 
     func run() throws {
@@ -25,7 +28,7 @@ struct InjectCommand: ParsableCommand {
         }
 
         // get the output
-        let output = format.injectorPlain.inject(in: input)
+        let output = format.injector(type: type ?? .plain).inject(in: input)
         print(output)
     }
 }
