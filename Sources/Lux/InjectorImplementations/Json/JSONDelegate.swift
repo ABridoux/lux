@@ -4,7 +4,6 @@ open class JSONDelegate: InjectorDelegate<JSONCategory> {
 
     public override func inject(_ category: JSONCategory, in type: TextType, _ match: String) -> String {
         let stringToInject = injection(for: category, type: type)
-        let matchCount = match.count
 
         let punctuationMark = injection(for: .punctuation, type: type)
         let keyNameMark = injection(for: .keyName, type: type)
@@ -28,9 +27,18 @@ open class JSONDelegate: InjectorDelegate<JSONCategory> {
             return modifiedText
 
         case .keyName:
-            var injection = InjectionService.inject(punctuationMark, in: type, String(match[NSRange(location: 0, length: 1)])) // "
-            injection += InjectionService.inject(keyNameMark, in: type, String(match[NSRange(location: 1, length: matchCount - 3)])) // string between brackets
-            injection += InjectionService.inject(punctuationMark, in: type, String(match[NSRange(location: matchCount - 2, length: 2)])) // ":
+
+            guard let nameRange = NSRegularExpression.rangeOfQuotedString(in: match) else {
+                assertionFailure("Error while parsing a key name: there is no quotes")
+                return match
+            }
+
+            let firstQuoteRange = NSRange(location: 0, length: nameRange.lowerBound)
+            let endRange = NSRange(location: nameRange.upperBound, length: (match as NSString).length - nameRange.upperBound)
+
+            var injection = InjectionService.inject(punctuationMark, in: type, String(match[firstQuoteRange])) // "
+            injection += InjectionService.inject(keyNameMark, in: type, String(match[nameRange])) // string between brackets
+            injection += InjectionService.inject(punctuationMark, in: type, String(match[endRange])) // ":
 
             return injection
         }
@@ -38,7 +46,6 @@ open class JSONDelegate: InjectorDelegate<JSONCategory> {
 
     public override func inject(category: JSONCategory, _ match: String) -> AttributedString {
         let color = self.color(for: category)
-        let matchCount = match.count
 
         switch category {
         case .punctuation, .keyValue:
@@ -47,11 +54,20 @@ open class JSONDelegate: InjectorDelegate<JSONCategory> {
             return attrString
 
         case .keyName:
-            var openingQuote = AttributedString(match[NSRange(location: 0, length: 1)]) // "
+
+            guard let nameRange = NSRegularExpression.rangeOfQuotedString(in: match) else {
+                assertionFailure("Error while parsing a key name: there is no quotes")
+                return AttributedString(match)
+            }
+
+            let firstQuoteRange = NSRange(location: 0, length: nameRange.lowerBound)
+            let endRange = NSRange(location: nameRange.upperBound, length: (match as NSString).length - nameRange.upperBound)
+
+            var openingQuote = AttributedString(match[firstQuoteRange]) // "
             openingQuote.textColor = self.color(for: .punctuation)
-            var keyName = AttributedString(match[NSRange(location: 1, length: matchCount - 3)]) // string between brackets
+            var keyName = AttributedString(match[nameRange]) // string between brackets
             keyName.textColor = self.color(for: .keyName)
-            var closingQuote = AttributedString(match[NSRange(location: matchCount - 2, length: 2)]) // ":
+            var closingQuote = AttributedString(match[endRange]) // ":
             closingQuote.textColor = self.color(for: .punctuation)
 
             let injection = openingQuote
