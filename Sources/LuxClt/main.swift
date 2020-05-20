@@ -4,7 +4,11 @@ import Lux
 
 struct LuxCommand: ParsableCommand {
     static let configuration = CommandConfiguration(commandName: "lux",
-                                                    subcommands: [InjectCommand.self, CSSCommand.self],
+                                                    version: Version.current,
+                                                    subcommands: [
+                                                        InjectCommand.self,
+                                                        CSSCommand.self,
+                                                        VersionCommand.self],
                                                     defaultSubcommand: InjectCommand.self)
 }
 
