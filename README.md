@@ -1,6 +1,26 @@
+<p>
+Swift package:<br>
+    <a href="#">
+        <img src="https://img.shields.io/badge/Swift-5.1-orange.svg" />
+    </a>
+    <a href="https://swift.org/package-manager">
+        <img src="https://img.shields.io/badge/swiftpm-compatible-brightgreen.svg?style=flat" alt="Swift Package Manager" />
+    </a>
+    <br/>
+Install:<br>
+    <a href="#">
+        <img src="https://img.shields.io/badge/platforms-mac+linux-brightgreen.svg?style=flat" alt="Mac + Linux" />
+    </a>
+     <a href="https://github.com/ABridoux/scout/releases">
+        <img src="https://img.shields.io/badge/install-pkg%2Bzip-blue" />
+    </a>
+    <br/>
+</p>
+
+
 # Lux
 
-A Swift with a dedicated command-line tool to colorise plain code (e.g. for terminal output), HTML files code blocks or attributed strings (e.g. for macOS or iOS apps).
+A Swift library with a dedicated command-line tool to colorise plain code (e.g. for terminal output), HTML files code blocks or attributed strings (e.g. for macOS or iOS apps).
 
 Currently supported:
 - [x] Xml
@@ -8,18 +28,28 @@ Currently supported:
 - [x] Plist
 - [x] Json
 
-To come:
-- Zsh
-- Swift
+To be added:
+- [ ] Zsh
+- [ ] Swift
 
-You can ask for a language by [opening an issue](https://github.com/ABridoux/lux/issues)
+You can ask for a language by [opening an issue](https://github.com/ABridoux/lux/issues).
+The following screenshots show the different usages of **Lux**.
 
 <div style="text-align: center;">
-<img src="Resources/Example-terminal.png" alt="Example of an output in the terminal with a JSON format" width="800"/>
-<img src="Resources/Example-macOS.png" alt="Example of a macOS app with a Plist format" width="800"/>
-<img src="Resources/Example-iOS.png" alt="Example of an iOS app with an enhanced XML format" width="500"/>
-<img src="Resources/Example-html.png" alt="Octory Wiki sample (https://www.octory.io)" width="800"/>
+<img src="Resources/Example-terminal.png" width="800"/>
+<p><em>Output in the terminal with a JSON format</em></p>
+<br />
+<img src="Resources/Example-macOS.png" width="800"/>
+<p><em>macOS app with a Plist format</em></p>
+<br />
+<img src="Resources/Example-iOS.png" width="500"/>
+<p><em>iOS app with an enhanced XML format</em></p>
+<br />
+<img src="Resources/Example-html.png" width="800"/>
+<p><em><a href="https://www.octory.io">Octory</a> (new) wiki sample</em></p>
 </div>
+
+<br />
 
 ### Quick example
 With the following Plist file
@@ -67,11 +97,18 @@ You can then customise those classes in your CSS file. The wiki describes each f
 
 <u>Note</u>: For HTML text, the library will take a **HTML string as input**. In HTML, chevrons are written with `&lt;` for `<` and `&gt;` for `>`. 
 
+<br />
+
 ## How to install it
 
 #### Homebrew
 
-[To be added]
+Use the following command.
+
+```bash
+brew install ABridoux/formulae/lux
+```
+It will **download the notarized executable** from the [latest release](https://github.com/ABridoux/scout/releases/latest/download/lux.zip).
 
 #### Download
 
@@ -113,6 +150,9 @@ let package = Package (
 )
 ```
 You can then `import Scout` in a file.
+
+<br />
+
 
 ## How to use it
 
@@ -172,7 +212,7 @@ Then copy it, and run `pbpaste | lux -f plist -t html | pbcopy`. This will copy 
 <span class="plist-tag">&lt;/dict&gt;</span>
 ```
 
-You can then paste it anywhere you want.
+You can then paste it anywhere you want. The list of the default CSS classes can be found in the [wiki](https://github.com/ABridoux/lux/wiki/CSS-classes).
 
 #### Css command
 
@@ -189,6 +229,8 @@ lux css -i article.html -f json
 ```
 
 (A future version should let you do that in one command like: `lux css -i article.html -f plist json`).
+
+<br />
 
 ### Swift
 They are two levels of customisation to use **Lux**. The first uses the default `Injector` classes. You can customise the injection in a closure called each time a match is found. By implementing the corresponding delegate of the `Injector`, you can either specify the string that will be used by the `Injector` when modifying the match, or modify the match directly. The second let you modify directly a match. For each format, two injectors exist today: a css classes injector to inject css classes into the string and one to insert terminal colors.
