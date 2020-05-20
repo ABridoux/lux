@@ -1,0 +1,13 @@
+included:
+ - Sources
+ - Tests
+
+disabled_rules:
+ - xctfail_message
+ - class_delegate_protocol
+ - weak_delegate
+line_length: 200
+identifier_name:
+    # identifiers like id
+    min_length: 2
+    max_length: 50
