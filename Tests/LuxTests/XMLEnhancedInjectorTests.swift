@@ -38,11 +38,11 @@ final class XMLEnhancedInjectorTests: XCTestCase {
             """
             \(header)<?xml version="1.0" encoding="UTF-8"?>\(reset)
             \(punctuation)<\(reset)\(openingTag)properties\(reset)\(punctuation)>\(reset)
-                \(punctuation)<\(reset)\(openingTag)type\(reset)\(punctuation)>\(reset)\(key)Input\(reset)\(closingTag)</type>\(reset)
-                \(punctuation)<\(reset)\(openingTag)inputType\(reset)\(punctuation)>\(reset)\(key)List\(reset)\(closingTag)</inputType>\(reset)
+                \(punctuation)<\(reset)\(openingTag)type\(reset)\(punctuation)>\(reset)\(key)Input\(reset)\(punctuation)</\(reset)\(closingTag)type\(reset)\(punctuation)>\(reset)
+                \(punctuation)<\(reset)\(openingTag)inputType\(reset)\(punctuation)>\(reset)\(key)List\(reset)\(punctuation)</\(reset)\(closingTag)inputType\(reset)\(punctuation)>\(reset)
                 \(comment)<!-- Comment -->\(reset)
-                \(punctuation)<\(reset)\(openingTag)isAllowed\(reset)\(punctuation)>\(reset)\(key)true\(reset)\(closingTag)</isAllowed>\(reset)
-            \(closingTag)</properties>\(reset)
+                \(punctuation)<\(reset)\(openingTag)isAllowed\(reset)\(punctuation)>\(reset)\(key)true\(reset)\(punctuation)</\(reset)\(closingTag)isAllowed\(reset)\(punctuation)>\(reset)
+            \(punctuation)</\(reset)\(closingTag)properties\(reset)\(punctuation)>\(reset)
             """
 
         let result = XMLEnhancedInjector(type: .plain).inject(in: stubXmlString)
@@ -63,11 +63,11 @@ final class XMLEnhancedInjectorTests: XCTestCase {
             """
             \(header)&lt;?xml version="1.0" encoding="UTF-8"?&gt;\(reset)
             \(punctuation)&lt;\(reset)\(openingTag)properties\(reset)\(punctuation)&gt;\(reset)
-                \(punctuation)&lt;\(reset)\(openingTag)type\(reset)\(punctuation)&gt;\(reset)\(key)Input\(reset)\(closingTag)&lt;/type&gt;\(reset)
-                \(punctuation)&lt;\(reset)\(openingTag)inputType\(reset)\(punctuation)&gt;\(reset)\(key)List\(reset)\(closingTag)&lt;/inputType&gt;\(reset)
+                \(punctuation)&lt;\(reset)\(openingTag)type\(reset)\(punctuation)&gt;\(reset)\(key)Input\(reset)\(punctuation)&lt;/\(reset)\(closingTag)type\(reset)\(punctuation)&gt;\(reset)
+                \(punctuation)&lt;\(reset)\(openingTag)inputType\(reset)\(punctuation)&gt;\(reset)\(key)List\(reset)\(punctuation)&lt;/\(reset)\(closingTag)inputType\(reset)\(punctuation)&gt;\(reset)
                 \(comment)&lt;!-- Comment --&gt;\(reset)
-                \(punctuation)&lt;\(reset)\(openingTag)isAllowed\(reset)\(punctuation)&gt;\(reset)\(key)true\(reset)\(closingTag)&lt;/isAllowed&gt;\(reset)
-            \(closingTag)&lt;/properties&gt;\(reset)
+                \(punctuation)&lt;\(reset)\(openingTag)isAllowed\(reset)\(punctuation)&gt;\(reset)\(key)true\(reset)\(punctuation)&lt;/\(reset)\(closingTag)isAllowed\(reset)\(punctuation)&gt;\(reset)
+            \(punctuation)&lt;/\(reset)\(closingTag)properties\(reset)\(punctuation)&gt;\(reset)
             """
 
         let result = XMLEnhancedInjector(type: .html).inject(in: stubHTMLString)
