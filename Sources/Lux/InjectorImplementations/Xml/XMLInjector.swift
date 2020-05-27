@@ -3,7 +3,7 @@ import Foundation
 /// Inject strings into a text depending on the configuration or the delegate.
 public final class XMLInjector: BaseInjector<XMLCategory> {
 
-    override var defaultLanguageIdentifiers: Set<String> { ["xml", "Xml", "XML", "language-xml", "language-Xml", "language-XML"] }
+    override var defaultLanguageIdentifiers: Set<String> { ["xml", "lang-xml", "language-xml"] }
     override var plainRegexPattern: RegexPattern { .plainXml }
     override var htmlRegexPattern: RegexPattern { .htmlXml }
 

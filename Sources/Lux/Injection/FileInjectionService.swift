@@ -18,7 +18,7 @@ public struct FileInjectionService {
         #"|<pre[^<^>]*class="\#(identifiers)"[^<^>]*><code[^<^>]*>)"# +
         #"[^<^>]*<\/code><\/pre>"#
 
-        return try NSRegularExpression(pattern: pattern)
+        return try NSRegularExpression(pattern: pattern, options: [.caseInsensitive])
     }
 
     public static func inject(in text: String, using injector: Injector) throws -> String {

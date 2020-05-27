@@ -2,7 +2,7 @@ import Foundation
 
 public final class JSONInjector: BaseInjector<JSONCategory> {
 
-    override var defaultLanguageIdentifiers: Set<String> { ["json", "Json", "JSON", "language-json", "language-Json", "language-JSON"] }
+    override var defaultLanguageIdentifiers: Set<String> { ["json", "lang-json", "language-json"] }
     override var plainRegexPattern: RegexPattern { .json }
     override var htmlRegexPattern: RegexPattern { .json }
 
