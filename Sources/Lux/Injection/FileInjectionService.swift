@@ -5,26 +5,27 @@ public struct FileInjectionService {
 
     // MARK: - Constants
 
-    static let precodePrefixPattern = #"<pre([^<^>]*("[^"]+"|'[^']+')[^<^>]*|[^<^>]*)><code([^<^>]*("[^"]+"|'[^']+')[^<^>]*|[^<^>]*)>"#
+    static let precodePrefixPattern = #"<pre([^<^>]*("[^"]+"|'[^']+')[^<^>]*|[^<^>]*)>[\s\n]*<code([^<^>]*("[^"]+"|'[^']+')[^<^>]*|[^<^>]*)>"#
     static let precodePrefixRegex = try! NSRegularExpression(pattern: precodePrefixPattern)
-    static let precodeSuffixPattern = #"</code>\n?</pre>"#
+    static let precodeSuffixPattern = #"</code>[\s\n]*</pre>"#
     static let precodeSuffixRegex = try! NSRegularExpression(pattern: precodeSuffixPattern)
 
     // MARK: - Functions
 
     static func buildRegex(withLanguageIdentifiers identifiers: Set<String>) throws -> NSRegularExpression {
         let identifiers = "(\(identifiers.joined(separator: "|")))"
-        let pattern = #"(<pre[^<^>]*><code[^<^>]*class="\#(identifiers)"[^<^>]*>"# +
-        #"|<pre[^<^>]*class="\#(identifiers)"[^<^>]*><code[^<^>]*>)"# +
-        #"[^<^>]*<\/code><\/pre>"#
+        let pattern = #"(<pre[^<^>]*>[\s\n]*<code[^<^>]*class="[^"]*\#(identifiers)[^"]*"[^<^>]*>"# +
+        #"|<pre[^<^>]*class="[^"]*\#(identifiers)[^"]*"[^<^>]*>[\s\n]*<code[^<^>]*>)"# +
+        #"[^<^>]*<\/code>[\s\n]*<\/pre>"#
 
         return try NSRegularExpression(pattern: pattern, options: [.caseInsensitive])
     }
 
-    public static func inject(in text: String, using injector: Injector) throws -> String {
+    public static func inject(in text: String, using injectors: [Injector]) throws -> String {
 
         // build the regex
-        let preCodeRegex = try buildRegex(withLanguageIdentifiers: injector.languageIdentifiers)
+        let languageIdentifiers = Set(injectors.flatMap { $0.languageIdentifiers })
+        let preCodeRegex = try buildRegex(withLanguageIdentifiers: languageIdentifiers)
         let nsText = text as NSString
         let textRange = text.nsRange
         let matches = preCodeRegex.matches(in: text, options: [], range: textRange)
@@ -47,7 +48,7 @@ public struct FileInjectionService {
             // get the modfified current code block
             let currentMatchString = nsText.substring(with: currentMatch.range)
 
-            handle(currentMatchString, with: injector, appendingTo: &modifiedText)
+            handle(currentMatchString, with: injectors, appendingTo: &modifiedText)
 
             // get the string between the current code block and the next one
             let gapBetweenMatches = NSRange(location: currentMatch.range.upperBound, length: nextMatch.range.lowerBound - currentMatch.range.upperBound)
@@ -61,7 +62,7 @@ public struct FileInjectionService {
         // take care of the last match
         guard let lastMatch = matches.last else { return text }
         let lastMatchString = nsText.substring(with: lastMatch.range)
-        handle(lastMatchString, with: injector, appendingTo: &modifiedText)
+        handle(lastMatchString, with: injectors, appendingTo: &modifiedText)
 
         // take the gap between the last match and the end of the text
         let lastGap = NSRange(location: lastMatch.range.upperBound, length: textRange.upperBound - lastMatch.range.upperBound)
@@ -79,19 +80,54 @@ public struct FileInjectionService {
     ///   - match: The string in which to inject color markers
     ///   - injector: The injector to inject color markers
     ///   - finalString: The string holding the current modified text that will be returned
-    static func handle(_ match: String, with injector: Injector, appendingTo finalString: inout String) {
-        if let (prefix, code, suffix) = splitPreCodeTags(in: match) { // we have pre code tags
-            // append the pre code prefix
-            finalString.append(String(prefix))
-            //append the modified code
-            let modifiedCode = injector.inject(in: String(code))
-            finalString.append(modifiedCode)
-            // append the pre code suffix
-            finalString.append(String(suffix))
-        } else {
-            let modifiedMatch = injector.inject(in: match)
-            finalString.append(modifiedMatch)
+    static func handle(_ match: String, with injectors: [Injector], appendingTo finalString: inout String) {
+        let languageIdentifiers = Set(injectors.flatMap { $0.languageIdentifiers })
+
+        guard
+            let (prefix, code, suffix) = splitPreCodeTags(in: match), // get the pre code tags
+            let languageIdentifier = extractLanguageIdentifier(in: languageIdentifiers, from: prefix), // get the language identifier
+            let injector = getInjectorFor(languageIdentifier: languageIdentifier, from: injectors) // get the concerned injector
+        else {
+            finalString.append(match)
+            return
         }
+
+        // append the pre code prefix
+        finalString.append(prefix)
+        //append the modified code
+        let modifiedCode = injector.inject(in: code)
+        finalString.append(modifiedCode)
+        // append the pre code suffix
+        finalString.append(suffix)
+    }
+
+    /// Extract the language identifier from the given list in the given string
+    /// - Parameters:
+    ///   - identifiers: A list of identifiers to match
+    ///   - string: A `<pre><code>` tags set containing a `class="[LanguageIdentifier]"`
+    /// - Returns: The language identifier if found
+    static func extractLanguageIdentifier(in identifiers: Set<String>, from string: String) -> String? {
+        let pattern = identifiers.joined(separator: "|")
+        let regex = try! NSRegularExpression(pattern: pattern, options: [.caseInsensitive])
+
+        guard let match = regex.firstMatch(in: string, options: [], range: string.nsRange) else {
+            return nil
+        }
+
+        return String(string[match.range])
+    }
+
+    /// - Parameters:
+    ///   - languageIdentifier: The language identifier corresponding to one potential Injector
+    ///   - injectors: List of potential injector
+    /// - Returns: The Injector holding the given language identifier
+    static func getInjectorFor(languageIdentifier: String, from injectors: [Injector]) -> Injector? {
+        for injector in injectors {
+            if injector.languageIdentifiers.contains(languageIdentifier) {
+                return injector
+            }
+        }
+        return nil
     }
 
     /// Remove the `<pre><code>` tags from the given code block
@@ -124,7 +160,7 @@ public struct FileInjectionService {
 
 extension FileInjectionService {
 
-    public static func injectPlist(in text: String) throws -> String { try inject(in: text, using: PlistInjector(type: .html)) }
-    public static func injectXml(in text: String) throws -> String { try inject(in: text, using: XMLEnhancedInjector(type: .html)) }
-    public static func injectJson(in text: String) throws -> String { try inject(in: text, using: JSONInjector(type: .html)) }
+    public static func injectPlist(in text: String) throws -> String { try inject(in: text, using: [PlistInjector(type: .html)]) }
+    public static func injectXml(in text: String) throws -> String { try inject(in: text, using: [XMLEnhancedInjector(type: .html)]) }
+    public static func injectJson(in text: String) throws -> String { try inject(in: text, using: [JSONInjector(type: .html)]) }
 }
