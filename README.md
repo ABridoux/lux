@@ -156,9 +156,9 @@ You can then `import Lux` in a file.
 
 ## How to use it
 
-[Command-line](https://github.com/ABridoux/lux/wiki/Usage:-command-line)
+[Command-line](https://github.com/ABridoux/lux/wiki/%5B20%5D-Usage:-command-line)
 
-[Swift package](https://github.com/ABridoux/lux/wiki/Usage:-Swift-package)
+[Swift package](https://github.com/ABridoux/lux/wiki/%5B21%5D-Usage:-Swift-package)
 
 ## Special thanks
 
