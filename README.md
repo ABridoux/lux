@@ -157,11 +157,12 @@ You can then `import Lux` in a file.
 ## How to use it
 
 [Command-line](https://github.com/ABridoux/lux/wiki/Usage:-command-line)
+
 [Swift package](https://github.com/ABridoux/lux/wiki/Usage:-Swift-package)
 
 ## Special thanks
 
-Thanks to all the contributors of Lux, especially to [Damien Rivet](https://github.com/Ethenyl) who makes code reviews when he has the time. Also, many thanks to the team behind [swift-argument-parser](https://github.com/apple/swift-argument-parser) who keep doing an incredible work.
+Thanks to all the contributors of Lux, especially to [Damien Rivet](https://github.com/Ethenyl) who makes code reviews when he has the time. Also, many thanks to the team behind [swift-argument-parser](https://github.com/apple/swift-argument-parser) who keeps doing an incredible work.
 
 ## Miscellaneous
 
