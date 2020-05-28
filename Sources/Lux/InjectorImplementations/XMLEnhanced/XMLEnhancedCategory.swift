@@ -62,7 +62,9 @@ public enum XMLEnhancedCategory: Category {
         case .key(let key): self = .key(key)
         case .tag(let tag):
             if tag.hasPrefix("/") {
-                self = .closingTag(tag)
+                var tagWithoutSlash = tag
+                tagWithoutSlash.removeFirst()
+                self = .closingTag(tagWithoutSlash)
             } else {
                 self = .openingTag(tag)
             }

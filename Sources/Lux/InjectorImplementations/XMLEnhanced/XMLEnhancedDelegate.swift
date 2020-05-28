@@ -1,31 +1,53 @@
 open class XMLEnhancedDelegate: InjectorDelegate<XMLEnhancedCategory> {
 
     override open func inject(_ category: XMLEnhancedCategory, in type: TextType, _ match: String) -> String {
-        if case let XMLEnhancedCategory.openingTag(tag) = category {
+        switch category {
+
+        case .openingTag(let tag), .closingTag(let tag):
 
             let punctuationMark = injection(for: .punctuation, type: type)
-            let openingTagMark = injection(for: .openingTag(tag), type: type)
+            let tagMark: String
 
-            let openingBracket = type.openingBracket
+            var openingBracket = type.openingBracket
+            if case XMLEnhancedCategory.closingTag = category {
+                tagMark = injection(for: .closingTag(tag), type: type)
+                openingBracket.append("/") // add the closing slash for closing tags
+            } else {
+                tagMark = injection(for: .openingTag(tag), type: type)
+            }
+
             let closingBracket = type.closingBracket
 
             var modifiedText = InjectionService.inject(punctuationMark, in: type, openingBracket) // opening bracket
-            modifiedText += InjectionService.inject(openingTagMark, in: type, tag) // tag name
+            modifiedText += InjectionService.inject(tagMark, in: type, tag) // tag name
             modifiedText += InjectionService.inject(punctuationMark, in: type, closingBracket) // closing bracket
 
             return modifiedText
-        } else {
+        default:
             return super.inject(category, in: type, match)
         }
     }
 
     override open func inject(category: XMLEnhancedCategory, _ match: String) -> AttributedString {
-        if case let XMLEnhancedCategory.openingTag(tag) = category {
 
-            var openingBracket = AttributedString(TextType.plain.openingBracket)
+        switch category {
+
+        case .openingTag(let tag), .closingTag(let tag):
+            var openingBracketString = TextType.plain.openingBracket
+
+            var tagColor: Color
+
+            if case XMLEnhancedCategory.closingTag = category {
+                tagColor = self.color(for: .closingTag(tag))
+                openingBracketString.append("/") // add the closing slash for closing tags
+            } else {
+                tagColor = self.color(for: .openingTag(tag))
+            }
+
+            var openingBracket = AttributedString(openingBracketString)
             openingBracket.textColor = self.color(for: .punctuation)
             var tagAttrString = AttributedString(tag)
-            tagAttrString.textColor = self.color(for: .openingTag(tag))
+            tagAttrString.textColor = tagColor
             var closingBracket = AttributedString(TextType.plain.closingBracket)
             closingBracket.textColor = self.color(for: .punctuation)
 
@@ -34,7 +56,8 @@ open class XMLEnhancedDelegate: InjectorDelegate<XMLEnhancedCategory> {
             modifiedAttrString.append(closingBracket)
 
             return modifiedAttrString
-        } else {
+
+        default:
             return super.inject(category: category, match)
         }
     }

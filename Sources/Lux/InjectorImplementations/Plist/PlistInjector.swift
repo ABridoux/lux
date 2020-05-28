@@ -2,7 +2,7 @@ import Foundation
 
 open class PlistInjector: BaseInjector<PlistCategory> {
 
-    override var defaultLanguageIdentifiers: Set<String> { ["plist", "Plist", "PLIST", "language-plist", "language-Plist", "language-PLIST"] }
+    override var defaultLanguageIdentifiers: Set<String> { ["plist", "lang-plist", "language-plist"] }
 
     override var plainRegexPattern: RegexPattern { .plainXml }
     override var htmlRegexPattern: RegexPattern { .htmlXml }

@@ -8,21 +8,15 @@ struct CSSCommand: ParsableCommand {
     @Option(name: [.short, .customLong("input")], help: "A path to a file to read to inject Css classes in it")
     var inputFilePath: String
 
-    @Option(name: [.short, .long])
-    var format: Format
+    @Option(name: [.short, .long], parsing: .upToNextOption)
+    var formats: [Format]
 
     func run() throws {
         // get the input
         let input = try String(contentsOf: URL(fileURLWithPath: inputFilePath.replacingTilde))
 
         // get the output
-        let result: String
-
-        switch format {
-        case .xml: result = try FileInjectionService.injectXml(in: input)
-        case .plist: result = try FileInjectionService.injectPlist(in: input)
-        case .json: result = try FileInjectionService.injectJson(in: input)
-        }
+        let result = try FileInjectionService.inject(in: input, using: formats.map { $0.injector(type: .html) })
 
         try result.write(toFile: inputFilePath, atomically: true, encoding: .utf8)
     }
