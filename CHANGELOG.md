@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. `Lux` adheres to [Semantic Versioning](http://semver.org).
 
 ---
+## [0.2.1](https://github.com/ABridoux/lux/tree/0.2.1) (19/06/2020)
+
+## Fixed
+
+- XML regular expression prevented to correclty categorise a key with a tag character (e.g. &, <, >) inside quotes.
+
 ## [0.2.0](https://github.com/ABridoux/lux/tree/0.2.0) (28/05/2020)
 
 ## Added
