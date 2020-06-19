@@ -5,7 +5,7 @@ final class XMLInjectorTests: XCTestCase {
 
     let stubXmlString =
     """
-    <?xml version="1.0" encoding="UTF-8"?>
+    <?xml version="1.0>" encoding="UTF-8"?>
     <properties>
         <type>Input</type>
         <inputType>List</inputType>
@@ -16,7 +16,7 @@ final class XMLInjectorTests: XCTestCase {
 
     let stubHTMLString =
     """
-    &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+    &lt;?xml version="1.0&" encoding="UTF-8"?&gt;
     &lt;properties&gt;
         &lt;type&gt;Input&lt;/type&gt;
         &lt;inputType&gt;List&lt;/inputType&gt;
@@ -34,7 +34,7 @@ final class XMLInjectorTests: XCTestCase {
 
         let expectedResult =
             """
-            \(header)<?xml version="1.0" encoding="UTF-8"?>\(reset)
+            \(header)<?xml version="1.0>" encoding="UTF-8"?>\(reset)
             \(tag)<properties>\(reset)
                 \(tag)<type>\(reset)\(key)Input\(reset)\(tag)</type>\(reset)
                 \(tag)<inputType>\(reset)\(key)List\(reset)\(tag)</inputType>\(reset)
@@ -56,7 +56,7 @@ final class XMLInjectorTests: XCTestCase {
 
         let expectedResult =
             """
-            <span class="\(header)">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+            <span class="\(header)">&lt;?xml version="1.0&" encoding="UTF-8"?&gt;</span>
             <span class="\(tag)">&lt;properties&gt;</span>
                 <span class="\(tag)">&lt;type&gt;</span><span class="\(key)">Input</span><span class="\(tag)">&lt;/type&gt;</span>
                 <span class="\(tag)">&lt;inputType&gt;</span><span class="\(key)">List</span><span class="\(tag)">&lt;/inputType&gt;</span>
