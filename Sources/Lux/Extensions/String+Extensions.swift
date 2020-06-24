@@ -2,6 +2,8 @@ import Foundation
 
 extension String {
 
+    var attributed: AttributedString { AttributedString(self) }
+
     /// The full NS range of the string
     var nsRange: NSRange { NSRange(location: 0, length: utf16.count) }
 

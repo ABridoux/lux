@@ -60,24 +60,24 @@ public enum ZshCategory: Category {
         #if !os(macOS)
         switch self {
         case .program: return UIColor.black
-        case .optionNameOrFlag: return UIColor(red: 247 / 255, green: 94 / 255, blue: 31 / 255, alpha: 1)
-        case .commandOrOptionValue: return UIColor(red: 255 / 255, green: 144 / 255, blue: 56 / 255, alpha: 1)
+        case .optionNameOrFlag: return UIColor(hex: "#F2836B")!
+        case .commandOrOptionValue: return UIColor(hex: "#F2594B")!
         case .punctuation: return UIColor.systemGray
-        case .variable: return UIColor(red: 171 / 255, green: 53 / 255, blue: 4 / 255, alpha: 1)
-        case .string: return UIColor(red: 0, green: 171 / 255, blue: 146 / 255, alpha: 1)
-        case .keyword: return UIColor(red: 30 / 255, green: 247 / 255, blue: 215 / 255, alpha: 1)
+        case .variable: return UIColor(hex: "#63A69F")!
+        case .string: return UIColor(hex: "#869CA6")!
+        case .keyword: return UIColor(hex: "#A67574")!
         case .comment: return UIColor.lightGray
         }
         #else
 
         switch self {
         case .program: return NSColor.labelColor
-        case .optionNameOrFlag: return NSColor(red: 247 / 255, green: 94 / 255, blue: 31 / 255, alpha: 1)
-        case .commandOrOptionValue: return NSColor(red: 255 / 255, green: 144 / 255, blue: 56 / 255, alpha: 1)
+        case .optionNameOrFlag: return NSColor(hex: "#F2836B")!
+        case .commandOrOptionValue: return NSColor(hex: "#F2594B")!
         case .punctuation: return NSColor.systemGray
-        case .variable: return NSColor(red: 171 / 255, green: 53 / 255, blue: 4 / 255, alpha: 1)
-        case .string: return NSColor(red: 0, green: 171 / 255, blue: 146 / 255, alpha: 1)
-        case .keyword: return NSColor(red: 30 / 255, green: 247 / 255, blue: 215 / 255, alpha: 1)
+        case .variable: return NSColor(hex: "#63A69F")!
+        case .string: return NSColor(hex: "#869CA6")!
+        case .keyword: return NSColor(hex: "#A67574")!
         case .comment: return NSColor.lightGray
         }
         #endif
@@ -85,6 +85,7 @@ public enum ZshCategory: Category {
 
     public init(from match: String) {
         switch match {
+            // the order matters as some categories embrace others
         case \.isOptionNameOrFlag: self = .optionNameOrFlag
         case \.isPunctuation: self = .punctuation
         case \.isKeyword: self = .keyword
@@ -97,16 +98,14 @@ public enum ZshCategory: Category {
     }
 }
 
-
 private extension String {
 
     static let punctuationSet: Set<String> =  ["[", "]", "(", ")", ";", "`", "{", "}"]
     static let keywordsSet: Set<String> = ["if", "fi", "elif", "do", "done", "then", "else", "for", "foreach",
                                            "while", "until", "repeat", "case", "select", "function", "time",
                                            "&", "&amp", "&&", "&amp&amp", "|", "||",
-                                           ">", "&gt;", ">>", "&gt;&gt;", "<", "&lt;", "<<","&lt;&lt;",
-                                           "$",
-                                           "=", "==", "!="]
+                                           ">", "&gt;", ">>", "&gt;&gt;", "<", "&lt;", "<<", "&lt;&lt;",
+                                           "$", "=", "==", "!="]
 
     var isProgram: Bool {
         hasPrefix("$(") && count > 2 // we not capturing only whitespaces after $(
@@ -122,8 +121,8 @@ private extension String {
         let decimalAndHyphenCharacterSet = CharacterSet.decimalDigits.union(CharacterSet(charactersIn: "-"))
 
         return hasPrefix(" ")
-        || hasPrefix("/")
-        || hasPrefix(".")
+            || hasPrefix("/")
+            || hasPrefix(".")
             || hasPrefix("-") && trimmingCharacters(in: decimalAndHyphenCharacterSet).isEmpty
     }
 

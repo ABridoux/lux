@@ -86,9 +86,10 @@ public struct InjectionService {
 
         let textCount = text.nsRange.upperBound
 
+        // try to get the range of the trimmed (white spaces and newlines) string
         guard let trimmedRange = NSRegularExpression.trimmedWhiteSpacesAndNewLinesRange(in: text),
             trimmedRange.lowerBound > 0 || trimmedRange.upperBound < textCount
-        else {
+        else { // no trimming was needed
             switch type {
             case .plain:
                 return stringToInject + text + Colors.terminalReset
@@ -97,6 +98,7 @@ public struct InjectionService {
             }
         }
 
+        // isolate left and right ranges to inject the string only in the trimmed string
         var match = (text as NSString)[trimmedRange]
 
         switch type {
@@ -112,7 +114,7 @@ public struct InjectionService {
             let leftRange = NSRange(location: 0, length: trimmedRange.lowerBound)
             injectedText += text[leftRange]
         }
-        
+
         injectedText += match
 
         if trimmedRange.upperBound <  textCount {

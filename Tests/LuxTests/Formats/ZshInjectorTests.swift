@@ -43,7 +43,7 @@ final class ZshInjectorTests: XCTestCase {
         // we use a delegate to ensure the colors and css classes used for the tests
 
         guard output != expectedOutput else { return }
-        
+
         let resultLines = output.split(separator: "\n")
         let expectedLines = expectedOutput.split(separator: "\n")
 

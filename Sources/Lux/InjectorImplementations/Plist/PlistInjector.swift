@@ -2,13 +2,11 @@ import Foundation
 
 open class PlistInjector: BaseInjector<PlistCategory> {
 
-    override var defaultLanguageIdentifiers: Set<String> { ["plist", "lang-plist", "language-plist"] }
-
     override var plainRegexPattern: RegexPattern { .plainXml }
     override var htmlRegexPattern: RegexPattern { .htmlXml }
 
-    override public init(type: TextType, delegate: BaseInjector<PlistCategory>.Delegate = PlistDelegate()) {
-        super.init(type: type, delegate: delegate)
+    override public init(type: TextType, delegate: BaseInjector<PlistCategory>.Delegate = PlistDelegate(), languageName: String = "plist") {
+        super.init(type: type, delegate: delegate, languageName: languageName)
     }
 
     override open func inject(in text: String) -> String {
