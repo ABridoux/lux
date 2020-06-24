@@ -17,7 +17,7 @@ open class BaseInjector<Cat: Category>: Injector {
     public var delegate: Delegate
 
     /// Set of already know language identifiers, used as a base
-    var defaultLanguageIdentifiers: Set<String> { [] }
+    var defaultLanguageIdentifiers: Set<String>
     public var languageIdentifiers: Set<String> = []
 
     /// RegexPattern used when the type of the parsed text is `plain`
@@ -35,13 +35,16 @@ open class BaseInjector<Cat: Category>: Injector {
 
     // MARK: - Intialisation
 
-    public init(type: TextType, delegate: Delegate) {
+    public init(type: TextType, delegate: Delegate, languageName: String) {
         self.type = type
         self.delegate = delegate
+        defaultLanguageIdentifiers = Self.lowercasedIdentifiers(for: languageName)
         languageIdentifiers = defaultLanguageIdentifiers
     }
 
     // MARK: - Functions
+
+    static func lowercasedIdentifiers(for language: String) -> Set<String> { [language, "lang-\(language)", "language-\(language)"] }
 
     open func inject(in text: String) -> String {
         let modifiedText = try? InjectionService.inject(String.self, in: text, following: regexPattern) { match in

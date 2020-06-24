@@ -1,0 +1,15 @@
+[38;5;245m#!/bin/bash[0;0m
+[38;5;245m# Load the LaunchAgent which makes Octory re-appear when terminated by the user[0;0m
+
+[38;5;167mloggedInUser[0;0m[38;5;24m=[0;0m[38;5;24m$[0;0m[38;5;240m([0;0m [0;0mecho[0;0m [38;5;109m"show State:/Users/ConsoleUser"[0;0m [38;5;24m|[0;0m [0;0mscutil[0;0m [38;5;24m|[0;0m [0;0mawk[0;0m [38;5;109m[38;5;109m'/Name :/ && ! /loginwindow/ { print[0;0m [38;5;167m$3[0;0m [38;5;109m}'[0;0m[0;0m [38;5;240m)[0;0m
+[38;5;167mloggedInUID[0;0m[38;5;24m=[0;0m[38;5;240m`[0;0m[0;0mid[0;0m [38;5;106m-u[0;0m [38;5;167m${loggedInUser}[0;0m[38;5;240m`[0;0m
+
+[38;5;24mif[0;0m [38;5;240m[[0;0m[38;5;240m[[0;0m [38;5;167m${loggedInUID}[0;0m [38;5;106m-gt[0;0m [38;5;108m500[0;0m [38;5;240m][0;0m[38;5;240m][0;0m[38;5;240m;[0;0m [38;5;24mthen[0;0m
+    [0;0mecho[0;0m [38;5;109m[38;5;109m"Launching Octory for user[0;0m [38;5;167m${loggedInUID}[0;0m[38;5;109m…"[0;0m[0;0m
+    [0;0msudo[0;0m [38;5;106m-u[0;0m [38;5;108m[38;5;108m\#[0;0m[38;5;167m${loggedInUID}[0;0m[0;0m [38;5;108mlaunchctl[0;0m [38;5;108menable[0;0m [38;5;108m[38;5;108mgui/[0;0m[38;5;167m${loggedInUID}[0;0m[38;5;108m/com.amaris.octory.launch[0;0m[0;0m
+    [0;0msudo[0;0m [38;5;106m-u[0;0m [38;5;108m[38;5;108m\#[0;0m[38;5;167m${loggedInUID}[0;0m[0;0m [38;5;108mlaunchctl[0;0m [38;5;108mbootstrap[0;0m [38;5;108m[38;5;108mgui/[0;0m[38;5;167m${loggedInUID}[0;0m[38;5;108m/[0;0m[0;0m [38;5;108m/Library/LaunchAgents/com.amaris.octory.launch.plist[0;0m
+    [0;0msudo[0;0m [38;5;106m-u[0;0m [38;5;108m[38;5;108m\#[0;0m[38;5;167m${loggedInUID}[0;0m[0;0m [38;5;108mlaunchctl[0;0m [38;5;108mkickstart[0;0m [38;5;108m[38;5;108mgui/[0;0m[38;5;167m${loggedInUID}[0;0m[38;5;108m/com.amaris.octory.launch[0;0m[0;0m
+[38;5;24mfi[0;0m
+
+[0;0mcd[0;0m [38;5;109m"/Library/Application Support/Octory/HelperInstall"[0;0m
+[0;0m./installHelper.sh[0;0m

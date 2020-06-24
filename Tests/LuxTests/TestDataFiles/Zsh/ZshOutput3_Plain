@@ -1,0 +1,16 @@
+[38;5;245m#!/bin/bash[0;0m
+[0;0mexport[0;0m [38;5;108mPATH=/usr/bin:/bin:/usr/sbin:/sbin[0;0m
+
+[38;5;24mfunction[0;0m [38;5;108mcountArguments()[0;0m [38;5;240m{[0;0m
+    [0;0mecho[0;0m [38;5;109m"${#@}"[0;0m
+[38;5;240m}[0;0m
+
+[38;5;167mwordlist[0;0m[38;5;24m=[0;0m[38;5;109m"one two three four five"[0;0m
+
+[0;0mecho[0;0m [38;5;109m"normal substitution, no quotes:"[0;0m
+[0;0mcountArguments[0;0m [38;5;167m$wordlist[0;0m
+[38;5;245m# -> 5[0;0m
+
+[0;0mecho[0;0m [38;5;109m"substitution with quotes"[0;0m
+[0;0mcountArguments[0;0m [38;5;109m[38;5;109m"[0;0m[38;5;167m$wordlist[0;0m[38;5;109m"[0;0m[0;0m
+[38;5;245m# -> 1[0;0m
