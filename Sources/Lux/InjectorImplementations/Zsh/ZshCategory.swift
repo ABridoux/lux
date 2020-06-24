@@ -49,7 +49,7 @@ public enum ZshCategory: Category {
         case .optionNameOrFlag: return "\u{001B}[38;5;106m"
         case .commandOrOptionValue: return "\u{001B}[38;5;108m"
         case .punctuation: return "\u{001B}[38;5;240m"
-        case .variable: return "\u{001B}[38;5;173m"
+        case .variable: return "\u{001B}[38;5;167m"
         case .keyword: return "\u{001B}[38;5;24m"
         case .string: return "\u{001B}[38;5;109m"
         case .comment: return "\u{001B}[38;5;245m"

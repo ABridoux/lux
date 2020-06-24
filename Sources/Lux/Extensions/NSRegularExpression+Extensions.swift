@@ -10,4 +10,12 @@ extension NSRegularExpression {
         let range = NSRange(location: 0, length: nsString.length)
         return regex.firstMatch(in: string, options: [], range: range)?.range
     }
+
+    static func trimmedWhiteSpacesAndNewLinesRange(in string: String) -> NSRange? {
+        let regex = try! NSRegularExpression(pattern: #"[^\s*].*[^\s*]"#)
+
+        let nsString = string as NSString
+        let range = NSRange(location: 0, length: nsString.length)
+        return regex.firstMatch(in: string, options: [], range: range)?.range
+    }
 }
