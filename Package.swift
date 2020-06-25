@@ -17,12 +17,15 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/apple/swift-argument-parser",
-            from: "0.0.1")
+            from: "0.0.1"),
+        .package(
+            url: "https://github.com/JohnSundell/Splash",
+            from: "0.10.0")
     ],
     targets: [
         .target(
             name: "Lux",
-            dependencies: []),
+            dependencies: ["Splash"]),
         .target(
             name: "LuxCLT",
             dependencies: ["Lux", "ArgumentParser"]),
