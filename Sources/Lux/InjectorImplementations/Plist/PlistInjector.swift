@@ -1,46 +1,30 @@
 import Foundation
 
-open class PlistInjector: BaseInjector<PlistCategory> {
+open class PlistInjector<Output: Appendable, InjType: InjectorType<Output>>: BaseInjector<PlistCategory, Output, InjType> {
 
     override var plainRegexPattern: RegexPattern { .plainXml }
     override var htmlRegexPattern: RegexPattern { .htmlXml }
 
-    override public init(type: TextType, delegate: BaseInjector<PlistCategory>.Delegate = PlistDelegate(), languageName: String = "plist") {
+    override public init(type: InjType, delegate: Delegate = PlistDelegate(), languageName: String = "plist") {
         super.init(type: type, delegate: delegate, languageName: languageName)
     }
 
-    override open func inject(in text: String) -> String {
+    override public func inject(in text: String) -> Output {
         var currentOpenTagIsKey = false
 
-        let modifiedText = try? InjectionService.inject(String.self, in: text, following: regexPattern) { match in
+        let modifiedInput = try? InjectionService.inject(Output.self, in: text, following: regexPattern) { match in
 
             let category = getCategory(from: match, currentOpenTagIsKey: &currentOpenTagIsKey)
-            return delegate.inject(category, in: type, match)
+
+            return inject(category, in: match)
         }
 
-         guard let finalText = modifiedText else {
+         guard let output = modifiedInput else {
              assertionFailure("The default regular expression pattern \(regexPattern.stringValue) has failed to build a regular expression")
-             return text
+             return Output(text)
          }
 
-         return finalText
-    }
-
-    override open func injectAttributed(in text: String) -> NSMutableAttributedString {
-        var currentOpenTagIsKey = false
-
-        let modifiedText = try? InjectionService.inject(AttributedString.self, in: text, following: regexPattern) { match in
-
-            let category = getCategory(from: match, currentOpenTagIsKey: &currentOpenTagIsKey)
-            return delegate.inject(category: category, match)
-        }
-
-         guard let finalText = modifiedText else {
-             assertionFailure("The default regular expression pattern \(regexPattern.stringValue) has failed to build a regular expression")
-             return NSMutableAttributedString(string: text)
-         }
-
-        return finalText.nsAttributedString
+        return output
     }
 
     func getCategory(from match: String, currentOpenTagIsKey: inout Bool) -> PlistCategory {
@@ -68,7 +52,6 @@ open class PlistInjector: BaseInjector<PlistCategory> {
             currentOpenTagIsKey = false
 
             return category
-
         }
     }
 }

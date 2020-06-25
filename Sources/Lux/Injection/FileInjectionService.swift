@@ -21,7 +21,7 @@ public struct FileInjectionService {
         return try NSRegularExpression(pattern: pattern, options: [.caseInsensitive])
     }
 
-    public static func inject(in text: String, using injectors: [Injector]) throws -> String {
+    public static func inject(in text: String, using injectors: [PlainTextInjector]) throws -> String {
 
         // build the regex
         let languageIdentifiers = Set(injectors.flatMap { $0.languageIdentifiers })
@@ -80,7 +80,7 @@ public struct FileInjectionService {
     ///   - match: The string in which to inject color markers
     ///   - injector: The injector to inject color markers
     ///   - finalString: The string holding the current modified text that will be returned
-    static func handle(_ match: String, with injectors: [Injector], appendingTo finalString: inout String) {
+    static func handle(_ match: String, with injectors: [PlainTextInjector], appendingTo finalString: inout String) {
         let languageIdentifiers = Set(injectors.flatMap { $0.languageIdentifiers })
 
         guard
@@ -121,7 +121,7 @@ public struct FileInjectionService {
     ///   - languageIdentifier: The language identifier corresponding to one potential Injector
     ///   - injectors: List of potential injectors
     /// - Returns: The Injector responsibme for the given language identifier
-    static func getInjectorFor(languageIdentifier: String, from injectors: [Injector]) -> Injector? {
+    static func getInjectorFor(languageIdentifier: String, from injectors: [PlainTextInjector]) -> PlainTextInjector? {
         for injector in injectors {
             if injector.languageIdentifiers.contains(languageIdentifier) {
                 return injector
@@ -156,11 +156,4 @@ public struct FileInjectionService {
 
         return (prefixString, codeString, suffixString)
     }
-}
-
-extension FileInjectionService {
-
-    public static func injectPlist(in text: String) throws -> String { try inject(in: text, using: [PlistInjector(type: .html)]) }
-    public static func injectXml(in text: String) throws -> String { try inject(in: text, using: [XMLEnhancedInjector(type: .html)]) }
-    public static func injectJson(in text: String) throws -> String { try inject(in: text, using: [JSONInjector(type: .html)]) }
 }

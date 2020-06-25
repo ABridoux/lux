@@ -15,7 +15,7 @@ extension InjectorDelegate where Cat == SwiftCategory {
         .comment: SwiftCategory.comment.color,
         .property: SwiftCategory.property.color,
         .dotAccess: SwiftCategory.dotAccess.color,
-        .preprocessing: SwiftCategory.preprocessing.color,
+        .preprocessing: SwiftCategory.preprocessing.color
     ]
     )}
 }

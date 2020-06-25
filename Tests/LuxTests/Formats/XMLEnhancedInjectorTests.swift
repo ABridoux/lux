@@ -45,7 +45,7 @@ final class XMLEnhancedInjectorTests: XCTestCase {
             \(punctuation)</\(reset)\(closingTag)properties\(reset)\(punctuation)>\(reset)
             """
 
-        let result = XMLEnhancedInjector(type: .plain).inject(in: stubXmlString)
+        let result = XMLEnhancedInjector(type: .terminal).inject(in: stubXmlString)
 
         XCTAssertEqual(result, expectedResult)
     }

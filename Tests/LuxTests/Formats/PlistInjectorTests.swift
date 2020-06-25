@@ -64,7 +64,7 @@ final class PlistInjectorTests: XCTestCase {
             \(header)</plist>\(reset)
             """
 
-        let result = PlistInjector(type: .plain).inject(in: stubPlistString)
+        let result = PlistInjector(type: .terminal).inject(in: stubPlistString)
 
         XCTAssertEqual(result, expectedResult)
     }

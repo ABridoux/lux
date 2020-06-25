@@ -4,7 +4,6 @@ import UIKit
 import AppKit
 #endif
 
-
 #if os(iOS)
 import UIKit
 public typealias Color = UIColor

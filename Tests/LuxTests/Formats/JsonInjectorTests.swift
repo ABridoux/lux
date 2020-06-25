@@ -29,7 +29,7 @@ final class JsonInjectorTests: XCTestCase {
             \(punctuation)}\(reset)
             """
 
-        let result = JSONInjector(type: .plain).inject(in: stubJsonString)
+        let result = JSONInjector(type: .terminal).inject(in: stubJsonString)
 
         XCTAssertEqual(result, expectedResult)
     }

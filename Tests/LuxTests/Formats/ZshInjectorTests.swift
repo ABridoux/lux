@@ -12,7 +12,7 @@ final class ZshInjectorTests: XCTestCase {
     }
 
     func testFile1_Plain() {
-        testFile(1, with: .plain)
+        testFile(1, with: .terminal)
     }
 
     func testFile1_Html() {
@@ -20,7 +20,7 @@ final class ZshInjectorTests: XCTestCase {
     }
 
     func testFile2_Plain() {
-        testFile(2, with: .plain)
+        testFile(2, with: .terminal)
     }
 
     func testFile2_Html() {
@@ -28,19 +28,21 @@ final class ZshInjectorTests: XCTestCase {
     }
 
     func testFile3_Plain() {
-        testFile(3, with: .plain)
+        testFile(3, with: .terminal)
     }
 
     func testFile3_Html() {
         testFile(3, with: .html)
     }
 
-    func testFile(_ order: Int, with type: TextType, file: StaticString = #file, line: UInt = #line) {
-        let input = inputTestFile(with: .zsh, in: folder, order: order, type: type)
-        let expectedOutput = outputTestFile(with: .zsh, in: folder, order: order, type: type)
+    func testFile<Output: Appendable, InjType: InjectorType<Output>>(_ order: Int, with type: InjType, file: StaticString = #file, line: UInt = #line) {
+        let input = inputTestFile(with: .zsh, in: folder, order: order, type: type.textType)
+        let expectedOutput = outputTestFile(with: .zsh, in: folder, order: order, type: type.textType)
 
-        let output = ZshInjector(type: type, delegate: ZshTestDelegate()).inject(in: input)
         // we use a delegate to ensure the colors and css classes used for the tests
+        guard let output = ZshInjector(type: type, delegate: ZshTestDelegate()).inject(in: input) as? String else {
+            fatalError("The output with Terminal or HTML should be a String")
+        }
 
         guard output != expectedOutput else { return }
 
