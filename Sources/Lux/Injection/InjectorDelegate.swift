@@ -12,7 +12,7 @@ open class InjectorDelegate<Cat: Category> {
     /// type will be inserted as the class of the enclosing `<span>` tag
     open func injection(for category: Cat, type: TextType) -> String {
         switch type {
-        case .plain: return category.terminalColor
+        case .plain: return category.terminalModifier.raw
         case .html: return category.cssClass
         }
     }

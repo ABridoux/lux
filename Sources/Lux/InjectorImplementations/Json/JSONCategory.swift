@@ -27,11 +27,11 @@ public enum JSONCategory: Category {
         }
     }
 
-    public var terminalColor: String {
+    public var terminalModifier: TerminalModifier {
         switch self {
-        case .keyName: return "\u{001B}[38;5;166m"
-        case .keyValue: return "\u{001B}[0;0m"
-        case .punctuation: return "\u{001B}[38;5;240m"
+        case .keyName: return TerminalModifier(colorCode: 166)
+        case .keyValue: return .resetColors
+        case .punctuation: return TerminalModifier(colorCode: 240)
         }
     }
 

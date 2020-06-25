@@ -3,7 +3,7 @@
 public protocol Category {
 
     var cssClass: String { get }
-    var terminalColor: String { get }
+    var terminalModifier: TerminalModifier { get }
     var color: Color { get }
 
     init(from match: String)

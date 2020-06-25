@@ -15,9 +15,9 @@ final class JsonInjectorTests: XCTestCase {
     """
 
     func testInjectTerminalColor() {
-        let punctuation = JSONCategory.punctuation.terminalColor
-        let keyName = JSONCategory.keyName.terminalColor
-        let keyValue = JSONCategory.keyValue.terminalColor
+        let punctuation = JSONCategory.punctuation.terminalModifier.raw
+        let keyName = JSONCategory.keyName.terminalModifier.raw
+        let keyValue = JSONCategory.keyValue.terminalModifier.raw
         let reset = Colors.terminalReset
 
         let expectedResult =
