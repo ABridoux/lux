@@ -6,9 +6,11 @@ import AppKit
 
 #if os(iOS)
 import UIKit
+/// Typealias to avoid AppKit/UIKit differences
 public typealias Color = UIColor
 #elseif os(macOS)
 import Cocoa
+/// Typealias to avoid AppKit/UIKit differences
 public typealias Color = NSColor
 #endif
 

@@ -26,3 +26,15 @@ extension String: Appendable {
         assertionFailure("Initialisation of a string from a 'NSAttributedString' is implemented to be compliant with the protocol 'Appendable'. It should not be used")
     }
 }
+
+extension Appendable {
+    static func + (lhs: Self, rhs: Self) -> Self {
+        var copy = lhs
+        copy.append(rhs)
+        return copy
+    }
+
+    static func += (lhs: inout Self, rhs: Self) {
+        lhs.append(rhs)
+    }
+}

@@ -3,7 +3,7 @@ import Foundation
 /// Inject colors as string (e.g. html tag or terminal color) or as attributes (for attributed string) inside a text depending on the categories
 /// of the found matches, and output the result.
 /// - note: The behavior can be customised by setting a custom delegate. This delegate can modify the color injected, or the way it is injected.
-open class BaseInjector<Cat: Category, Output: Appendable, InjType: InjectorType<Output>> {
+open class BaseInjector<Cat: Category, Output: Appendable, Injection: InjectionType, Injector: InjectorType<Output, Injection>> {
 
     // MARK: - Constants
 
@@ -13,7 +13,7 @@ open class BaseInjector<Cat: Category, Output: Appendable, InjType: InjectorType
 
     /// Type of the text to parse
     var textType: TextType
-    var type: InjType
+    var type: Injector
 
     public var delegate: Delegate
 
@@ -36,14 +36,7 @@ open class BaseInjector<Cat: Category, Output: Appendable, InjType: InjectorType
 
     // MARK: - Intialisation
 
-//    public init(type: TextType, delegate: Delegate, languageName: String) {
-//        self.type = type
-//        self.delegate = delegate
-//        defaultLanguageIdentifiers = Self.lowercasedIdentifiers(for: languageName)
-//        languageIdentifiers = defaultLanguageIdentifiers
-//    }
-
-    public init(type: InjType, delegate: Delegate, languageName: String) {
+    public init(type: Injector, delegate: Delegate, languageName: String) {
         self.type = type
         textType = type.textType
         self.delegate = delegate
@@ -55,6 +48,10 @@ open class BaseInjector<Cat: Category, Output: Appendable, InjType: InjectorType
 
     static func lowercasedIdentifiers(for language: String) -> Set<String> { [language, "lang-\(language)", "language-\(language)"] }
 
+    /// Inject modifiers to colorise an input String.
+    /// - Parameter text: The text to colorise
+    /// - Returns: The colorised text. The output type will depend of the Injector type you use: HTML String, Terminal: String, App: AttributedString. You can retrieve the `NSMutableString` value
+    /// from an `AttributedString` with the `nsAttributedString` property.
     open func inject(in text: String) -> Output {
         let modifiedInput = try? InjectionService.inject(Output.self, in: text, following: regexPattern) { match in
             let category = Cat(from: match)
@@ -70,17 +67,6 @@ open class BaseInjector<Cat: Category, Output: Appendable, InjType: InjectorType
         return output
     }
 
-    open func inject(_ category: Cat, in match: String) -> Output {
-
-        switch type {
-
-        case is Terminal, is Html: return Output(delegate.inject(category, in: type.textType, match))
-
-        case is App: return Output(attributedString: AttributedString(match, color: delegate.color(for: category)))
-
-        default:
-            assertionFailure("\(Output.self) not handled")
-            return Output("")
-        }
-    }
+    /// Called to know how to inject a color mark in a match of a give category
+    func inject(_ category: Cat, in match: String) -> Output { delegate.inject(category, in: type, match) }
 }

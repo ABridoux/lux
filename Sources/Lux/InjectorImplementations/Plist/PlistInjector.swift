@@ -1,6 +1,6 @@
 import Foundation
 
-open class PlistInjector<Output: Appendable, InjType: InjectorType<Output>>: BaseInjector<PlistCategory, Output, InjType> {
+open class PlistInjector<Output: Appendable, Injection: InjectionType, InjType: InjectorType<Output, Injection>>: BaseInjector<PlistCategory, Output, Injection, InjType> {
 
     override var plainRegexPattern: RegexPattern { .plainXml }
     override var htmlRegexPattern: RegexPattern { .htmlXml }

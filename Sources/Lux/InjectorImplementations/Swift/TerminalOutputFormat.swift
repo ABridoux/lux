@@ -68,7 +68,7 @@ extension TerminalOutputFormat {
 
         private mutating func appendPending() {
             if let pending = pendingToken {
-                let colorMark = injectorDelegate.injection(for: pending.type, type: .plain)
+                let colorMark = injectorDelegate.injection(for: pending.type, in: .terminal).raw
                 output.append("\(colorMark)\(pending.string)\(lastColor ?? "")")
                 lastColor = colorMark
                 pendingToken = nil

@@ -1,6 +1,6 @@
 import Foundation
 
-/// Target `<pre><code>`tags in a HTML file and use a format injector to modify the found code blocks
+/// Target `<pre><code>`tags in a HTML file and use an injectors set to modify the code blocks.
 public struct FileInjectionService {
 
     // MARK: - Constants
@@ -21,7 +21,7 @@ public struct FileInjectionService {
         return try NSRegularExpression(pattern: pattern, options: [.caseInsensitive])
     }
 
-    public static func inject(in text: String, using injectors: [PlainTextInjector]) throws -> String {
+    public static func inject(in text: String, using injectors: [TextInjector]) throws -> String {
 
         // build the regex
         let languageIdentifiers = Set(injectors.flatMap { $0.languageIdentifiers })
@@ -80,7 +80,7 @@ public struct FileInjectionService {
     ///   - match: The string in which to inject color markers
     ///   - injector: The injector to inject color markers
     ///   - finalString: The string holding the current modified text that will be returned
-    static func handle(_ match: String, with injectors: [PlainTextInjector], appendingTo finalString: inout String) {
+    static func handle(_ match: String, with injectors: [TextInjector], appendingTo finalString: inout String) {
         let languageIdentifiers = Set(injectors.flatMap { $0.languageIdentifiers })
 
         guard
@@ -121,7 +121,7 @@ public struct FileInjectionService {
     ///   - languageIdentifier: The language identifier corresponding to one potential Injector
     ///   - injectors: List of potential injectors
     /// - Returns: The Injector responsibme for the given language identifier
-    static func getInjectorFor(languageIdentifier: String, from injectors: [PlainTextInjector]) -> PlainTextInjector? {
+    static func getInjectorFor(languageIdentifier: String, from injectors: [TextInjector]) -> TextInjector? {
         for injector in injectors {
             if injector.languageIdentifiers.contains(languageIdentifier) {
                 return injector

@@ -35,7 +35,7 @@ final class ZshInjectorTests: XCTestCase {
         testFile(3, with: .html)
     }
 
-    func testFile<Output: Appendable, InjType: InjectorType<Output>>(_ order: Int, with type: InjType, file: StaticString = #file, line: UInt = #line) {
+    func testFile<Output: Appendable, Injection: InjectionType, InjType: InjectorType<Output, Injection>>(_ order: Int, with type: InjType, file: StaticString = #file, line: UInt = #line) {
         let input = inputTestFile(with: .zsh, in: folder, order: order, type: type.textType)
         let expectedOutput = outputTestFile(with: .zsh, in: folder, order: order, type: type.textType)
 

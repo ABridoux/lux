@@ -1,6 +1,7 @@
 import Foundation
 
-public protocol AttributedTextInjector {
+/// Injector that can be used to output attributed strings
+public protocol AttributedInjector {
 
     /// Set of language identifier strings used in css and html files code blocks
     /// - Note: Add strings to this set to match new identifiers not already present in it
@@ -9,4 +10,4 @@ public protocol AttributedTextInjector {
     func inject(in text: String) -> AttributedString
 }
 
-extension BaseInjector: AttributedTextInjector where Output == AttributedString {}
+extension BaseInjector: AttributedInjector where Output == AttributedString {}

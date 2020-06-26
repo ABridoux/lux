@@ -2,7 +2,7 @@
 /// `keyName` and `KeyValue` for a Json format.
 public protocol Category {
 
-    var cssClass: String { get }
+    var cssClass: CSSClass { get }
     var terminalModifier: TerminalModifier { get }
     var color: Color { get }
 

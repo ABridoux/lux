@@ -4,13 +4,13 @@ import ArgumentParser
 enum Format: String, ExpressibleByArgument {
     case plist, xml, json, zsh, swift
 
-    func injector(type: TextType) -> PlainTextInjector {
+    func injector<Injection: InjectionType>(type: InjectorType<String, Injection>) -> TextInjector {
         switch self {
-        case .xml: return XMLEnhancedInjector(type: .terminal)
-        case .plist: return PlistInjector(type: .terminal)
-        case .json: return JSONInjector(type: .terminal)
-        case .zsh: return ZshInjector(type: .terminal)
-        case .swift: return SwiftInjector(type: .terminal)
+        case .xml: return XMLEnhancedInjector(type: type)
+        case .plist: return PlistInjector(type: type)
+        case .json: return JSONInjector(type: type)
+        case .zsh: return ZshInjector(type: type)
+        case .swift: return SwiftInjector(type: type)
         }
     }
 }

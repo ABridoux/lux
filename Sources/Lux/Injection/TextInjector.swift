@@ -1,6 +1,7 @@
 import Foundation
 
-public protocol PlainTextInjector {
+/// Injector that can be used to output simple text (not attributed).
+public protocol TextInjector {
 
     /// Set of language identifier strings used in css and html files code blocks
     /// - Note: Add strings to this set to match new identifiers not already present in it
@@ -9,4 +10,4 @@ public protocol PlainTextInjector {
     func inject(in text: String) -> String
 }
 
-extension BaseInjector: PlainTextInjector where Output == String {}
+extension BaseInjector: TextInjector where Output == String {}

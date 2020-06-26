@@ -50,6 +50,15 @@ final class JsonInjectorTests: XCTestCase {
 
         let result = JSONInjector(type: .html).inject(in: stubJsonString)
 
+        var index = 0
+        for (resultLine, expectedLine) in zip(result.split(separator: "\n"), expectedResult.split(separator: "\n")) {
+            if resultLine != expectedLine {
+                print("Wrong line: \(index)")
+                print(resultLine)
+                print(expectedLine)
+            }
+            index += 1
+        }
         XCTAssertEqual(result, expectedResult)
     }
 }

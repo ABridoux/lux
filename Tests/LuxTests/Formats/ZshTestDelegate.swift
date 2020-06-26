@@ -3,14 +3,7 @@ import Lux
 
 class ZshTestDelegate: ZshDelegate {
 
-    override func injection(for category: ZshCategory, type: TextType) -> String {
-        switch type {
-        case .plain: return terminalColor(for: category)
-        case .html: return cssClass(for: category)
-        }
-    }
-
-    func cssClass(for category: ZshCategory) -> String {
+    override func cssClass(for category: ZshCategory) -> String {
         switch category {
         case .program: return "zsh-program"
         case .optionNameOrFlag: return "zsh-option-flag"
@@ -23,16 +16,16 @@ class ZshTestDelegate: ZshDelegate {
         }
     }
 
-    func terminalColor(for category: ZshCategory) -> String {
+    override func terminalModifier(for category: ZshCategory) -> TerminalModifier {
         switch category {
-        case .program: return "\u{001B}[0;0m"
-        case .optionNameOrFlag: return "\u{001B}[38;5;106m"
-        case .commandOrOptionValue: return "\u{001B}[38;5;108m"
-        case .punctuation: return "\u{001B}[38;5;240m"
-        case .variable: return "\u{001B}[38;5;167m"
-        case .keyword: return "\u{001B}[38;5;24m"
-        case .string: return "\u{001B}[38;5;109m"
-        case .comment: return "\u{001B}[38;5;245m"
+        case .program: return .resetColors
+        case .optionNameOrFlag: return TerminalModifier(colorCode: 106)
+        case .commandOrOptionValue: return TerminalModifier(colorCode: 108)
+        case .punctuation: return TerminalModifier(colorCode: 240)
+        case .variable: return TerminalModifier(colorCode: 167)
+        case .keyword: return TerminalModifier(colorCode: 24)
+        case .string: return TerminalModifier(colorCode: 109)
+        case .comment: return TerminalModifier(colorCode: 245)
         }
     }
 }

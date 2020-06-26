@@ -13,7 +13,7 @@ extension NSRegularExpression {
 
     /// Range of the string without white spaces and newlines
     static func trimmedWhiteSpacesAndNewLinesRange(in string: String) -> NSRange? {
-        let regex = try! NSRegularExpression(pattern: #"[^\s*].*[^\s*]"#)
+        let regex = try! NSRegularExpression(pattern: #"\S[\s\S]*\S"#)
 
         let nsString = string as NSString
         let range = NSRange(location: 0, length: nsString.length)

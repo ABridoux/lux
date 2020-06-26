@@ -1,7 +1,7 @@
 import Foundation
 import Splash
 
-public final class SwiftInjector<Output: Appendable, InjType: InjectorType<Output>>: BaseInjector<SwiftCategory, Output, InjType> {
+public final class SwiftInjector<Output: Appendable, Injection: InjectionType, InjType: InjectorType<Output, Injection>>: BaseInjector<SwiftCategory, Output, Injection, InjType> {
 
     override public init(type: InjType, delegate: Delegate = SwiftDelegate(), languageName: String = "swift") {
         super.init(type: type, delegate: delegate, languageName: languageName)

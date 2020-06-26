@@ -1,6 +1,7 @@
 import Foundation
 
-public final class JSONInjector<Output: Appendable, InjType: InjectorType<Output>>: BaseInjector<JSONCategory, Output, InjType> {
+public final class JSONInjector<Output: Appendable, Injection: InjectionType, InjType: InjectorType<Output, Injection>>:
+    BaseInjector<JSONCategory, Output, Injection, InjType> {
 
     override var plainRegexPattern: RegexPattern { .json }
     override var htmlRegexPattern: RegexPattern { .json }

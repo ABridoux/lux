@@ -1,7 +1,7 @@
 import Foundation
 
 /// Inject strings into a text depending on the configuration or the delegate.
-public final class XMLEnhancedInjector<Output: Appendable, InjType: InjectorType<Output>>: BaseInjector<XMLEnhancedCategory, Output, InjType> {
+public final class XMLEnhancedInjector<Output: Appendable, Injection: InjectionType, InjType: InjectorType<Output, Injection>>: BaseInjector<XMLEnhancedCategory, Output, Injection, InjType> {
 
     override var plainRegexPattern: RegexPattern { .plainXml }
     override var htmlRegexPattern: RegexPattern { .htmlXml }

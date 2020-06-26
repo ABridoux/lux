@@ -1,6 +1,6 @@
 import Foundation
 
-public final class ZshInjector<Output: Appendable, InjType: InjectorType<Output>>: BaseInjector<ZshCategory, Output, InjType> {
+public final class ZshInjector<Output: Appendable, Injection: InjectionType, InjType: InjectorType<Output, Injection>>: BaseInjector<ZshCategory, Output, Injection, InjType> {
 
     override var plainRegexPattern: RegexPattern { .plainZsh }
     override var htmlRegexPattern: RegexPattern { .plainZsh }
