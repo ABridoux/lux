@@ -30,7 +30,7 @@ public class InjectorType<Output: Appendable, Injection: InjectionType> {
 
     public func inject(_ injection: Injection, in text: String, previousInjection: Injection? = nil) -> Output {
         let textCount = text.nsRange.upperBound
-
+        
         // try to get the range of the trimmed (white spaces and newlines) string
         guard let trimmedRange = NSRegularExpression.trimmedWhiteSpacesAndNewLinesRange(in: text),
             trimmedRange.lowerBound > 0 || trimmedRange.upperBound > 0 && trimmedRange.upperBound < textCount

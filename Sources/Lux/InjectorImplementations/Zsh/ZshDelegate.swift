@@ -49,7 +49,7 @@ open class ZshDelegate: InjectorDelegate<ZshCategory> {
         guard let prefix = program.first else { return Output(match) }
 
         if ["[", "(", "`"].contains(prefix) {
-            output += injectorType.inject(injection, in: match)
+            output += injectorType.inject(injection, in: String(prefix))
             program.removeFirst()
         }
 

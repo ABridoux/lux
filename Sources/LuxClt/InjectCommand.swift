@@ -14,6 +14,9 @@ struct InjectCommand: ParsableCommand {
     @Option(name: [.short, .long], help: "plist, xml, json")
     var format: Format
 
+    @Flag(name: [.long], default: true, inversion: .prefixedNo, help: "If true, the HTML special characters in the code blocks will be escaped when type is html")
+    var escapeHTML: Bool
+
     func run() throws {
         // get the input
         let data: Data
@@ -35,7 +38,7 @@ struct InjectCommand: ParsableCommand {
         case .plain:
             output = format.injector(type: .terminal).inject(in: input)
         case .html:
-            output = format.injector(type: .html).inject(in: input)
+            output = format.injector(type: .html).inject(in: (escapeHTML ? input.escapingHTMLEntities() : input))
 
         }
         print(output)
