@@ -15,7 +15,6 @@ public typealias Color = NSColor
 #endif
 
 #if !os(macOS)
-extension UIColor: Color {}
 
 extension UIColor {
     /**

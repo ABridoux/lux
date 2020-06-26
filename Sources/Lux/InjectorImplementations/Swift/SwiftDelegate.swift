@@ -5,7 +5,7 @@ extension InjectorDelegate where Cat == SwiftCategory {
 
     var theme: Theme { Theme(
     font: .init(size: 12),
-    plainTextColor: .labelColor,
+    plainTextColor: Color(red: 1, green: 1, blue: 1, alpha: 1),
     tokenColors: [
         .keyword: SwiftCategory.keyword.color,
         .string: SwiftCategory.string.color,

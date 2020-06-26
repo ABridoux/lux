@@ -7,13 +7,13 @@ open class InjectorDelegate<Cat: Category> {
 
     // MARK: - Functions
 
-    //// Called by the injector to get the color to use for the given category when dealing with attributed string
+    //// Called by the injector to get the color to use for the given category when dealing with attributed output
     open func color(for category: Cat) -> Color { category.color }
 
-    /// Called by the injector to get the CSS class to use for the given category when dealing with HTML string
+    /// Called by the injector to get the CSS class to use for the given category when dealing with HTML output
     open func cssClass(for category: Cat) -> CSSClass { category.cssClass }
 
-    /// Called by the injector to get the terminal modifier to use for the given category when dealing with HTML string
+    /// Called by the injector to get the terminal modifier to use for the given category when dealing terminal output
     open func terminalModifier(for category: Cat) -> TerminalModifier { category.terminalModifier }
 
     /// Called by the injector to know what injection to use for a given category

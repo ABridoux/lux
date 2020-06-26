@@ -82,6 +82,11 @@ public final class Terminal: InjectorType<String, TerminalModifier> {
 /// Type of injector to use when outputting in a HTML file
 public final class Html: InjectorType<String, CSSClass> {
 
+    override public func inject(_ injection: CSSClass, in text: String, previousInjection: CSSClass? = nil) -> String {
+        let text = text.escapingHTMLEntities()
+
+        return super.inject(injection, in: text, previousInjection: previousInjection)
+    }
     override func untrimmedInject(_ injection: String, in text: String, previousInjection: String? = nil) -> String {
         return #"<span class="\#(injection)">\#(text)</span>"#
     }

@@ -1,13 +1,13 @@
-<p>
-Swift package:<br>
+<p  align="center">
+Swift package<br>
     <a href="#">
         <img src="https://img.shields.io/badge/Swift-5.1-orange.svg" />
     </a>
     <a href="https://swift.org/package-manager">
         <img src="https://img.shields.io/badge/swiftpm-compatible-brightgreen.svg?style=flat" alt="Swift Package Manager" />
     </a>
-    <br/>
-Install:<br>
+    <br/><br/>
+Install<br/>
     <a href="#">
         <img src="https://img.shields.io/badge/platforms-mac+linux-brightgreen.svg?style=flat" alt="Mac + Linux" />
     </a>
@@ -17,37 +17,58 @@ Install:<br>
     <br/>
 </p>
 
-
-# Lux
+# Lux <a href="https://github.com/ABridoux/scout/releases"><img src="https://img.shields.io/github/v/release/Abridoux/lux?color=lightgrey&label=latest" /></a>
 
 A Swift library with a dedicated command-line tool to colorise plain code (e.g. for terminal output), HTML files code blocks or attributed strings (e.g. for macOS or iOS apps).
 
 Currently supported:
+- [x] Zsh/Bash
+- [x] Swift (with [Splash](https://github.com/JohnSundell/Splash))
 - [x] Xml
 - [x] Xml enhanced (better visualisation of the tags)
 - [x] Plist
 - [x] Json
 
-To be added:
-- [ ] Zsh
-- [ ] Swift
-
 You can ask for a language by [opening an issue](https://github.com/ABridoux/lux/issues).
 The following screenshots show the different usages of **Lux**.
 
-<div style="text-align: center;">
-<img src="Resources/Example-terminal.png" width="800"/>
-<p><em>Output in the terminal with a JSON format</em></p>
-<br />
+
+<p align="center">
+
 <img src="Resources/Example-macOS.png" width="800"/>
-<p><em>macOS app with a Plist format</em></p>
 <br />
+<em>Plist in macOS app</em></p>
+<br />
+
+<p align="center">
 <img src="Resources/Example-iOS.png" width="500"/>
-<p><em>iOS app with an enhanced XML format</em></p>
 <br />
+<em>iOS app with an enhanced XML format</em></p>
+<br />
+
+<p align="center">
 <img src="Resources/Example-html.png" width="800"/>
-<p><em><a href="https://www.octory.io">Octory</a> (new) wiki sample</em></p>
-</div>
+<br />
+<em><a href="https://www.octory.io">Octory</a> (new) wiki sample</em></p>
+<br />
+
+<p align="center">
+<img src="Resources/Swift-terminal.png" width="800"/>
+<br />
+<em>Swift in the terminal</em></p>
+<br />
+
+<p align="center">
+<img src="Resources/Zsh-iPad.png" width="800"/>
+<br />
+<em>Zsh on iPad. A script from Scripting OSX to <a href="https://scriptingosx.com/2019/09/notarize-a-command-line-tool/">notarise a command-line tool</a>.</em></p>
+<br />
+
+<p align="center">
+<img src="Resources/Zsh-terminal.png" width="800"/>
+<br />
+<em>Zsh in the terminal</em></p>
+<br />
 
 <br />
 
