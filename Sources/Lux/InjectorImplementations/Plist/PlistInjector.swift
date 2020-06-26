@@ -9,7 +9,7 @@ open class PlistInjector<Output: Appendable, Injection: InjectionType, InjType: 
         super.init(type: type, delegate: delegate, languageName: languageName)
     }
 
-    override public func inject(in text: String) -> Output {
+    override open func inject(in text: String) -> Output {
         var currentOpenTagIsKey = false
 
         let modifiedInput = try? InjectionService.inject(Output.self, in: text, following: regexPattern) { match in

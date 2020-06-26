@@ -2,7 +2,7 @@ import Foundation
 
 open class JSONDelegate: InjectorDelegate<JSONCategory> {
 
-    public override func inject<Output: Appendable, Injection: InjectionType>(_ category: JSONCategory, in injectorType: InjectorType<Output, Injection>, _ match: String) -> Output {
+    override open func inject<Output: Appendable, Injection: InjectionType>(_ category: JSONCategory, in injectorType: InjectorType<Output, Injection>, _ match: String) -> Output {
 
         let injection = self.injection(for: category, in: injectorType)
         let punctuation = self.injection(for: .punctuation, in: injectorType)
