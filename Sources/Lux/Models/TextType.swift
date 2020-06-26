@@ -1,4 +1,4 @@
-/// Different text formats which has to be colorised. Plain, Html.
+/// Different text formats which can be used as input text: Plain, Html.
 public enum TextType: String {
     case plain, html
 

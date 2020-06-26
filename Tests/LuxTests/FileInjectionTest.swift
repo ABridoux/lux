@@ -74,7 +74,7 @@ final class FileInjectionServiceTests: XCTestCase {
     """
 
     func testInject1() throws {
-        let result =  try FileInjectionService.injectPlist(in: text)
+        let result =  try FileInjectionService.inject(in: text, using: [PlistInjector(type: .html)] )
 
         print(result)
     }

@@ -1,0 +1,16 @@
+<span class="zsh-comment">#!/bin/bash</span>
+<span class="zsh-program">export</span> <span class="zsh-command-option-value">PATH=/usr/bin:/bin:/usr/sbin:/sbin</span>
+
+<span class="zsh-keyword">function</span> <span class="zsh-command-option-value">countArguments()</span> <span class="zsh-punctuation">{</span>
+    <span class="zsh-program">echo</span> <span class="zsh-string">"${#@}"</span>
+<span class="zsh-punctuation">}</span>
+
+<span class="zsh-variable">wordlist</span><span class="zsh-keyword">=</span><span class="zsh-string">"one two three four five"</span>
+
+<span class="zsh-program">echo</span> <span class="zsh-string">"normal substitution, no quotes:"</span>
+<span class="zsh-program">countArguments</span> <span class="zsh-variable">$wordlist</span>
+<span class="zsh-comment"># -> 5</span>
+
+<span class="zsh-program">echo</span> <span class="zsh-string">"substitution with quotes"</span>
+<span class="zsh-program">countArguments</span> <span class="zsh-string">"</span><span class="zsh-variable">$wordlist</span><span class="zsh-string">"</span>
+<span class="zsh-comment"># -> 1</span>

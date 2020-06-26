@@ -40,11 +40,11 @@ final class PlistInjectorTests: XCTestCase {
         """
 
     func testInjectTerminalColor() {
-        let tag = PlistCategory.tagDefault.terminalColor
-        let keyName = PlistCategory.keyNameDefault.terminalColor
-        let keyValue = PlistCategory.keyValueDefault.terminalColor
-        let comment = PlistCategory.comment.terminalColor
-        let header = PlistCategory.header.terminalColor
+        let tag = PlistCategory.tagDefault.terminalModifier.raw
+        let keyName = PlistCategory.keyNameDefault.terminalModifier.raw
+        let keyValue = PlistCategory.keyValueDefault.terminalModifier.raw
+        let comment = PlistCategory.comment.terminalModifier.raw
+        let header = PlistCategory.header.terminalModifier.raw
         let reset = Colors.terminalReset
 
         let expectedResult =
@@ -64,7 +64,7 @@ final class PlistInjectorTests: XCTestCase {
             \(header)</plist>\(reset)
             """
 
-        let result = PlistInjector(type: .plain).inject(in: stubPlistString)
+        let result = PlistInjector(type: .terminal).inject(in: stubPlistString)
 
         XCTAssertEqual(result, expectedResult)
     }

@@ -1,0 +1,15 @@
+#!/bin/bash
+# Load the LaunchAgent which makes Octory re-appear when terminated by the user
+
+loggedInUser=$( echo "show State:/Users/ConsoleUser" | scutil | awk '/Name :/ && ! /loginwindow/ { print $3 }' )
+loggedInUID=`id -u ${loggedInUser}`
+
+if [[ ${loggedInUID} -gt 500 ]]; then
+    echo "Launching Octory for user ${loggedInUID}…"
+    sudo -u \#${loggedInUID} launchctl enable gui/${loggedInUID}/com.amaris.octory.launch
+    sudo -u \#${loggedInUID} launchctl bootstrap gui/${loggedInUID}/ /Library/LaunchAgents/com.amaris.octory.launch.plist
+    sudo -u \#${loggedInUID} launchctl kickstart gui/${loggedInUID}/com.amaris.octory.launch
+fi
+
+cd "/Library/Application Support/Octory/HelperInstall"
+./installHelper.sh

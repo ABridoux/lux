@@ -83,11 +83,45 @@ public struct InjectionService {
     ///   - text: The text in which to insert the string
     /// - Returns: the modified match with the inserted string
     static public func inject(_ stringToInject: String, in type: TextType, _ text: String) -> String {
+
+        let textCount = text.nsRange.upperBound
+
+        // try to get the range of the trimmed (white spaces and newlines) string
+        guard let trimmedRange = NSRegularExpression.trimmedWhiteSpacesAndNewLinesRange(in: text),
+            trimmedRange.lowerBound > 0 || trimmedRange.upperBound < textCount
+        else { // no trimming was needed
+            switch type {
+            case .plain:
+                return stringToInject + text + Colors.terminalReset
+            case .html:
+                return #"<span class="\#(stringToInject)">\#(text)</span>"#
+            }
+        }
+
+        // isolate left and right ranges to inject the string only in the trimmed string
+        var match = (text as NSString)[trimmedRange]
+
         switch type {
         case .plain:
-            return stringToInject + text + Colors.terminalReset
+            match = stringToInject + match + Colors.terminalReset
         case .html:
-            return #"<span class="\#(stringToInject)">\#(text)</span>"#
+            match = #"<span class="\#(stringToInject)">\#(match)</span>"#
         }
+
+        var injectedText = ""
+
+        if trimmedRange.lowerBound > 0 {
+            let leftRange = NSRange(location: 0, length: trimmedRange.lowerBound)
+            injectedText += text[leftRange]
+        }
+
+        injectedText += match
+
+        if trimmedRange.upperBound <  textCount {
+            let rightRange = NSRange(location: trimmedRange.upperBound, length: textCount - trimmedRange.upperBound)
+            injectedText += text[rightRange]
+        }
+
+        return injectedText
     }
 }

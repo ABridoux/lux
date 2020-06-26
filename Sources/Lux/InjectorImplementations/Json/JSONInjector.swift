@@ -1,12 +1,12 @@
 import Foundation
 
-public final class JSONInjector: BaseInjector<JSONCategory> {
+public final class JSONInjector<Output: Appendable, Injection: InjectionType, InjType: InjectorType<Output, Injection>>:
+    BaseInjector<JSONCategory, Output, Injection, InjType> {
 
-    override var defaultLanguageIdentifiers: Set<String> { ["json", "lang-json", "language-json"] }
     override var plainRegexPattern: RegexPattern { .json }
     override var htmlRegexPattern: RegexPattern { .json }
 
-    override public init(type: TextType, delegate: BaseInjector<JSONCategory>.Delegate = JSONDelegate()) {
-        super.init(type: type, delegate: delegate)
+    override public init(type: InjType, delegate: Delegate = JSONDelegate(), languageName: String = "json") {
+        super.init(type: type, delegate: delegate, languageName: languageName)
     }
 }

@@ -26,10 +26,10 @@ final class XMLInjectorTests: XCTestCase {
     """
 
     func testInjectTerminalColor() {
-        let tag = XMLCategory.tagDefault.terminalColor
-        let comment = XMLCategory.comment.terminalColor
-        let header = XMLCategory.header.terminalColor
-        let key = XMLCategory.keyDefault.terminalColor
+        let tag = XMLCategory.tagDefault.terminalModifier.raw
+        let comment = XMLCategory.comment.terminalModifier.raw
+        let header = XMLCategory.header.terminalModifier.raw
+        let key = XMLCategory.keyDefault.terminalModifier.raw
         let reset = Colors.terminalReset
 
         let expectedResult =
@@ -43,7 +43,7 @@ final class XMLInjectorTests: XCTestCase {
             \(tag)</properties>\(reset)
             """
 
-        let result = XMLInjector(type: .plain).inject(in: stubXmlString)
+        let result = XMLInjector(type: .terminal).inject(in: stubXmlString)
 
         XCTAssertEqual(result, expectedResult)
     }

@@ -26,12 +26,12 @@ final class XMLEnhancedInjectorTests: XCTestCase {
     """
 
     func testInjectTerminalColor() {
-        let openingTag = XMLEnhancedCategory.openingTagDefault.terminalColor
-        let closingTag = XMLEnhancedCategory.closingTagDefault.terminalColor
-        let punctuation = XMLEnhancedCategory.punctuation.terminalColor
-        let comment = XMLEnhancedCategory.comment.terminalColor
-        let header = XMLEnhancedCategory.header.terminalColor
-        let key = XMLEnhancedCategory.keyDefault.terminalColor
+        let openingTag = XMLEnhancedCategory.openingTagDefault.terminalModifier.raw
+        let closingTag = XMLEnhancedCategory.closingTagDefault.terminalModifier.raw
+        let punctuation = XMLEnhancedCategory.punctuation.terminalModifier.raw
+        let comment = XMLEnhancedCategory.comment.terminalModifier.raw
+        let header = XMLEnhancedCategory.header.terminalModifier.raw
+        let key = XMLEnhancedCategory.keyDefault.terminalModifier.raw
         let reset = Colors.terminalReset
 
         let expectedResult =
@@ -45,7 +45,7 @@ final class XMLEnhancedInjectorTests: XCTestCase {
             \(punctuation)</\(reset)\(closingTag)properties\(reset)\(punctuation)>\(reset)
             """
 
-        let result = XMLEnhancedInjector(type: .plain).inject(in: stubXmlString)
+        let result = XMLEnhancedInjector(type: .terminal).inject(in: stubXmlString)
 
         XCTAssertEqual(result, expectedResult)
     }

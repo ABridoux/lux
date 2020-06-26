@@ -1,0 +1,16 @@
+#!/bin/bash
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin
+
+function countArguments() {
+    echo "${#@}"
+}
+
+wordlist="one two three four five"
+
+echo "normal substitution, no quotes:"
+countArguments $wordlist
+# -> 5
+
+echo "substitution with quotes"
+countArguments "$wordlist"
+# -> 1
