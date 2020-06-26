@@ -1,6 +1,6 @@
 open class XMLEnhancedDelegate: InjectorDelegate<XMLEnhancedCategory> {
 
-    override public func inject<Output: Appendable, Injection: InjectionType>(_ category: XMLEnhancedCategory, in injectorType: InjectorType<Output, Injection>, _ match: String) -> Output {
+    override open func inject<Output: Appendable, Injection: InjectionType>(_ category: XMLEnhancedCategory, in injectorType: InjectorType<Output, Injection>, _ match: String) -> Output {
         switch category {
 
         case .openingTag(let tag), .closingTag(let tag):

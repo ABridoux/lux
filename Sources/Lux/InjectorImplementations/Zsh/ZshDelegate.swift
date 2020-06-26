@@ -6,7 +6,7 @@ open class ZshDelegate: InjectorDelegate<ZshCategory> {
 
     // MARK: InjectorDelegate override
 
-    public override func inject<Output, Injection>(_ category: ZshCategory, in injectorType: InjectorType<Output, Injection>, _ match: String) -> Output where Output: Appendable, Injection: InjectionType {
+    override open func inject<Output, Injection>(_ category: ZshCategory, in injectorType: InjectorType<Output, Injection>, _ match: String) -> Output where Output: Appendable, Injection: InjectionType {
 
         let injection = self.injection(for: category, in: injectorType)
 
@@ -24,7 +24,7 @@ open class ZshDelegate: InjectorDelegate<ZshCategory> {
 
     // MARK: Injection helpers
 
-    open func inject<Output: Appendable, Injection: InjectionType>(_ injection: Injection, in injectorType: InjectorType<Output, Injection>, program match: String) -> Output {
+    func inject<Output: Appendable, Injection: InjectionType>(_ injection: Injection, in injectorType: InjectorType<Output, Injection>, program match: String) -> Output {
         let keyword = self.injection(for: .keyword, in: injectorType)
         let punctuation = self.injection(for: .punctuation, in: injectorType)
         let command = self.injection(for: .commandOrOptionValue, in: injectorType)
@@ -70,7 +70,7 @@ open class ZshDelegate: InjectorDelegate<ZshCategory> {
         return output
     }
 
-    open func inject<Output: Appendable, Injection: InjectionType>(_ injection: Injection, in injectorType: InjectorType<Output, Injection>, stringVithVariables match: String) -> Output {
+    func inject<Output: Appendable, Injection: InjectionType>(_ injection: Injection, in injectorType: InjectorType<Output, Injection>, stringVithVariables match: String) -> Output {
         let variableInjection = self.injection(for: .variable, in: injectorType)
 
         // indicates whether the string contains variables
@@ -95,7 +95,7 @@ open class ZshDelegate: InjectorDelegate<ZshCategory> {
         return injectedVariables ?? Output(match)
     }
 
-    open func inject<Output: Appendable, Injection: InjectionType>(_ injection: Injection, in injectorType: InjectorType<Output, Injection>, variable match: String) -> Output {
+    func inject<Output: Appendable, Injection: InjectionType>(_ injection: Injection, in injectorType: InjectorType<Output, Injection>, variable match: String) -> Output {
         let keywordInjection = self.injection(for: .keyword, in: injectorType)
 
         // colorise "=" as a keyword
