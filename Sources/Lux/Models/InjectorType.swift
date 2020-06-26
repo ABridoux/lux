@@ -30,7 +30,7 @@ public class InjectorType<Output: Appendable, Injection: InjectionType> {
 
     public func inject(_ injection: Injection, in text: String, previousInjection: Injection? = nil) -> Output {
         let textCount = text.nsRange.upperBound
-
+        
         // try to get the range of the trimmed (white spaces and newlines) string
         guard let trimmedRange = NSRegularExpression.trimmedWhiteSpacesAndNewLinesRange(in: text),
             trimmedRange.lowerBound > 0 || trimmedRange.upperBound > 0 && trimmedRange.upperBound < textCount
@@ -82,11 +82,6 @@ public final class Terminal: InjectorType<String, TerminalModifier> {
 /// Type of injector to use when outputting in a HTML file
 public final class Html: InjectorType<String, CSSClass> {
 
-    override public func inject(_ injection: CSSClass, in text: String, previousInjection: CSSClass? = nil) -> String {
-        let text = text.escapingHTMLEntities()
-
-        return super.inject(injection, in: text, previousInjection: previousInjection)
-    }
     override func untrimmedInject(_ injection: String, in text: String, previousInjection: String? = nil) -> String {
         return #"<span class="\#(injection)">\#(text)</span>"#
     }
