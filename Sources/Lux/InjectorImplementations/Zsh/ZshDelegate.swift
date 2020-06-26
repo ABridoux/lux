@@ -4,209 +4,111 @@ open class ZshDelegate: InjectorDelegate<ZshCategory> {
 
     // MARK: - Functions
 
-    // MARK: InjectorDelegate overrides
+    // MARK: InjectorDelegate override
 
-    public override func inject(_ category: ZshCategory, in type: TextType, _ match: String) -> String {
-        let stringToInject = injection(for: category, type: type)
+    public override func inject<Output, Injection>(_ category: ZshCategory, in injectorType: InjectorType<Output, Injection>, _ match: String) -> Output where Output: Appendable, Injection: InjectionType {
 
-        switch category {
-
-        case .program: return inject(stringToInject, in: type, program: match)
-
-        case .string, .commandOrOptionValue: return inject(stringToInject, in: type, stringVithVariables: match)
-
-        case .variable: return inject(stringToInject, in: type, variable: match)
-
-        default: return InjectionService.inject(stringToInject, in: type, match)
-        }
-    }
-
-    public override func inject(category: ZshCategory, _ match: String) -> AttributedString {
-        let color = self.color(for: category)
+        let injection = self.injection(for: category, in: injectorType)
 
         switch category {
 
-        case .program: return inject(color, program: match)
+        case .program: return inject(injection, in: injectorType, program: match)
 
-        case .string, .commandOrOptionValue: return inject(color, stringVithVariables: match)
+        case .string, .commandOrOptionValue: return inject(injection, in: injectorType, stringVithVariables: match)
 
-        case .variable: return inject(color, variable: match)
+        case .variable: return inject(injection, in: injectorType, variable: match)
 
-        default: return AttributedString(match, color: color)
+        default: return injectorType.inject(injection, in: match)
         }
     }
 
     // MARK: Injection helpers
 
-    func inject(_ stringToInject: String, in type: TextType, program match: String) -> String {
-        let keywordMark = injection(for: .keyword, type: type)
-        let punctuationMark = injection(for: .punctuation, type: type)
-        let commandMark = injection(for: .commandOrOptionValue, type: type)
+    open func inject<Output: Appendable, Injection: InjectionType>(_ injection: Injection, in injectorType: InjectorType<Output, Injection>, program match: String) -> Output {
+        let keyword = self.injection(for: .keyword, in: injectorType)
+        let punctuation = self.injection(for: .punctuation, in: injectorType)
+        let command = self.injection(for: .commandOrOptionValue, in: injectorType)
 
-        var injection = ""
+        var output = Output.empty
 
-        guard !match.isEmpty else { return match }
+        guard !match.isEmpty else { return Output(match) }
 
         // colorise both sudo and the program name as programs
         if match.hasPrefix("sudo") {
-            return InjectionService.inject(stringToInject, in: type, match)
+            return injectorType.inject(injection, in: match)
         }
 
         var program = match
 
         // handle the prefixes if present
         if match.hasPrefix("$") {
-            injection += InjectionService.inject(keywordMark, in: type, "$")
+            output += injectorType.inject(keyword, in: "$")
             program.removeFirst()
         }
 
-        guard let prefix = program.first else { return match }
+        guard let prefix = program.first else { return Output(match) }
 
         if ["[", "(", "`"].contains(prefix) {
-            injection += InjectionService.inject(punctuationMark, in: type, String(prefix))
+            output += injectorType.inject(injection, in: match)
             program.removeFirst()
         }
 
         if ["|"].contains(prefix) {
-            injection += InjectionService.inject(keywordMark, in: type, String(prefix))
+            output += injectorType.inject(punctuation, in: String(prefix))
             program.removeFirst()
         }
 
-        guard !program.isEmpty else { return match }
+        guard !program.isEmpty else { return Output(match) }
 
         // avoid to take numbers only as programs
         if program.trimmingCharacters(in: .decimalDigits).isEmpty { // we have numbers only
-            injection += InjectionService.inject(commandMark, in: type, program)
+            output += injectorType.inject(command, in: program)
         } else {
-            injection += InjectionService.inject(stringToInject, in: type, program)
+            output += injectorType.inject(injection, in: program)
         }
 
-        return injection
+        return output
     }
 
-    func inject(_ color: Color, program match: String) -> AttributedString {
-        let keywordColor = self.color(for: .keyword)
-        let punctuationColor = self.color(for: .punctuation)
-        let commandColor = self.color(for: .commandOrOptionValue)
-
-        var attrString = AttributedString.empty
-
-        guard !match.isEmpty else { return match.attributed }
-
-        // colorise both sudo and the program name as programs
-        if match.hasPrefix("sudo") {
-            return AttributedString(match, color: color)
-        }
-
-        var program = match
-
-        // handle the prefixes if present
-        if match.hasPrefix("$") {
-            attrString.append("$", with: keywordColor)
-            program.removeFirst()
-        }
-
-        guard let prefix = program.first else { return match.attributed }
-
-        if ["[", "(", "`"].contains(prefix) {
-            attrString.append(String(prefix), with: punctuationColor)
-            program.removeFirst()
-        }
-
-        if ["|"].contains(prefix) {
-            attrString.append("|", with: keywordColor)
-            program.removeFirst()
-        }
-
-        guard !program.isEmpty else { return match.attributed }
-
-        // avoid to take numbers only as programs
-        if program.trimmingCharacters(in: .decimalDigits).isEmpty { // we have numbers only
-            attrString.append(program, with: commandColor)
-        } else {
-            attrString.append(program, with: color)
-        }
-
-        return attrString
-
-    }
-
-    func inject(_ stringToInject: String, in type: TextType, stringVithVariables match: String) -> String {
-        let variableMark = injection(for: .variable, type: type)
-
-        // look for variables in the string
-        let injectedVariables = try? InjectionService.inject(String.self, in: match, following: .zshVariables) { string in
-            if ZshCategory(from: string) == .variable {
-                return InjectionService.inject(variableMark, in: type, string)
-            } else {
-                return InjectionService.inject(stringToInject, in: type, string)
-            }
-        }
-
-        let stringWithVariables = injectedVariables ?? match
-        return InjectionService.inject(stringToInject, in: type, stringWithVariables)
-    }
-
-    func inject(_ color: Color, stringVithVariables match: String) -> AttributedString {
-        let variableColor = self.color(for: .variable)
-
-        var attrString = AttributedString.empty
-        attrString.textColor = color
+    open func inject<Output: Appendable, Injection: InjectionType>(_ injection: Injection, in injectorType: InjectorType<Output, Injection>, stringVithVariables match: String) -> Output {
+        let variableInjection = self.injection(for: .variable, in: injectorType)
 
         // indicates whether the string contains variables
         var didParse = false
 
         // look for variables in the string
-        var injectedVariables = try? InjectionService.inject(AttributedString.self, in: match, following: .zshVariables) { string in
+        var injectedVariables = try? InjectionService.inject(Output.self, in: match, following: .zshVariables) { string in
             didParse = true
+
             if ZshCategory(from: string) == .variable {
-                return AttributedString(string, color: variableColor)
+                return injectorType.inject(variableInjection, in: string)
             } else {
-                return AttributedString(string, color: color)
+                return injectorType.inject(injection, in: string)
             }
         }
 
         if !didParse {
             // no variables were found so no opportunity to set the color. We do it now
-            injectedVariables?.textColor = color
+            injectedVariables = injectorType.inject(injection, in: match)
         }
 
-        attrString.append(injectedVariables ?? AttributedString(match, color: color))
-
-        return attrString
+        return injectedVariables ?? Output(match)
     }
 
-    func inject(_ stringToInject: String, in type: TextType, variable match: String) -> String {
-        let keywordMark = injection(for: .keyword, type: type)
+    open func inject<Output: Appendable, Injection: InjectionType>(_ injection: Injection, in injectorType: InjectorType<Output, Injection>, variable match: String) -> Output {
+        let keywordInjection = self.injection(for: .keyword, in: injectorType)
 
         // colorise "=" as a keyword
         if match.hasSuffix("=") {
             var variable = match
             variable.removeLast()
 
-            var injection = InjectionService.inject(stringToInject, in: type, variable)
-            injection += InjectionService.inject(keywordMark, in: type, "=")
+            var output = injectorType.inject(injection, in: variable)
+            output += injectorType.inject(keywordInjection, in: "=")
 
-            return injection
+            return output
         } else {
-            return InjectionService.inject(stringToInject, in: type, match)
-        }
-    }
-
-    func inject(_ color: Color, variable match: String) -> AttributedString {
-        let keywordColor = self.color(for: .keyword)
-
-        // colorise "=" as a keyword
-        if match.hasSuffix("=") {
-            var variable = match
-            variable.removeLast()
-
-            var attrString = AttributedString(variable, color: color)
-            attrString.append("=", with: keywordColor)
-
-            return attrString
-        } else {
-            return AttributedString(match, color: color)
+            return injectorType.inject(injection, in: match)
         }
     }
 }

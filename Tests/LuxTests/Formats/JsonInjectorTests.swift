@@ -15,9 +15,9 @@ final class JsonInjectorTests: XCTestCase {
     """
 
     func testInjectTerminalColor() {
-        let punctuation = JSONCategory.punctuation.terminalColor
-        let keyName = JSONCategory.keyName.terminalColor
-        let keyValue = JSONCategory.keyValue.terminalColor
+        let punctuation = JSONCategory.punctuation.terminalModifier.raw
+        let keyName = JSONCategory.keyName.terminalModifier.raw
+        let keyValue = JSONCategory.keyValue.terminalModifier.raw
         let reset = Colors.terminalReset
 
         let expectedResult =
@@ -29,7 +29,7 @@ final class JsonInjectorTests: XCTestCase {
             \(punctuation)}\(reset)
             """
 
-        let result = JSONInjector(type: .plain).inject(in: stubJsonString)
+        let result = JSONInjector(type: .terminal).inject(in: stubJsonString)
 
         XCTAssertEqual(result, expectedResult)
     }
@@ -50,6 +50,15 @@ final class JsonInjectorTests: XCTestCase {
 
         let result = JSONInjector(type: .html).inject(in: stubJsonString)
 
+        var index = 0
+        for (resultLine, expectedLine) in zip(result.split(separator: "\n"), expectedResult.split(separator: "\n")) {
+            if resultLine != expectedLine {
+                print("Wrong line: \(index)")
+                print(resultLine)
+                print(expectedLine)
+            }
+            index += 1
+        }
         XCTAssertEqual(result, expectedResult)
     }
 }

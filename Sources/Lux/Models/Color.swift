@@ -4,8 +4,15 @@ import UIKit
 import AppKit
 #endif
 
-/// A UIColor or NSColor
-public protocol Color {}
+#if os(iOS)
+import UIKit
+/// Typealias to avoid AppKit/UIKit differences
+public typealias Color = UIColor
+#elseif os(macOS)
+import Cocoa
+/// Typealias to avoid AppKit/UIKit differences
+public typealias Color = NSColor
+#endif
 
 #if !os(macOS)
 extension UIColor: Color {}
@@ -46,7 +53,6 @@ extension UIColor {
 }
 
 #else
-extension NSColor: Color {}
 
 extension NSColor {
     /**

@@ -5,12 +5,12 @@
 <span class="zsh-variable">COLOR_NC</span><span class="zsh-keyword">=</span><span class="zsh-string">'\033[0m'</span> <span class="zsh-comment"># No Color</span>
 
 <span class="zsh-keyword">function</span> <span class="zsh-command-option-value">error</span> <span class="zsh-punctuation">{</span>
-    <span class="zsh-program">echo</span> <span class="zsh-string"><span class="zsh-string">"</span><span class="zsh-variable">${COLOR_FAILURE}</span><span class="zsh-variable">$1</span><span class="zsh-variable">${COLOR_NC}</span><span class="zsh-string">"</span></span>
+    <span class="zsh-program">echo</span> <span class="zsh-string">"</span><span class="zsh-variable">${COLOR_FAILURE}</span><span class="zsh-variable">$1</span><span class="zsh-variable">${COLOR_NC}</span><span class="zsh-string">"</span>
     <span class="zsh-program">exit</span><span class="zsh-command-option-value"> 1</span>
 <span class="zsh-punctuation">}</span>
 
 <span class="zsh-keyword">function</span> <span class="zsh-command-option-value">success</span> <span class="zsh-punctuation">{</span>
-    <span class="zsh-program">echo</span> <span class="zsh-string"><span class="zsh-string">"</span><span class="zsh-variable">${COLOR_SUCCESS}</span><span class="zsh-variable">$1</span><span class="zsh-variable">${COLOR_NC}</span><span class="zsh-string">"</span></span>
+    <span class="zsh-program">echo</span> <span class="zsh-string">"</span><span class="zsh-variable">${COLOR_SUCCESS}</span><span class="zsh-variable">$1</span><span class="zsh-variable">${COLOR_NC}</span><span class="zsh-string">"</span>
 <span class="zsh-punctuation">}</span>
 
 <span class="zsh-comment"># ---- Files ----</span>
@@ -25,45 +25,45 @@
 <span class="zsh-comment"># ---- Test functions ----</span>
 
 <span class="zsh-keyword">function</span> <span class="zsh-command-option-value">testGet</span> <span class="zsh-punctuation">{</span>
-    <span class="zsh-variable">fileFormat</span><span class="zsh-keyword">=</span><span class="zsh-punctuation">`</span><span class="zsh-program">format</span> <span class="zsh-variable">$3</span><span class="zsh-punctuation">`</span>
+    <span class="zsh-variable">fileFormat</span><span class="zsh-keyword">=</span><span class="zsh-program">`format</span><span class="zsh-program">format</span> <span class="zsh-variable">$3</span><span class="zsh-punctuation">`</span>
     <span class="zsh-variable">expected</span><span class="zsh-keyword">=</span><span class="zsh-variable">$2</span>
-    <span class="zsh-variable">result</span><span class="zsh-keyword">=</span><span class="zsh-punctuation">`</span><span class="zsh-program">scout</span> <span class="zsh-variable">$1</span> <span class="zsh-option-flag">-i</span> <span class="zsh-variable">$3</span><span class="zsh-punctuation">`</span>
+    <span class="zsh-variable">result</span><span class="zsh-keyword">=</span><span class="zsh-program">`scout</span><span class="zsh-program">scout</span> <span class="zsh-variable">$1</span> <span class="zsh-option-flag">-i</span> <span class="zsh-variable">$3</span><span class="zsh-punctuation">`</span>
 
-    <span class="zsh-keyword">if</span> <span class="zsh-punctuation">[</span> <span class="zsh-string"><span class="zsh-string">"</span><span class="zsh-variable">$result</span><span class="zsh-string">"</span></span> <span class="zsh-keyword">!=</span> <span class="zsh-string"><span class="zsh-string">"</span><span class="zsh-variable">$expected</span><span class="zsh-string">"</span></span> <span class="zsh-punctuation">]</span><span class="zsh-punctuation">;</span> <span class="zsh-keyword">then</span>
-        <span class="zsh-program">error</span> <span class="zsh-string"><span class="zsh-string">"Error</span> <span class="zsh-variable">$fileFormat</span> <span class="zsh-string">get. '</span><span class="zsh-variable">$1</span><span class="zsh-variable">' =</span> <span class="zsh-variable">$result</span> <span class="zsh-string">!=</span> <span class="zsh-variable">$expected</span><span class="zsh-string">"</span></span>
+    <span class="zsh-keyword">if</span> <span class="zsh-punctuation">[</span> <span class="zsh-string">"</span><span class="zsh-variable">$result</span><span class="zsh-string">"</span> <span class="zsh-keyword">!=</span> <span class="zsh-string">"</span><span class="zsh-variable">$expected</span><span class="zsh-string">"</span> <span class="zsh-punctuation">]</span><span class="zsh-punctuation">;</span> <span class="zsh-keyword">then</span>
+        <span class="zsh-program">error</span> <span class="zsh-string">"Error</span> <span class="zsh-variable">$fileFormat</span> <span class="zsh-string">get. '</span><span class="zsh-variable">$1</span><span class="zsh-variable">' =</span> <span class="zsh-variable">$result</span> <span class="zsh-string">!=</span> <span class="zsh-variable">$expected</span><span class="zsh-string">"</span>
     <span class="zsh-keyword">fi</span>
 <span class="zsh-punctuation">}</span>
 
 <span class="zsh-keyword">function</span> <span class="zsh-command-option-value">testGetAll</span> <span class="zsh-punctuation">{</span>
     <span class="zsh-variable">expected</span><span class="zsh-keyword">=</span><span class="zsh-variable">$2</span>
 
-    <span class="zsh-program">echo</span> <span class="zsh-string"><span class="zsh-string">"Testing get at '</span><span class="zsh-variable">$1</span><span class="zsh-string">'..."</span></span>
+    <span class="zsh-program">echo</span> <span class="zsh-string">"Testing get at '</span><span class="zsh-variable">$1</span><span class="zsh-string">'..."</span>
 
-    <span class="zsh-program">testGet</span> <span class="zsh-string"><span class="zsh-string">"</span><span class="zsh-variable">$1</span><span class="zsh-string">"</span></span> <span class="zsh-string"><span class="zsh-string">"</span><span class="zsh-variable">$2</span><span class="zsh-string">"</span></span> <span class="zsh-variable">$json</span>
-    <span class="zsh-program">testGet</span> <span class="zsh-string"><span class="zsh-string">"</span><span class="zsh-variable">$1</span><span class="zsh-string">"</span></span> <span class="zsh-string"><span class="zsh-string">"</span><span class="zsh-variable">$2</span><span class="zsh-string">"</span></span> <span class="zsh-variable">$plist</span>
-    <span class="zsh-program">testGet</span> <span class="zsh-string"><span class="zsh-string">"</span><span class="zsh-variable">$1</span><span class="zsh-string">"</span></span> <span class="zsh-string"><span class="zsh-string">"</span><span class="zsh-variable">$2</span><span class="zsh-string">"</span></span> <span class="zsh-variable">$xml</span>
+    <span class="zsh-program">testGet</span> <span class="zsh-string">"</span><span class="zsh-variable">$1</span><span class="zsh-string">"</span> <span class="zsh-string">"</span><span class="zsh-variable">$2</span><span class="zsh-string">"</span> <span class="zsh-variable">$json</span>
+    <span class="zsh-program">testGet</span> <span class="zsh-string">"</span><span class="zsh-variable">$1</span><span class="zsh-string">"</span> <span class="zsh-string">"</span><span class="zsh-variable">$2</span><span class="zsh-string">"</span> <span class="zsh-variable">$plist</span>
+    <span class="zsh-program">testGet</span> <span class="zsh-string">"</span><span class="zsh-variable">$1</span><span class="zsh-string">"</span> <span class="zsh-string">"</span><span class="zsh-variable">$2</span><span class="zsh-string">"</span> <span class="zsh-variable">$xml</span>
     <span class="zsh-program">success</span> <span class="zsh-string">"All test formats passed"</span>
     <span class="zsh-program">echo</span> <span class="zsh-string">""</span>
 <span class="zsh-punctuation">}</span>
 
 <span class="zsh-keyword">function</span> <span class="zsh-command-option-value">testSet</span> <span class="zsh-punctuation">{</span>
-    <span class="zsh-variable">fileFormat</span><span class="zsh-keyword">=</span><span class="zsh-punctuation">`</span><span class="zsh-program">format</span> <span class="zsh-variable">$3</span><span class="zsh-punctuation">`</span>
-    <span class="zsh-variable">modified</span><span class="zsh-keyword">=</span><span class="zsh-punctuation">`</span><span class="zsh-program">scout</span> <span class="zsh-command-option-value">set</span> <span class="zsh-string"><span class="zsh-string">"</span><span class="zsh-variable">$1</span><span class="zsh-string">=</span><span class="zsh-variable">$2</span><span class="zsh-string">"</span></span> <span class="zsh-option-flag">-i</span> <span class="zsh-variable">$3</span> <span class="zsh-option-flag">-v</span><span class="zsh-punctuation">`</span>
-    <span class="zsh-variable">valueAtPath</span><span class="zsh-keyword">=</span><span class="zsh-punctuation">`</span><span class="zsh-program">echo</span> <span class="zsh-string"><span class="zsh-string">"</span><span class="zsh-variable">$modified</span><span class="zsh-string">"</span></span> <span class="zsh-keyword">|</span> <span class="zsh-program">scout</span> <span class="zsh-variable">$1</span><span class="zsh-punctuation">`</span>
+    <span class="zsh-variable">fileFormat</span><span class="zsh-keyword">=</span><span class="zsh-program">`format</span><span class="zsh-program">format</span> <span class="zsh-variable">$3</span><span class="zsh-punctuation">`</span>
+    <span class="zsh-variable">modified</span><span class="zsh-keyword">=</span><span class="zsh-program">`scout</span><span class="zsh-program">scout</span> <span class="zsh-command-option-value">set</span> <span class="zsh-string">"</span><span class="zsh-variable">$1</span><span class="zsh-string">=</span><span class="zsh-variable">$2</span><span class="zsh-string">"</span> <span class="zsh-option-flag">-i</span> <span class="zsh-variable">$3</span> <span class="zsh-option-flag">-v</span><span class="zsh-punctuation">`</span>
+    <span class="zsh-variable">valueAtPath</span><span class="zsh-keyword">=</span><span class="zsh-program">`echo</span><span class="zsh-program">echo</span> <span class="zsh-string">"</span><span class="zsh-variable">$modified</span><span class="zsh-string">"</span> <span class="zsh-punctuation">|</span> <span class="zsh-program">scout</span> <span class="zsh-variable">$1</span><span class="zsh-punctuation">`</span>
 
-    <span class="zsh-keyword">if</span> <span class="zsh-punctuation">[</span> <span class="zsh-string"><span class="zsh-string">"</span><span class="zsh-variable">$valueAtPath</span><span class="zsh-string">"</span></span> <span class="zsh-keyword">!=</span> <span class="zsh-string"><span class="zsh-string">"</span><span class="zsh-variable">$2</span><span class="zsh-string">"</span></span> <span class="zsh-punctuation">]</span><span class="zsh-punctuation">;</span> <span class="zsh-keyword">then</span>
-        <span class="zsh-program">error</span> <span class="zsh-string"><span class="zsh-string">"Error</span> <span class="zsh-variable">$fileFormat</span> <span class="zsh-string">set. '</span><span class="zsh-variable">$1</span><span class="zsh-string">': expected</span> <span class="zsh-variable">$2</span> <span class="zsh-string">and got</span> <span class="zsh-variable">$valueAtPath</span><span class="zsh-string">"</span></span>
+    <span class="zsh-keyword">if</span> <span class="zsh-punctuation">[</span> <span class="zsh-string">"</span><span class="zsh-variable">$valueAtPath</span><span class="zsh-string">"</span> <span class="zsh-keyword">!=</span> <span class="zsh-string">"</span><span class="zsh-variable">$2</span><span class="zsh-string">"</span> <span class="zsh-punctuation">]</span><span class="zsh-punctuation">;</span> <span class="zsh-keyword">then</span>
+        <span class="zsh-program">error</span> <span class="zsh-string">"Error</span> <span class="zsh-variable">$fileFormat</span> <span class="zsh-string">set. '</span><span class="zsh-variable">$1</span><span class="zsh-string">': expected</span> <span class="zsh-variable">$2</span> <span class="zsh-string">and got</span> <span class="zsh-variable">$valueAtPath</span><span class="zsh-string">"</span>
     <span class="zsh-keyword">fi</span>
 <span class="zsh-punctuation">}</span>
 
 <span class="zsh-keyword">function</span> <span class="zsh-command-option-value">testSetAll</span> <span class="zsh-punctuation">{</span>
     <span class="zsh-variable">expected</span><span class="zsh-keyword">=</span><span class="zsh-variable">$2</span>
 
-    <span class="zsh-program">echo</span> <span class="zsh-string"><span class="zsh-string">"Testing set at '</span><span class="zsh-variable">$1</span><span class="zsh-string">'..."</span></span>
+    <span class="zsh-program">echo</span> <span class="zsh-string">"Testing set at '</span><span class="zsh-variable">$1</span><span class="zsh-string">'..."</span>
 
-    <span class="zsh-program">testSet</span> <span class="zsh-string"><span class="zsh-string">"</span><span class="zsh-variable">$1</span><span class="zsh-string">"</span></span> <span class="zsh-string"><span class="zsh-string">"</span><span class="zsh-variable">$2</span><span class="zsh-string">"</span></span> <span class="zsh-variable">$json</span>
-    <span class="zsh-program">testSet</span> <span class="zsh-string"><span class="zsh-string">"</span><span class="zsh-variable">$1</span><span class="zsh-string">"</span></span> <span class="zsh-string"><span class="zsh-string">"</span><span class="zsh-variable">$2</span><span class="zsh-string">"</span></span> <span class="zsh-variable">$plist</span>
-    <span class="zsh-program">testSet</span> <span class="zsh-string"><span class="zsh-string">"</span><span class="zsh-variable">$1</span><span class="zsh-string">"</span></span> <span class="zsh-string"><span class="zsh-string">"</span><span class="zsh-variable">$2</span><span class="zsh-string">"</span></span> <span class="zsh-variable">$xml</span>
+    <span class="zsh-program">testSet</span> <span class="zsh-string">"</span><span class="zsh-variable">$1</span><span class="zsh-string">"</span> <span class="zsh-string">"</span><span class="zsh-variable">$2</span><span class="zsh-string">"</span> <span class="zsh-variable">$json</span>
+    <span class="zsh-program">testSet</span> <span class="zsh-string">"</span><span class="zsh-variable">$1</span><span class="zsh-string">"</span> <span class="zsh-string">"</span><span class="zsh-variable">$2</span><span class="zsh-string">"</span> <span class="zsh-variable">$plist</span>
+    <span class="zsh-program">testSet</span> <span class="zsh-string">"</span><span class="zsh-variable">$1</span><span class="zsh-string">"</span> <span class="zsh-string">"</span><span class="zsh-variable">$2</span><span class="zsh-string">"</span> <span class="zsh-variable">$xml</span>
     <span class="zsh-program">success</span> <span class="zsh-string">"All test formats passed"</span>
     <span class="zsh-program">echo</span> <span class="zsh-string">""</span>
 <span class="zsh-punctuation">}</span>
@@ -80,17 +80,17 @@
 
 <span class="zsh-comment"># -- Test dictionary --</span>
 
-<span class="zsh-variable">TomJson</span><span class="zsh-keyword">=</span><span class="zsh-string">'{</span>
+<span class="zsh-variable">TomJson</span><span class="zsh-keyword">=</span><span class="zsh-string">'{
   "age" : 68,
   "hobbies" : [
     "cooking",
     "guitar"
   ],
   "height" : 175
-}'
-<span class="zsh-program">testGet</span> <span class="zsh-command-option-value">people.Tom</span> <span class="zsh-string"><span class="zsh-string">"</span><span class="zsh-variable">$TomJson</span><span class="zsh-string">"</span></span> <span class="zsh-variable">$json</span>
+}'</span>
+<span class="zsh-program">testGet</span> <span class="zsh-command-option-value">people.Tom</span> <span class="zsh-string">"</span><span class="zsh-variable">$TomJson</span><span class="zsh-string">"</span> <span class="zsh-variable">$json</span>
 
-<span class="zsh-variable">TomPlist</span><span class="zsh-keyword">=</span><span class="zsh-string">'<?xml version="1.0" encoding="UTF-8"?></span>
+<span class="zsh-variable">TomPlist</span><span class="zsh-keyword">=</span><span class="zsh-string">'<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
@@ -104,20 +104,20 @@
         <string>guitar</string>
     </array>
 </dict>
-</plist>'
+</plist>'</span>
 
-<span class="zsh-program">testGet</span> <span class="zsh-command-option-value">people.Tom</span> <span class="zsh-string"><span class="zsh-string">"</span><span class="zsh-variable">$TomPlist</span><span class="zsh-string">"</span></span> <span class="zsh-variable">$plist</span>
+<span class="zsh-program">testGet</span> <span class="zsh-command-option-value">people.Tom</span> <span class="zsh-string">"</span><span class="zsh-variable">$TomPlist</span><span class="zsh-string">"</span> <span class="zsh-variable">$plist</span>
 
-<span class="zsh-variable">TomXml</span><span class="zsh-keyword">=</span><span class="zsh-string">'<Tom></span>
+<span class="zsh-variable">TomXml</span><span class="zsh-keyword">=</span><span class="zsh-string">'<Tom>
     <height>175</height>
     <age>68</age>
     <hobbies>
         <hobby>cooking</hobby>
         <hobby>guitar</hobby>
     </hobbies>
-</Tom>'
+</Tom>'</span>
 
-<span class="zsh-program">testGet</span> <span class="zsh-command-option-value">people.Tom</span> <span class="zsh-string"><span class="zsh-string">"</span><span class="zsh-variable">$TomXml</span><span class="zsh-string">"</span></span> <span class="zsh-variable">$xml</span>
+<span class="zsh-program">testGet</span> <span class="zsh-command-option-value">people.Tom</span> <span class="zsh-string">"</span><span class="zsh-variable">$TomXml</span><span class="zsh-string">"</span> <span class="zsh-variable">$xml</span>
 
 <span class="zsh-comment"># Set</span>
 <span class="zsh-program">echo</span> <span class="zsh-string">"-- Testing Set --"</span>

@@ -33,12 +33,12 @@ public enum XMLCategory: Category {
         }
     }
 
-    public var terminalColor: String {
+    public var terminalModifier: TerminalModifier {
         switch self {
-        case .tag: return "\u{001B}[38;5;166m"
-        case .key: return "\u{001B}[0;0m" // standard color
-        case .header: return "\u{001B}[38;5;247m"
-        case .comment: return "\u{001B}[38;5;67m"
+        case .tag: return TerminalModifier(colorCode: 166)
+        case .key: return .resetColors // standard color
+        case .header: return TerminalModifier(colorCode: 247)
+        case .comment: return TerminalModifier(colorCode: 67)
         }
     }
 
