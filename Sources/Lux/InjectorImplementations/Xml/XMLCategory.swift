@@ -71,23 +71,12 @@ public enum XMLCategory: Category {
     }
 
     public var color: Color {
-        #if !os(macOS)
         switch self {
-        case .tag: return UIColor.red
-        case .key: return UIColor.black
-        case .header: return UIColor.lightGray
-        case .comment: return UIColor(red: 100 / 255, green: 193 / 255, blue: 82 / 255, alpha: 1)
+        case .tag: return .red
+        case .key: return .black
+        case .header: return .lightGray
+        case .comment: return Color(red: 100 / 255, green: 193 / 255, blue: 82 / 255, alpha: 1)
         }
-
-        #else
-
-        switch self {
-        case .tag: return NSColor.systemOrange
-        case .key: return NSColor.labelColor
-        case .header: return NSColor.lightGray
-        case .comment: return NSColor.systemGreen
-        }
-        #endif
     }
 }
 

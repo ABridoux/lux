@@ -72,24 +72,12 @@ public enum XMLEnhancedCategory: Category {
     }
 
     public var color: Color {
-        #if !os(macOS)
         switch self {
-        case .closingTag, .punctuation: return UIColor.darkGray
-        case .openingTag: return UIColor.orange
-        case .key: return UIColor.black
-        case .header: return UIColor.lightGray
-        case .comment: return UIColor(red: 100 / 255, green: 193 / 255, blue: 82 / 255, alpha: 1)
+        case .closingTag, .punctuation: return .darkGray
+        case .openingTag: return .orange
+        case .key: return .black
+        case .header: return .lightGray
+        case .comment: return Color(red: 100 / 255, green: 193 / 255, blue: 82 / 255, alpha: 1)
         }
-
-        #else
-
-        switch self {
-        case .closingTag, .punctuation: return NSColor.systemGray
-        case .openingTag: return NSColor.systemOrange
-        case .key: return NSColor.labelColor
-        case .header: return NSColor.lightGray
-        case .comment: return NSColor.systemGreen
-        }
-        #endif
     }
 }

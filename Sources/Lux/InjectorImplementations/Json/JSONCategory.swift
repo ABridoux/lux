@@ -36,21 +36,11 @@ public enum JSONCategory: Category {
     }
 
     public var color: Color {
-        #if !os(macOS)
         switch self {
-        case .keyName: return UIColor.red
-        case .keyValue: return UIColor.black
-        case .punctuation: return UIColor.lightGray
+        case .keyName: return .red
+        case .keyValue: return .black
+        case .punctuation: return .lightGray
         }
-
-        #else
-
-        switch self {
-        case .keyName: return NSColor.systemOrange
-        case .keyValue: return NSColor.labelColor
-        case .punctuation: return NSColor.systemGray
-        }
-        #endif
     }
 
     // MARK: - Initialisation
