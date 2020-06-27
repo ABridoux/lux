@@ -1,6 +1,8 @@
 import Foundation
 import Splash
 
+public typealias SwiftDelegate = InjectorDelegate<SwiftCategory>
+
 extension SwiftDelegate {
 
     var theme: Theme { Theme(
@@ -18,4 +20,12 @@ extension SwiftDelegate {
         .preprocessing: SwiftCategory.preprocessing.color
     ]
     )}
+}
+
+extension SwiftDelegate {
+    public static func theme(_ theme: ColorTheme) -> SwiftDelegate {
+        switch theme {
+        case .dracula: return .dracula
+        }
+    }
 }

@@ -1,3 +1,9 @@
+#if !os(macOS)
+import UIKit
+#else
+import AppKit
+#endif
+
 /// Used by an Injector to know which color to use for a given categorised match, and how to inject this color.
 open class InjectorDelegate<Cat: Category> {
 
@@ -6,6 +12,15 @@ open class InjectorDelegate<Cat: Category> {
     required public init() {}
 
     // MARK: - Functions
+
+    /// Background color used for the language
+    open var backgroundColor: Color {
+        #if !os(macOS)
+        return .white
+        #else
+        return .white
+        #endif
+    }
 
     //// Called by the injector to get the color to use for the given category when dealing with attributed output
     open func color(for category: Cat) -> Color { category.color }

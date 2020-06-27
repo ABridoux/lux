@@ -24,6 +24,9 @@ open class BaseInjector<Cat: Category, Output: Appendable, Injection: InjectionT
 
     public var delegate: Delegate
 
+    /// Background color used for the language
+    public var backgroundColor: Color { delegate.backgroundColor }
+
     /// Set of already know language identifiers, used as a base
     var defaultLanguageIdentifiers: Set<String>
     public var languageIdentifiers: Set<String> = []

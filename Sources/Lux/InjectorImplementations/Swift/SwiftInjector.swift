@@ -1,10 +1,6 @@
 import Foundation
 import Splash
 
-// MARK: Delegate
-
-public typealias SwiftDelegate = InjectorDelegate<SwiftCategory>
-
 // MARK: - Injector
 
 public final class SwiftInjector<Output: Appendable, Injection: InjectionType, InjType: InjectorType<Output, Injection>>: BaseInjector<SwiftCategory, Output, Injection, InjType> {

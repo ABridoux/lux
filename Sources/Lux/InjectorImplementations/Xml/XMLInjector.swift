@@ -7,10 +7,6 @@ extension RegexPattern {
     static let plainXml = RegexPattern(#"<("[^"]*"|'[^']*'|[^<^>])+>"#, type: .plain)
 }
 
-// MARK: Delegate
-
-public typealias XMLDelegate = InjectorDelegate<XMLCategory>
-
 // MARK: - Injector
 
 /// Inject strings into a text depending on the configuration or the delegate.
