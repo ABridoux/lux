@@ -8,7 +8,7 @@ extension XCTestCase {
         let inputFileWithTypeURL = URL.testInputFileURL(with: format, in: folder, order: order, type: type)
         let inputFileURL = URL.testInputFileURL(with: format, in: folder, order: order)
 
-        let string: String
+        var string: String
 
         if FileManager.default.fileExists(atPath: inputFileWithTypeURL.path) {
             string = try! String(contentsOf: inputFileWithTypeURL)
@@ -17,6 +17,10 @@ extension XCTestCase {
         } else {
             assertionFailure("Unable to retrieve the input test file at \(inputFileWithTypeURL.path) or \(inputFileURL.path)")
             return ""
+        }
+
+        if type == .html {
+            string = string.escapingHTMLEntities()
         }
 
         return string

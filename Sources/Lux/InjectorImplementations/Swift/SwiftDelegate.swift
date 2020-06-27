@@ -1,7 +1,9 @@
 import Foundation
 import Splash
 
-extension InjectorDelegate where Cat == SwiftCategory {
+public typealias SwiftDelegate = InjectorDelegate<SwiftCategory>
+
+extension SwiftDelegate {
 
     var theme: Theme { Theme(
     font: .init(size: 12),
@@ -20,4 +22,10 @@ extension InjectorDelegate where Cat == SwiftCategory {
     )}
 }
 
-open class SwiftDelegate: InjectorDelegate<SwiftCategory> {}
+extension SwiftDelegate {
+    public static func theme(_ theme: ColorTheme) -> SwiftDelegate {
+        switch theme {
+        case .dracula: return .dracula
+        }
+    }
+}

@@ -1,11 +1,17 @@
 import Foundation
 import Splash
 
+// MARK: - Injector
+
 public final class SwiftInjector<Output: Appendable, Injection: InjectionType, InjType: InjectorType<Output, Injection>>: BaseInjector<SwiftCategory, Output, Injection, InjType> {
+
+    // MARK: - Initialisation
 
     override public init(type: InjType, delegate: Delegate = SwiftDelegate(), languageName: String = "swift") {
         super.init(type: type, delegate: delegate, languageName: languageName)
     }
+
+    // MARK: - Functions
 
     func injectString(in text: String) -> String {
         switch textType {

@@ -48,25 +48,13 @@ public enum PlistCategory: Category {
     }
 
     public var color: Color {
-        #if !os(macOS)
         switch self {
-        case .tag: return UIColor.darkGray
-        case .keyName: return UIColor.red
-        case .keyValue: return UIColor.black
-        case .header: return UIColor.lightGray
-        case .comment: return UIColor(red: 100 / 255, green: 193 / 255, blue: 82 / 255, alpha: 1)
+        case .tag: return .darkGray
+        case .keyName: return .red
+        case .keyValue: return .black
+        case .header: return .lightGray
+        case .comment: return Color(red: 100 / 255, green: 193 / 255, blue: 82 / 255, alpha: 1)
         }
-
-        #else
-
-        switch self {
-        case .tag: return NSColor.systemGray
-        case .keyName: return NSColor.systemOrange
-        case .keyValue: return NSColor.labelColor
-        case .header: return NSColor.lightGray
-        case .comment: return NSColor.systemGreen
-        }
-        #endif
     }
 
     // MARK: - Initilisation

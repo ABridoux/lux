@@ -15,6 +15,13 @@ open class BaseInjector<Cat: Category, Output: Appendable, Injection: InjectionT
     var textType: TextType
     var type: Injector
 
+    /// If true, the injector will find all HTML special characters and replace them before injecting. Useful for plain input which has to be rendered to HTML.
+    private var escapeHTML = false {
+        didSet {
+            textType = escapeHTML ? .plain : .html
+        }
+    }
+
     public var delegate: Delegate
 
     /// Set of already know language identifiers, used as a base
@@ -53,6 +60,9 @@ open class BaseInjector<Cat: Category, Output: Appendable, Injection: InjectionT
     /// - Returns: The colorised text. The output type will depend of the Injector type you use: HTML String, Terminal: String, App: AttributedString. You can retrieve the `NSMutableString` value
     /// from an `AttributedString` with the `nsAttributedString` property.
     open func inject(in text: String) -> Output {
+
+        let text = escapeHTML ? text.escapingHTMLEntities() : text
+
         let modifiedInput = try? InjectionService.inject(Output.self, in: text, following: regexPattern) { match in
             let category = Cat(from: match)
 
@@ -69,4 +79,16 @@ open class BaseInjector<Cat: Category, Output: Appendable, Injection: InjectionT
 
     /// Called to know how to inject a color mark in a match of a give category
     func inject(_ category: Cat, in match: String) -> Output { delegate.inject(category, in: type, match) }
+}
+
+extension BaseInjector where Output == String, Injection == CSSClass, Injector == Html {
+
+    /// Returns the html injector but which will escape all HTML special characters before injecting.
+    /// Required if you have a plain input with unescaped html special characters ('&', '>', '<')
+    /// To avoid if the input is already HTML encoded
+    public func escapingHTML(_ escape: Bool) -> Self {
+        escapeHTML = escape
+
+        return self
+    }
 }

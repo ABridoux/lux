@@ -14,6 +14,9 @@ struct InjectCommand: ParsableCommand {
     @Option(name: [.short, .long], help: "plist, xml, json")
     var format: Format
 
+    @Option(name: [.long], help: "Choose a theme to use when outputting the data")
+    var theme: ColorTheme?
+
     @Flag(name: [.long], default: true, inversion: .prefixedNo, help: "If true, the HTML special characters in the code blocks will be escaped when type is html")
     var escapeHTML: Bool
 
@@ -36,11 +39,11 @@ struct InjectCommand: ParsableCommand {
 
         switch type {
         case .plain:
-            output = format.injector(type: .terminal).inject(in: input)
+            output = format.injector(injectorType: .terminal, theme: theme).inject(in: input)
         case .html:
-            output = format.injector(type: .html).inject(in: (escapeHTML ? input.escapingHTMLEntities() : input))
-
+            output = format.injector(injectorType: .html, theme: theme, escapingHTML: escapeHTML).inject(in: input)
         }
+
         print(output)
     }
 }
