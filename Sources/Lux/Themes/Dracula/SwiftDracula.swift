@@ -10,8 +10,6 @@ public extension SwiftDelegate {
 
 open class SwiftDraculaDelegate: SwiftDelegate {
 
-    override open var backgroundColor: Color { Color(hex: "#282A36")! }
-
     override open func color(for category: SwiftCategory) -> Color {
         switch category {
         case .call: return Color.dracula.function

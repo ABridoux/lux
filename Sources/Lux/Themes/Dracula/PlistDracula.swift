@@ -10,8 +10,6 @@ public extension PlistDelegate {
 
 open class PlistDraculaDelegate: PlistDelegate {
 
-    override open var backgroundColor: Color { Color(hex: "#282A36")! }
-
     override open func color(for category: PlistCategory) -> Color {
         switch category {
         case .keyName: return Color.dracula.function

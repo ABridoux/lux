@@ -10,8 +10,6 @@ public extension XMLDelegate {
 
 open class XMLDraculaDelegate: XMLDelegate {
 
-    override open var backgroundColor: Color { Color(hex: "#282A36")! }
-
     override open func color(for category: XMLCategory) -> Color {
         switch category {
         case .tag: return Color.dracula.function

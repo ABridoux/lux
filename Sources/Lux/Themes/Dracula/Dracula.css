@@ -1,0 +1,54 @@
+/* COLORS */
+
+:root {
+  --dracula-function: #50FA7B;
+  --dracula-function-decorator: #50FA7B;
+  --dracula-function-parameter: #FFB86C;
+  --dracula-punctuation: #F8F8F2;
+  --dracula-variable: #F8F8F2;
+  --dracula-string: #F1FA8C;
+  --dracula-keyword: #FF79C6;
+  --dracula-comment: #6272A4;
+  --dracula-file-header: #8BE9FD;
+  --dracula-class-type: #8BE9FD;
+  --dracula-constant: #BD93F9;
+  --dracula-background: #282A36;
+}
+
+/* Injections */
+
+.zsh-program {
+  color: var(--dracula-function);
+}
+
+.zsh-option-flag {
+  color: var(--dracula-function-decorator);
+}
+
+.zsh-command-option-value {
+  color: var(--dracula-function-parameter);
+}
+
+.zsh-punctuation {
+  color: var(--dracula-punctuation);
+}
+
+.zsh-variable {
+  color: var(--dracula-variable);
+}
+
+.zsh-keyword {
+  color: var(--dracula-keyword);
+}
+
+.zsh-string {
+  color: var(--dracula-string);
+}
+
+.zsh-comment {
+  color: var(--dracula-comment);
+}
+
+pre.zsh, pre.bash, code.zsh, code.bash {
+  background-color: var(--dracula-background);
+}

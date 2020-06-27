@@ -10,8 +10,6 @@ public extension JSONDelegate {
 
 open class JSONDraculaDelegate: JSONDelegate {
 
-    override open var backgroundColor: Color { Color(hex: "#282A36")! }
-
     override open func color(for category: JSONCategory) -> Color {
         switch category {
         case .keyName: return Color.dracula.function

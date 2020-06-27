@@ -13,15 +13,6 @@ open class InjectorDelegate<Cat: Category> {
 
     // MARK: - Functions
 
-    /// Background color used for the language
-    open var backgroundColor: Color {
-        #if !os(macOS)
-        return .white
-        #else
-        return .white
-        #endif
-    }
-
     //// Called by the injector to get the color to use for the given category when dealing with attributed output
     open func color(for category: Cat) -> Color { category.color }
 

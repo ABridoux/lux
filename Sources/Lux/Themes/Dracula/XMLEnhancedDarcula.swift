@@ -10,8 +10,6 @@ public extension XMLEnhancedDelegate {
 
 open class XMLEnhancedDraculaDelegate: XMLEnhancedDelegate {
 
-    override open var backgroundColor: Color { Color(hex: "#282A36")! }
-
     override open func color(for category: XMLEnhancedCategory) -> Color {
         switch category {
         case .openingTag: return Color.dracula.function

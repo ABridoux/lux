@@ -10,8 +10,6 @@ public extension ZshDelegate {
 
 open class ZshDraculaDelegate: ZshDelegate {
 
-    override open var backgroundColor: Color { Color(hex: "#282A36")! }
-
     override open func color(for category: ZshCategory) -> Color {
         switch category {
         case .program: return Color.dracula.function

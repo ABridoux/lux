@@ -27,7 +27,7 @@ extension TerminalModifier {
 }
 
 extension Color {
-    struct Dracula {
+    public struct Dracula {
         let function: Color = Color(hex: "#50FA7B")!
         let functionsDecorator = Color(hex: "#50FA7B")!
         let functionParameter = Color(hex: "#FFB86C")!
@@ -39,7 +39,8 @@ extension Color {
         let fileHeader = Color(hex: "#8BE9FD")!
         let classOrType = Color(hex: "#8BE9FD")!
         let constant = Color(hex: "#BD93F9")!
+        let background = Color(hex: "#282A36")!
     }
 
-    static var dracula: Dracula { Dracula() }
+    public static var dracula: Dracula { Dracula() }
 }
