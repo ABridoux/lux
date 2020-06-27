@@ -2,10 +2,11 @@ import Splash
 
 public struct TerminalOutputFormat: OutputFormat {
     public var classPrefix: String
-    public var delegate: InjectorDelegate<SwiftCategory>?
+    public var delegate: SwiftDelegate?
 
     public init(classPrefix: String = "", delegate: InjectorDelegate<SwiftCategory>? = nil) {
         self.classPrefix = classPrefix
+        self.delegate = delegate
     }
 
     public func makeBuilder() -> Builder {
@@ -27,7 +28,7 @@ extension TerminalOutputFormat {
 
         // MARK: - Initialisation
 
-        fileprivate init(classPrefix: String, delegate: InjectorDelegate<SwiftCategory>?) {
+        fileprivate init(classPrefix: String, delegate: SwiftDelegate?) {
             self.classPrefix = classPrefix
             self.injectorDelegate = delegate ?? SwiftDelegate()
         }

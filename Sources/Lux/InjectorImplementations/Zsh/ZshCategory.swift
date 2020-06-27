@@ -57,30 +57,16 @@ public enum ZshCategory: Category {
     }
 
     public var color: Color {
-        #if !os(macOS)
         switch self {
-        case .program: return UIColor.black
-        case .optionNameOrFlag: return UIColor(hex: "#F2836B")!
-        case .commandOrOptionValue: return UIColor(hex: "#F2594B")!
-        case .punctuation: return UIColor.systemGray
-        case .variable: return UIColor(hex: "#63A69F")!
-        case .string: return UIColor(hex: "#869CA6")!
-        case .keyword: return UIColor(hex: "#A67574")!
-        case .comment: return UIColor.lightGray
+        case .program: return .black
+        case .optionNameOrFlag: return Color(hex: "#F2836B")!
+        case .commandOrOptionValue: return Color(hex: "#F2594B")!
+        case .punctuation: return .systemGray
+        case .variable: return Color(hex: "#63A69F")!
+        case .string: return Color(hex: "#869CA6")!
+        case .keyword: return Color(hex: "#A67574")!
+        case .comment: return .lightGray
         }
-        #else
-
-        switch self {
-        case .program: return NSColor.labelColor
-        case .optionNameOrFlag: return NSColor(hex: "#F2836B")!
-        case .commandOrOptionValue: return NSColor(hex: "#F2594B")!
-        case .punctuation: return NSColor.systemGray
-        case .variable: return NSColor(hex: "#63A69F")!
-        case .string: return NSColor(hex: "#869CA6")!
-        case .keyword: return NSColor(hex: "#A67574")!
-        case .comment: return NSColor.lightGray
-        }
-        #endif
     }
 
     public init(from match: String) {

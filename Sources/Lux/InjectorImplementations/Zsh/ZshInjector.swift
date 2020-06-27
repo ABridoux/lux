@@ -21,10 +21,6 @@ extension RegexPattern {
         type: .plain)
 }
 
-// MARK: Delegate
-
-public typealias ZshDelegate = InjectorDelegate<ZshCategory>
-
 // MARK: - Injector
 
 public final class ZshInjector<Output: Appendable, Injection: InjectionType, InjType: InjectorType<Output, Injection>>: BaseInjector<ZshCategory, Output, Injection, InjType> {

@@ -4,7 +4,7 @@ public struct HTMLCustomCSSOutputFormat: OutputFormat {
     public var classPrefix: String
     public var delegate: SwiftDelegate?
 
-    public init(classPrefix: String = "", delegate: InjectorDelegate<SwiftCategory>? = nil) {
+    public init(classPrefix: String = "", delegate: SwiftDelegate? = nil) {
         self.classPrefix = classPrefix
     }
 
@@ -22,11 +22,11 @@ extension HTMLCustomCSSOutputFormat {
         private var pendingToken: (string: String, type: TokenType)?
         private var pendingWhitespace: String?
 
-        var injectorDelegate: InjectorDelegate<SwiftCategory>?
+        var injectorDelegate: SwiftDelegate?
 
         // MARK: - Initialisation
 
-        fileprivate init(classPrefix: String, delegate: InjectorDelegate<SwiftCategory>?) {
+        fileprivate init(classPrefix: String, delegate: SwiftDelegate?) {
             self.classPrefix = classPrefix
             self.injectorDelegate = delegate
         }

@@ -1,3 +1,9 @@
+#if !os(macOS)
+import UIKit
+#else
+import AppKit
+#endif
+
 /// Used by an Injector to know which color to use for a given categorised match, and how to inject this color.
 open class InjectorDelegate<Cat: Category> {
 
