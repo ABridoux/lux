@@ -2,13 +2,20 @@ import Foundation
 
 open class PlistInjector<Output: Appendable, Injection: InjectionType, InjType: InjectorType<Output, Injection>>: BaseInjector<PlistCategory, Output, Injection, InjType> {
 
+    // MARK: - Properties
+
     override var plainRegexPattern: RegexPattern { .plainXml }
     override var htmlRegexPattern: RegexPattern { .htmlXml }
+
+
+    // MARK: - Initialisation
 
     override public init(type: InjType, delegate: Delegate = PlistDelegate(), languageName: String = "plist") {
         super.init(type: type, delegate: delegate, languageName: languageName)
     }
 
+    // MARK: - Functions
+    
     override open func inject(in text: String) -> Output {
         var currentOpenTagIsKey = false
 
