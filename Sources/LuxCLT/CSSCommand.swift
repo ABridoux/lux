@@ -16,7 +16,7 @@ struct CSSCommand: ParsableCommand {
         let input = try String(contentsOf: URL(fileURLWithPath: inputFilePath.replacingTilde))
 
         // get the output
-        let result = try FileInjectionService.inject(in: input, using: formats.map { $0.injector(type: .html) })
+        let result = try FileInjectionService.inject(in: input, using: formats.map { $0.injector(injectorType: .html) })
 
         try result.write(toFile: inputFilePath, atomically: true, encoding: .utf8)
     }

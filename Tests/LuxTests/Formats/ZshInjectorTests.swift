@@ -1,5 +1,5 @@
 import XCTest
-import Lux
+@testable import Lux
 
 private let folder = "Zsh"
 

@@ -1,6 +1,6 @@
 import Foundation
 
-public struct InjectionService {
+struct InjectionService {
 
     /// Parse the given text with the given regular expression pattern, calling the injection closure parameter when a match is found to give the opportunity to modify it.
     /// - Parameters:
@@ -9,7 +9,7 @@ public struct InjectionService {
     ///   - injectionClosure: Called by the service when a match is found by the regular expression.
     /// - Throws: If the regular expression cannot be built with the given `RegexPattern`
     /// - Returns: The modified text
-    public static func inject<StringType: Appendable>(_ type: StringType.Type, in text: String, following pattern: RegexPattern, using injectionClosure: (String) -> StringType) throws -> StringType {
+    static func inject<StringType: Appendable>(_ type: StringType.Type, in text: String, following pattern: RegexPattern, using injectionClosure: (String) -> StringType) throws -> StringType {
         let regex = try NSRegularExpression(pattern: pattern.stringValue, options: [])
 
         let nsText = text as NSString
@@ -82,7 +82,7 @@ public struct InjectionService {
     ///   - type: The text type: Html or plain
     ///   - text: The text in which to insert the string
     /// - Returns: the modified match with the inserted string
-    static public func inject(_ stringToInject: String, in type: TextType, _ text: String) -> String {
+    static func inject(_ stringToInject: String, in type: TextType, _ text: String) -> String {
 
         let textCount = text.nsRange.upperBound
 
