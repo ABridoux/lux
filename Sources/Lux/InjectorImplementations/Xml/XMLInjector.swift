@@ -9,7 +9,7 @@ public final class XMLInjector<Output: Appendable, Injection: InjectionType, Inj
     override var htmlRegexPattern: RegexPattern { .htmlXml }
 
     // MARK: - Initialisation
-    
+
     override public init(type: InjType, delegate: Delegate = XMLDelegate(), languageName: String = "xml") {
         super.init(type: type, delegate: delegate, languageName: languageName)
     }

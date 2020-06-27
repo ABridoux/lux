@@ -27,7 +27,7 @@ public final class ZshInjector<Output: Appendable, Injection: InjectionType, Inj
     }
 
     // MARK: Injection helpers
-    
+
     func injectIn(program: String) -> Output {
 
         var output = Output.empty

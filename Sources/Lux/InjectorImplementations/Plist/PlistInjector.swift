@@ -7,7 +7,6 @@ open class PlistInjector<Output: Appendable, Injection: InjectionType, InjType: 
     override var plainRegexPattern: RegexPattern { .plainXml }
     override var htmlRegexPattern: RegexPattern { .htmlXml }
 
-
     // MARK: - Initialisation
 
     override public init(type: InjType, delegate: Delegate = PlistDelegate(), languageName: String = "plist") {
@@ -15,7 +14,7 @@ open class PlistInjector<Output: Appendable, Injection: InjectionType, InjType: 
     }
 
     // MARK: - Functions
-    
+
     override open func inject(in text: String) -> Output {
         var currentOpenTagIsKey = false
 

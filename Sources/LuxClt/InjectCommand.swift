@@ -36,9 +36,9 @@ struct InjectCommand: ParsableCommand {
 
         switch type {
         case .plain:
-            output = format.injector(type: .terminal).inject(in: input)
+            output = format.injector(injectorType: .terminal).inject(in: input)
         case .html:
-            output = format.injector(type: .html).inject(in: (escapeHTML ? input.escapingHTMLEntities() : input))
+            output = format.injector(injectorType: .html, escapingHTML: escapeHTML).inject(in: input)
 
         }
         print(output)

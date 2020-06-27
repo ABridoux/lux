@@ -16,7 +16,7 @@ public final class JSONInjector<Output: Appendable, Injection: InjectionType, In
     // MARK: - Functions
 
     override func inject(_ category: JSONCategory, in match: String) -> Output {
-        
+
         switch category {
         case .punctuation, .keyValue: return delegate.inject(category, in: type, match)
         case .keyName:
