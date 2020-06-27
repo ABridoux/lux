@@ -1,7 +1,7 @@
 import Foundation
 
 /// A wrapper around `String` to store regular expression patterns more robustly.
-public struct RegexPattern {
+struct RegexPattern {
 
     // MARK: - Constants
 

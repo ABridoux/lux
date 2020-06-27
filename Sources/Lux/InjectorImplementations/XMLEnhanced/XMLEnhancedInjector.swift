@@ -1,5 +1,9 @@
 import Foundation
 
+// MARK: Delegate
+
+public typealias XMLEnhancedDelegate = InjectorDelegate<XMLEnhancedCategory>
+
 /// Inject strings into a text depending on the configuration or the delegate.
 public final class XMLEnhancedInjector<Output: Appendable, Injection: InjectionType, InjType: InjectorType<Output, Injection>>: BaseInjector<XMLEnhancedCategory, Output, Injection, InjType> {
 

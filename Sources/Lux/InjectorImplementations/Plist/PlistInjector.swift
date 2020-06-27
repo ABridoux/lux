@@ -1,5 +1,9 @@
 import Foundation
 
+// MARK: Delegate
+
+public typealias PlistDelegate = InjectorDelegate<PlistCategory>
+
 open class PlistInjector<Output: Appendable, Injection: InjectionType, InjType: InjectorType<Output, Injection>>: BaseInjector<PlistCategory, Output, Injection, InjType> {
 
     // MARK: - Properties
