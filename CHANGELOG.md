@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file. `Lux` adheres to [Semantic Versioning](http://semver.org).
 
 ---
+## [0.3.2](https://github.com/ABridoux/lux/tree/0.3.2) (27/06/2020)
+
+### Added
+- Dracula theme [#47]
+
+### Changed
+- Injector delegates refactoring [#44]
+
+### Fixed
+- `TerminalOutputFormat` delegate not set at initialisation [#47]
+
+## [0.3.1](https://github.com/ABridoux/lux/tree/0.3.1) (26/06/2020)
+
+### Fixed
+- Hotfix to mark injection functions as `open`
+
 ## [0.3.0](https://github.com/ABridoux/lux/tree/0.3.0) (26/06/2020)
 
 ### Added

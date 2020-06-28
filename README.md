@@ -116,7 +116,9 @@ Here is how the library could inject terminal colors:
 
 You can then customise those classes in your CSS file. This [wiki page](https://github.com/ABridoux/lux/wiki/%5B40%5D-CSS-classes) describes each format CSS classes.
 
-<u>Note</u>: For HTML text, the library will take a **HTML string as input**. In HTML, `&` is specified with `&amp;`, chevrons are written with `&lt;` for `<` and `&gt;` for `>`.  Thus for the command line tool `inject` command, the default behavior is to replace those special characters before injecting colors. You can change this behavior with the `--no-escape-html` flag if you already have a HTML-encoded string as input. To escape those characters, Lux uses the following [extension](https://github.com/JohnSundell/Splash/blob/master/Sources/Splash/Extensions/Strings/String%2BHTMLEntities.swift).
+<u>Note</u>: For HTML text, the library will take a **HTML string as input**. In HTML, `&` is specified with `&amp;`, chevrons are written with `&lt;` for `<` and `&gt;` for `>`. Thus, when using a HTML injector, you can call its function `escapingHTML()` if you give it plain text as input. Otherwise, nothing has to be done when the input is alread HTML encoded.
+
+For the command line tool `inject` command, the default behavior is to replace those special characters before injecting colors. You can change this behavior with the `--no-escape-html` flag if you already have a HTML-encoded string as input. To escape those characters, Lux uses the following [extension](https://github.com/JohnSundell/Splash/blob/master/Sources/Splash/Extensions/Strings/String%2BHTMLEntities.swift).
 
 <br />
 
