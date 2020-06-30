@@ -10,6 +10,7 @@ import AppKit
 
 extension TerminalModifier {
     struct Dracula {
+        let plainText = TerminalModifier.resetColors
         let function = TerminalModifier(colorCode: 155)
         let functionDecorator = TerminalModifier(colorCode: 155)
         let functionParameter = TerminalModifier(colorCode: 166)
@@ -28,7 +29,8 @@ extension TerminalModifier {
 
 extension Color {
     struct Dracula {
-        let function: Color = Color(hex: "#50FA7B")!
+        let plainText = Color.white
+        let function = Color(hex: "#50FA7B")!
         let functionsDecorator = Color(hex: "#50FA7B")!
         let functionParameter = Color(hex: "#FFB86C")!
         let punctuation = Color(hex: "#F8F8F2")!

@@ -12,6 +12,7 @@ final class SwiftDraculaDelegate: SwiftDelegate, DraculaThemeInjectorDelegate {
 
     override func color(for category: SwiftCategory) -> Color {
         switch category {
+        case .plainText: return Color.dracula.plainText
         case .call: return Color.dracula.function
         case .dotAccess: return Color.dracula.functionParameter
         case .keyword: return Color.dracula.keyword
@@ -27,6 +28,7 @@ final class SwiftDraculaDelegate: SwiftDelegate, DraculaThemeInjectorDelegate {
 
     override func terminalModifier(for category: SwiftCategory) -> TerminalModifier {
         switch category {
+        case .plainText: return TerminalModifier.dracula.plainText
         case .call: return TerminalModifier.dracula.function
         case .dotAccess: return TerminalModifier.dracula.functionParameter
         case .keyword: return TerminalModifier.dracula.keyword

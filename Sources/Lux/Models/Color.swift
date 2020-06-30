@@ -15,6 +15,15 @@ public typealias Color = NSColor
 #endif
 
 extension Color {
+
+    public static var plainText: Color {
+        #if !os(macOS)
+        return UIColor.label
+        #else
+        return NSColor.labelColor
+        #endif
+    }
+
     /**
     Init a `NSColor` with an hexadecimal code
     - parameter hex: Represented as #ffe700ff

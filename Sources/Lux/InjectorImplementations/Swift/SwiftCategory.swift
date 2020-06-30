@@ -6,14 +6,48 @@ import UIKit
 import AppKit
 #endif
 
-public typealias SwiftCategory = TokenType
+public enum SwiftCategory: Hashable {
 
-extension TokenType: Category {
+    case plainText
+
+    /// A keyword, such as `if`, `class`, `let` or attributes such as @available
+    case keyword
+    /// A token that is part of a string literal
+    case string
+    /// A reference to a type
+    case type
+    /// A call to a function or method
+    case call
+    /// A number, either interger of floating point
+    case number
+    /// A comment, either single or multi-line
+    case comment
+    /// A property being accessed, such as `object.property`
+    case property
+    /// A symbol being accessed through dot notation, such as `.myCase`
+    case dotAccess
+    /// A preprocessing symbol, such as `#if`
+    case preprocessing
+    /// A custom token type, containing an arbitrary string
+    case custom(String)
+}
+
+extension SwiftCategory: Category {
+
+    /// Return a string value representing the token type
+    var string: String {
+        if case .custom(let type) = self {
+            return type
+        }
+
+        return "\(self)"
+    }
 
     public var cssClass: String { "swift-\(string)" }
 
     public var terminalModifier: TerminalModifier {
         switch self {
+        case .plainText: return TerminalModifier.resetColors
         case .keyword: return TerminalModifier(colorCode: 90)
         case .string: return TerminalModifier(colorCode: 160)
         case .type: return TerminalModifier(colorCode: 23)
@@ -29,6 +63,7 @@ extension TokenType: Category {
 
     public var color: Color {
         switch self {
+        case .plainText: return .black
         case .keyword: return Color(r: 155, g: 35, b: 147)
         case .string: return Color(r: 196, g: 26, b: 22)
         case .type: return Color(r: 28, g: 70, b: 74)
@@ -45,5 +80,4 @@ extension TokenType: Category {
     public init(from match: String) {
         self = .custom(match)
     }
-
 }
