@@ -7,17 +7,17 @@ extension SwiftDelegate {
 
     var theme: Theme { Theme(
     font: .init(size: 12),
-    plainTextColor: .black,
+    plainTextColor: color(for: .plainText),
     tokenColors: [
-        .keyword: SwiftCategory.keyword.color,
-        .string: SwiftCategory.string.color,
-        .type: SwiftCategory.type.color,
-        .call: SwiftCategory.call.color,
-        .number: SwiftCategory.number.color,
-        .comment: SwiftCategory.comment.color,
-        .property: SwiftCategory.property.color,
-        .dotAccess: SwiftCategory.dotAccess.color,
-        .preprocessing: SwiftCategory.preprocessing.color
+        .keyword: color(for: .keyword),
+        .string: color(for: .string),
+        .type: color(for: .type),
+        .call: color(for: .call),
+        .number: color(for: .number),
+        .comment: color(for: .comment),
+        .property: color(for: .property),
+        .dotAccess: color(for: .dotAccess),
+        .preprocessing: color(for: .preprocessing)
     ]
     )}
 }
