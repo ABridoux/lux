@@ -66,7 +66,7 @@ extension HTMLCustomCSSOutputFormat {
 
         private mutating func appendPending() {
             if let pending = pendingToken {
-                let customCssClass = injectorDelegate?.injection(for: pending.type, in: .html)
+                let customCssClass = injectorDelegate?.injection(for: pending.type.category, in: .html)
                 html.append("""
                     <span class="\(classPrefix)\(customCssClass ?? pending.type.string)">\(pending.string)</span>
                 """)

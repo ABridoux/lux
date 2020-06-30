@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file. `Lux` adheres to [Semantic Versioning](http://semver.org).
 
 ---
+## [0.3.4](https://github.com/ABridoux/lux/tree/0.3.4) (30/06/2020)
+
+### Fixed
+- Swift theming was not working
+
 ## [0.3.3](https://github.com/ABridoux/lux/tree/0.3.3) (30/06/2020)
 
 ### Fixed
