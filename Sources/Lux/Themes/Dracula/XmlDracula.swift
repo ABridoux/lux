@@ -8,9 +8,9 @@ public extension XMLDelegate {
     static var dracula: XMLDelegate { XMLDraculaDelegate() }
 }
 
-open class XMLDraculaDelegate: XMLDelegate {
+final class XMLDraculaDelegate: XMLDelegate, DraculaThemeInjectorDelegate {
 
-    override open func color(for category: XMLCategory) -> Color {
+    override func color(for category: XMLCategory) -> Color {
         switch category {
         case .tag: return Color.dracula.function
         case .key: return Color.dracula.functionParameter
@@ -19,7 +19,7 @@ open class XMLDraculaDelegate: XMLDelegate {
         }
     }
 
-    override open func terminalModifier(for category: XMLCategory) -> TerminalModifier {
+    override func terminalModifier(for category: XMLCategory) -> TerminalModifier {
         switch category {
         case .key: return TerminalModifier.dracula.function
         case .tag: return TerminalModifier.dracula.functionParameter

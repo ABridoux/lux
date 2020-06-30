@@ -7,6 +7,9 @@ public protocol AttributedInjector {
     /// - Note: Add strings to this set to match new identifiers not already present in it
     var languageIdentifiers: Set<String> { get set }
 
+    /// Color of the background to be used with the Injector
+    var backgroundColor: Color { get }
+
     func inject(in text: String) -> AttributedString
 }
 

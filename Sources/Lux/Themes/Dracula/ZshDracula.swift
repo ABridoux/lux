@@ -8,9 +8,9 @@ public extension ZshDelegate {
     static var dracula: ZshDelegate { ZshDraculaDelegate() }
 }
 
-open class ZshDraculaDelegate: ZshDelegate {
+final class ZshDraculaDelegate: ZshDelegate, DraculaThemeInjectorDelegate {
 
-    override open func color(for category: ZshCategory) -> Color {
+    override func color(for category: ZshCategory) -> Color {
         switch category {
         case .program: return Color.dracula.function
         case .optionNameOrFlag: return Color.dracula.functionsDecorator
@@ -23,7 +23,7 @@ open class ZshDraculaDelegate: ZshDelegate {
         }
     }
 
-    override open func terminalModifier(for category: ZshCategory) -> TerminalModifier {
+    override func terminalModifier(for category: ZshCategory) -> TerminalModifier {
         switch category {
         case .program: return TerminalModifier.dracula.function
         case .optionNameOrFlag: return TerminalModifier.dracula.functionDecorator

@@ -22,6 +22,9 @@ open class InjectorDelegate<Cat: Category> {
     /// Called by the injector to get the terminal modifier to use for the given category when dealing terminal output
     open func terminalModifier(for category: Cat) -> TerminalModifier { category.terminalModifier }
 
+    /// The background color to use along with the color theme for an application
+    open var backgroundColor: Color { (self as? ThemeInjectorDelegate)?.themeBackgroundColor ?? .white }
+
     /// Called by the injector to know what injection to use for a given category
     func injection<Injection: InjectionType, Output: Appendable>(for category: Cat, in injectorType: InjectorType<Output, Injection>) -> Injection {
         if let cssClass = cssClass(for: category) as? Injection {
