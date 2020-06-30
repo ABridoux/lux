@@ -8,9 +8,9 @@ public extension JSONDelegate {
     static var dracula: JSONDelegate { JSONDraculaDelegate() }
 }
 
-open class JSONDraculaDelegate: JSONDelegate {
+final class JSONDraculaDelegate: JSONDelegate, DraculaThemeInjectorDelegate {
 
-    override open func color(for category: JSONCategory) -> Color {
+    override func color(for category: JSONCategory) -> Color {
         switch category {
         case .keyName: return Color.dracula.function
         case .keyValue: return Color.dracula.functionParameter
@@ -18,7 +18,7 @@ open class JSONDraculaDelegate: JSONDelegate {
         }
     }
 
-    override open func terminalModifier(for category: JSONCategory) -> TerminalModifier {
+    override func terminalModifier(for category: JSONCategory) -> TerminalModifier {
         switch category {
         case .keyName: return TerminalModifier.dracula.function
         case .keyValue: return TerminalModifier.dracula.functionParameter

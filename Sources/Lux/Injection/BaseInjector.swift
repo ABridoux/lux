@@ -41,6 +41,9 @@ open class BaseInjector<Cat: Category, Output: Appendable, Injection: InjectionT
         }
     }
 
+    /// Color of the background to be used with the Injector
+    public var backgroundColor: Color { delegate.backgroundColor }
+
     // MARK: - Intialisation
 
     public init(type: Injector, delegate: Delegate, languageName: String) {

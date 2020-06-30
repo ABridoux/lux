@@ -8,9 +8,9 @@ public extension PlistDelegate {
     static var dracula: PlistDelegate { PlistDraculaDelegate() }
 }
 
-open class PlistDraculaDelegate: PlistDelegate {
+final class PlistDraculaDelegate: PlistDelegate, DraculaThemeInjectorDelegate {
 
-    override open func color(for category: PlistCategory) -> Color {
+    override func color(for category: PlistCategory) -> Color {
         switch category {
         case .keyName: return Color.dracula.function
         case .tag: return Color.dracula.punctuation
@@ -20,7 +20,7 @@ open class PlistDraculaDelegate: PlistDelegate {
         }
     }
 
-    override open func terminalModifier(for category: PlistCategory) -> TerminalModifier {
+    override func terminalModifier(for category: PlistCategory) -> TerminalModifier {
         switch category {
         case .keyName: return TerminalModifier.dracula.function
         case .keyValue: return TerminalModifier.dracula.functionParameter

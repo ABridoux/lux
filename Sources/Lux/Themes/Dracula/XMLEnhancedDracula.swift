@@ -8,9 +8,9 @@ public extension XMLEnhancedDelegate {
     static var dracula: XMLEnhancedDelegate { XMLEnhancedDraculaDelegate() }
 }
 
-open class XMLEnhancedDraculaDelegate: XMLEnhancedDelegate {
+final class XMLEnhancedDraculaDelegate: XMLEnhancedDelegate, DraculaThemeInjectorDelegate {
 
-    override open func color(for category: XMLEnhancedCategory) -> Color {
+    override func color(for category: XMLEnhancedCategory) -> Color {
         switch category {
         case .openingTag: return Color.dracula.function
         case .closingTag, .punctuation: return Color.dracula.punctuation
@@ -20,7 +20,7 @@ open class XMLEnhancedDraculaDelegate: XMLEnhancedDelegate {
         }
     }
 
-    override open func terminalModifier(for category: XMLEnhancedCategory) -> TerminalModifier {
+    override func terminalModifier(for category: XMLEnhancedCategory) -> TerminalModifier {
         switch category {
         case .key: return TerminalModifier.dracula.functionParameter
         case .openingTag: return TerminalModifier.dracula.functionParameter
