@@ -186,6 +186,15 @@ You can then `import Lux` in a file.
 ## Special thanks
 
 Thanks to all the contributors of Lux, especially to [Damien Rivet](https://github.com/Ethenyl) who makes code reviews when he has the time. Also, many thanks to the team behind [swift-argument-parser](https://github.com/apple/swift-argument-parser) who keeps doing an incredible work.
+Also, many thanks to John Sundell for his several articles regarding an API development, and for the [Splash](https://github.com/JohnSundell/Splash) library as well as all its contributors.
+
+## Contributing
+
+### Report a bug
+Lux  aims to be community project, and anyone is welcome to contribute. As it is still a young project, some bugs may appear, or some text not colorised correctly. If you encounter such problem, please [open a issue](https://github.com/ABridoux/lux/issues) to describe it and try to add a use case to reproduce the bug. Hopefully, it should be resolved in the following release.
+
+### Add a new language or theme
+You can read [here](https://github.com/ABridoux/lux/wiki/%5B30%5D-Add-a-new-language) how to add a new language to Lux. A wiki page explaining theming will be available soon.
 
 ## Miscellaneous
 

@@ -10,26 +10,36 @@ public typealias SwiftCategory = TokenType
 
 extension TokenType: Category {
 
-    var theme: Theme { .presentation(withFont: .init(size: 12)) }
     public var cssClass: String { "swift-\(string)" }
 
     public var terminalModifier: TerminalModifier {
         switch self {
-        case .keyword: return TerminalModifier(colorCode: 168)
-        case .string: return TerminalModifier(colorCode: 166)
-        case .type: return TerminalModifier(colorCode: 37)
-        case .call: return TerminalModifier(colorCode: 79)
-        case .number: return TerminalModifier(colorCode: 98)
-        case .comment: return TerminalModifier(colorCode: 249)
-        case .property: return TerminalModifier(colorCode: 108)
-        case .dotAccess: return TerminalModifier(colorCode: 194)
-        case .preprocessing: return TerminalModifier(colorCode: 208)
+        case .keyword: return TerminalModifier(colorCode: 90)
+        case .string: return TerminalModifier(colorCode: 160)
+        case .type: return TerminalModifier(colorCode: 23)
+        case .call: return TerminalModifier(colorCode: 24)
+        case .number: return TerminalModifier(colorCode: 21)
+        case .comment: return TerminalModifier(colorCode: 245)
+        case .property: return TerminalModifier(colorCode: 24)
+        case .dotAccess: return TerminalModifier(colorCode: 24)
+        case .preprocessing: return TerminalModifier(colorCode: 95)
         case .custom: return TerminalModifier.resetColors
         }
     }
 
     public var color: Color {
-        return theme.tokenColors[self] ?? theme.plainTextColor
+        switch self {
+        case .keyword: return Color(r: 155, g: 35, b: 147)
+        case .string: return Color(r: 196, g: 26, b: 22)
+        case .type: return Color(r: 28, g: 70, b: 74)
+        case .call: return Color(r: 50, g: 109, b: 116)
+        case .number: return Color(r: 28, g: 0, b: 7)
+        case .comment: return Color(r: 93, g: 108, b: 121)
+        case .property: return Color(r: 50, g: 109, b: 116)
+        case .dotAccess: return Color(r: 50, g: 109, b: 116)
+        case .preprocessing: return Color(r: 100, g: 56, b: 32)
+        case .custom: return .black
+        }
     }
 
     public init(from match: String) {

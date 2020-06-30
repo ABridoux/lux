@@ -7,7 +7,7 @@ extension SwiftDelegate {
 
     var theme: Theme { Theme(
     font: .init(size: 12),
-    plainTextColor: Color(red: 1, green: 1, blue: 1, alpha: 1),
+    plainTextColor: .black,
     tokenColors: [
         .keyword: SwiftCategory.keyword.color,
         .string: SwiftCategory.string.color,

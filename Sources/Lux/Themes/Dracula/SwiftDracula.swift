@@ -8,9 +8,9 @@ public extension SwiftDelegate {
     static var dracula: SwiftDelegate { SwiftDraculaDelegate() }
 }
 
-open class SwiftDraculaDelegate: SwiftDelegate {
+final class SwiftDraculaDelegate: SwiftDelegate, DraculaThemeInjectorDelegate {
 
-    override open func color(for category: SwiftCategory) -> Color {
+    override func color(for category: SwiftCategory) -> Color {
         switch category {
         case .call: return Color.dracula.function
         case .dotAccess: return Color.dracula.functionParameter
@@ -25,7 +25,7 @@ open class SwiftDraculaDelegate: SwiftDelegate {
         }
     }
 
-    override open func terminalModifier(for category: SwiftCategory) -> TerminalModifier {
+    override func terminalModifier(for category: SwiftCategory) -> TerminalModifier {
         switch category {
         case .call: return TerminalModifier.dracula.function
         case .dotAccess: return TerminalModifier.dracula.functionParameter

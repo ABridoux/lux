@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file. `Lux` adheres to [Semantic Versioning](http://semver.org).
 
 ---
+## [0.3.3](https://github.com/ABridoux/lux/tree/0.3.3) (30/06/2020)
+
+### Fixed
+- Zsh backquote after option was taken with it [#51]
+
+### Changed
+- Swift default theme to Xcode Default Light [#51]
+- Theme background color specification inside the Injector through its delegate [#51]
+
 ## [0.3.2](https://github.com/ABridoux/lux/tree/0.3.2) (27/06/2020)
 
 ### Added

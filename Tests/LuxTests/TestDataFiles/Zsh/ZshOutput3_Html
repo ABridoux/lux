@@ -1,7 +1,7 @@
 <span class="zsh-comment">#!/bin/bash</span>
 <span class="zsh-program">export</span> <span class="zsh-command-option-value">PATH=/usr/bin:/bin:/usr/sbin:/sbin</span>
 
-<span class="zsh-keyword">function</span> <span class="zsh-command-option-value">countArguments()</span> <span class="zsh-punctuation">{</span>
+<span class="zsh-keyword">function</span> <span class="zsh-command-option-value">countArguments</span><span class="zsh-punctuation">(</span><span class="zsh-punctuation">)</span> <span class="zsh-punctuation">{</span>
     <span class="zsh-program">echo</span> <span class="zsh-string">"${#@}"</span>
 <span class="zsh-punctuation">}</span>
 
