@@ -21,7 +21,7 @@ Install<br/>
 
 A Swift library with a dedicated command-line tool to colorise plain code (e.g. for terminal output), HTML files code blocks or attributed strings (e.g. for macOS or iOS apps).
 
-Currently supported:
+Currently supported languages:
 - [x] Zsh/Bash
 - [x] Swift (with [Splash](https://github.com/JohnSundell/Splash))
 - [x] Xml
@@ -29,7 +29,16 @@ Currently supported:
 - [x] Plist
 - [x] Json
 
-You can ask for a language by [opening an issue](https://github.com/ABridoux/lux/issues).
+Currently offered themes:
+- [x] Dracula
+- [x] Xcode light (default)
+
+Theme to be added:
+- [] Xcode dark
+- [] Obsidian
+- [] Tomorrow
+
+You can ask for a language or a theme by [opening an issue](https://github.com/ABridoux/lux/issues).
 The following screenshots show the different usages of **Lux**.
 
 

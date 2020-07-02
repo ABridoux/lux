@@ -8,7 +8,7 @@ public extension JSONDelegate {
     static var xcodeLight: JSONDelegate { XcodeLightDelegate() }
 }
 
-final class XcodeLightDelegate: JSONDelegate, XcodeDefaultThemeInjectorDelegate {
+final class XcodeLightDelegate: JSONDelegate, XcodeLightThemeInjectorDelegate {
 
     override func color(for category: JSONCategory) -> Color {
         switch category {

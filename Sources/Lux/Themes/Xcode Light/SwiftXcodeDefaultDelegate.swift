@@ -8,7 +8,7 @@ public extension SwiftDelegate {
     static var xcodeLight: SwiftDelegate { SwiftXcodeLightDelegate() }
 }
 
-final class SwiftXcodeLightDelegate: SwiftDelegate, XcodeDefaultThemeInjectorDelegate {
+final class SwiftXcodeLightDelegate: SwiftDelegate, XcodeLightThemeInjectorDelegate {
 
     override func color(for category: SwiftCategory) -> Color {
         switch category {

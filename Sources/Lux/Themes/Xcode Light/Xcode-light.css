@@ -1,0 +1,15 @@
+/* COLORS */
+
+:root {
+  --xcode-light-plaint-text: black;
+  --xcode-light-keyword: rgb(155, 35, 147);
+  --xcode-light-string: rgb(196, 26, 22);
+  --xcode-light-url: rgb(14, 14, 255);
+  --xcode-light-type: rgb(28, 70, 74);
+  --xcode-light-call: rgb(50, 109, 116);
+  --xcode-light-number: rgb(28, 0, 7);
+  --xcode-light-property: rgb(50, 109, 116);
+  --xcode-light-dot-access: rgb(50, 109, 116);
+  --xcode-light-custom: black;
+  --xcode-light-background: white;
+}
