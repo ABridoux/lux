@@ -1,24 +1,25 @@
-#if !os(macOS)
-import UIKit
-#else
-import AppKit
-#endif
-
 #if os(iOS)
 import UIKit
+
 /// Typealias to avoid AppKit/UIKit differences
 public typealias Color = UIColor
 #elseif os(macOS)
-import Cocoa
+import AppKit
+
 /// Typealias to avoid AppKit/UIKit differences
 public typealias Color = NSColor
 #endif
 
+#if !os(Linux)
 extension Color {
 
     public static var plainText: Color {
-        #if !os(macOS)
-        return UIColor.label
+        #if os(iOS)
+        if #available(iOS 13.0, *) {
+            return .label
+        } else {
+            return .black
+        }
         #else
         return NSColor.labelColor
         #endif
@@ -57,7 +58,9 @@ extension Color {
         self.init(red: red, green: green, blue: blue, alpha: alpha)
     }
 
-    public convenience init(r: Int, g: Int, b: Int) {
+    public convenience init(r: Int, g: Int, b: Int, a: CGFloat = 1.0, brightness: CGFloat = 1) {
         self.init(red: CGFloat(r) / 255.0, green: CGFloat(g) / 255.0, blue: CGFloat(b) / 255.0, alpha: 1)
+
     }
 }
+#endif

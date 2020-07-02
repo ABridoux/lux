@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. `Lux` adheres to [Semantic Versioning](http://semver.org).
 
 ---
+## [0.3.5](https://github.com/ABridoux/lux/tree/0.3.5) (02/07/2020)
+
+### Added
+- Xcode Default light theme
+
+### Changed
+- Color initialisation for categories and themes with rgb rather than hex code [#58]
+
+### Fixed
+- JSON escaped quotes in a key value
+
+
 ## [0.3.4](https://github.com/ABridoux/lux/tree/0.3.4) (30/06/2020)
 
 ### Fixed

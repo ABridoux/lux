@@ -1,6 +1,6 @@
-#if !os(macOS)
+#if os(iOS)
 import UIKit
-#else
+#elseif os(macOS)
 import AppKit
 #endif
 
@@ -10,9 +10,9 @@ public struct Colors {
     public static var terminalReset: String { "\u{001B}[0;0m" }
 
     static var defaultColor: Color {
-        #if !os(macOS)
+        #if os(iOS)
         return UIColor.black
-        #else
+        #elseif os(macOS)
         return NSColor.black
         #endif
     }
