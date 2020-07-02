@@ -15,7 +15,7 @@ extension String: InjectionType {
     public static func none() -> String { "" }
 }
 
-#if !os(macOS)
+#if os(iOS)
 extension UIColor: InjectionType {
     public static func none() -> Self { Self() }
 }

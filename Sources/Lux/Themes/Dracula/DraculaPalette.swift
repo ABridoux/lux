@@ -1,4 +1,4 @@
-#if !os(macOS)
+#if os(iOS)
 import UIKit
 #else
 import AppKit
@@ -30,18 +30,18 @@ extension TerminalModifier {
 extension Color {
     struct Dracula {
         let plainText = Color.white
-        let function = Color(hex: "#50FA7B")!
-        let functionsDecorator = Color(hex: "#50FA7B")!
-        let functionParameter = Color(hex: "#FFB86C")!
-        let punctuation = Color(hex: "#F8F8F2")!
-        let variable = Color(hex: "#F8F8F2")!
-        let string = Color(hex: "#F1FA8C")!
-        let keyword = Color(hex: "#FF79C6")!
-        let comment = Color(hex: "#6272A4")!
-        let fileHeader = Color(hex: "#8BE9FD")!
-        let classOrType = Color(hex: "#8BE9FD")!
-        let constant = Color(hex: "#BD93F9")!
-        let background = Color(hex: "#282A36")!
+        let function = Color(r: 80, g: 250, b: 123)
+        let functionsDecorator = Color(r: 80, g: 250, b: 123)
+        let functionParameter = Color(r: 255, g: 184, b: 108)
+        let punctuation = Color(r: 248, g: 248, b: 242)
+        let variable = Color(r: 248, g: 248, b: 242)
+        let string = Color(r: 241, g: 250, b: 140)
+        let keyword = Color(r: 255, g: 121, b: 198)
+        let comment = Color(r: 98, g: 114, b: 164)
+        let fileHeader = Color(r: 139, g: 233, b: 253)
+        let classOrType = Color(r: 139, g: 233, b: 253)
+        let constant = Color(r: 189, g: 147, b: 249)
+        let background = Color(r: 40, g: 42, b: 54)
     }
 
     static var dracula: Dracula { Dracula() }

@@ -1,5 +1,5 @@
 import Foundation
-#if !os(macOS)
+#if os(iOS)
 import UIKit
 #else
 import AppKit
@@ -53,7 +53,7 @@ public enum PlistCategory: Category {
         case .keyName: return .red
         case .keyValue: return .black
         case .header: return .lightGray
-        case .comment: return Color(red: 100 / 255, green: 193 / 255, blue: 82 / 255, alpha: 1)
+        case .comment: return Color(r: 100, g: 193, b: 82)
         }
     }
 
