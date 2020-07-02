@@ -26,6 +26,7 @@ extension SwiftDelegate {
     public static func theme(_ theme: ColorTheme) -> SwiftDelegate {
         switch theme {
         case .dracula: return .dracula
+        case .xcodeLight: return .xcodeLight
         }
     }
 }

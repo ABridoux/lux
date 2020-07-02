@@ -1,7 +1,7 @@
 import Foundation
-#if !os(macOS)
+#if os(iOS)
 import UIKit
-#else
+#elseif os(macOS)
 import AppKit
 #endif
 
@@ -59,12 +59,12 @@ public enum ZshCategory: Category {
     public var color: Color {
         switch self {
         case .program: return .black
-        case .optionNameOrFlag: return Color(hex: "#F2836B")!
-        case .commandOrOptionValue: return Color(hex: "#F2594B")!
+        case .optionNameOrFlag: return Color(r: 242, g: 131, b: 107, a: 95)
+        case .commandOrOptionValue: return Color(r: 242, g: 89, b: 75)
         case .punctuation: return .systemGray
-        case .variable: return Color(hex: "#63A69F")!
-        case .string: return Color(hex: "#869CA6")!
-        case .keyword: return Color(hex: "#A67574")!
+        case .variable: return Color(r: 99, g: 166, b: 159)
+        case .string: return Color(r: 134, g: 156, b: 166)
+        case .keyword: return Color(r: 166, g: 117, b: 116)
         case .comment: return .lightGray
         }
     }
