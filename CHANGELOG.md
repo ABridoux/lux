@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file. `Lux` adheres to [Semantic Versioning](http://semver.org).
 
 ---
+## [0.3.6](https://github.com/ABridoux/lux/tree/0.3.6) (04/07/2020)
+
+### Fixed
+- JSON escaped quotes (for real this time) with \",\n allowed and "," not required to end a string value
+
 ## [0.3.5](https://github.com/ABridoux/lux/tree/0.3.5) (02/07/2020)
 
 ### Added
