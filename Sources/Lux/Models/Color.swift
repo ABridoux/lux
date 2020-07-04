@@ -15,7 +15,11 @@ extension Color {
 
     public static var plainText: Color {
         #if os(iOS)
-        return UIColor.label
+        if #available(iOS 13.0, *) {
+            return .label
+        } else {
+            return .black
+        }
         #else
         return NSColor.labelColor
         #endif

@@ -8,7 +8,7 @@ public extension PlistDelegate {
     static var xcodeLight: PlistDelegate { PlistXcodeLightDelegate() }
 }
 
-final class PlistXcodeLightDelegate: PlistDelegate, XcodeDefaultThemeInjectorDelegate {
+final class PlistXcodeLightDelegate: PlistDelegate, XcodeLightThemeInjectorDelegate {
 
     override func color(for category: PlistCategory) -> Color {
         switch category {

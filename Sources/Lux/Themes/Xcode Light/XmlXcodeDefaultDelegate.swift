@@ -8,7 +8,7 @@ public extension XMLDelegate {
     static var xcodeLight: XMLDelegate { XMLXcodeLightDelegate() }
 }
 
-final class XMLXcodeLightDelegate: XMLDelegate, XcodeDefaultThemeInjectorDelegate {
+final class XMLXcodeLightDelegate: XMLDelegate, XcodeLightThemeInjectorDelegate {
 
     override func color(for category: XMLCategory) -> Color {
         switch category {
