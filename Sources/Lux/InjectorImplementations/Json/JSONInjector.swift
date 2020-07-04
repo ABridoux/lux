@@ -3,7 +3,7 @@ import Foundation
 // MARK: Regex
 
 extension RegexPattern {
-    static let json = RegexPattern(#"\{|\}|\(|\)|\[|\]|,|"[^"]*"\s*:|".*"(?=,\n)"#, type: .plain)
+    static let json = RegexPattern(#"\{|\}|\(|\)|\[|\]|,|"[^"]*"\s*:|"([^"]|\\")*[^\\]""#, type: .plain)
 }
 
 // MARK: - Injector
