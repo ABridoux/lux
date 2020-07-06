@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file. `Lux` adheres to [Semantic Versioning](http://semver.org).
 
 ---
+## [0.3.7](https://github.com/ABridoux/lux/tree/0.3.7) (06/07/2020)
+
+### Added
+- Xcode dark theme [#66]
+
+### Changed
+- Zsh colors (better light mode blending) [#65]
+
+### Fixed
+- JSON empty strings [#65]
+
 ## [0.3.6](https://github.com/ABridoux/lux/tree/0.3.6) (04/07/2020)
 
 ### Fixed

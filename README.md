@@ -32,15 +32,14 @@ Currently supported languages:
 Currently offered themes:
 - [x] Dracula
 - [x] Xcode light (default)
+- [x] Xcode dark
 
 Theme to be added:
-- [] Xcode dark
 - [] Obsidian
 - [] Tomorrow
 
 You can ask for a language or a theme by [opening an issue](https://github.com/ABridoux/lux/issues).
 The following screenshots show the different usages of **Lux**.
-
 
 <p align="center">
 
