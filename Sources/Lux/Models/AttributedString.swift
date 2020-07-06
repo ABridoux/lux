@@ -13,7 +13,7 @@ public struct AttributedString: Appendable {
 
     public var textColor: Color {
         get {
-            nsAttributedString.attribute(.foregroundColor, at: 0, effectiveRange: nil) as? Color ?? Colors.defaultColor
+            nsAttributedString.attribute(.foregroundColor, at: 0, effectiveRange: nil) as? Color ?? .plainText
         }
 
         set {

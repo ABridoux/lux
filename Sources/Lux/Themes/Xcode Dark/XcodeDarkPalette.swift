@@ -7,15 +7,15 @@ import AppKit
 extension TerminalModifier {
     struct XcodeDark {
         let plainText = TerminalModifier.resetColors
-        let keyword = TerminalModifier(colorCode: 90)
-        let string = TerminalModifier(colorCode: 160)
-        let type = TerminalModifier(colorCode: 23)
-        let call = TerminalModifier(colorCode: 24)
-        let number = TerminalModifier(colorCode: 21)
-        let comment = TerminalModifier(colorCode: 245)
-        let property = TerminalModifier(colorCode: 24)
-        let dotAccess = TerminalModifier(colorCode: 24)
-        let preprocessing = TerminalModifier(colorCode: 95)
+        let keyword = TerminalModifier(colorCode: 168)
+        let string = TerminalModifier(colorCode: 1)
+        let type = TerminalModifier(colorCode: 37)
+        let call = TerminalModifier(colorCode: 113)
+        let number = TerminalModifier(colorCode: 98)
+        let comment = TerminalModifier(colorCode: 249)
+        let property = TerminalModifier(colorCode: 113)
+        let dotAccess = TerminalModifier(colorCode: 113)
+        let preprocessing = TerminalModifier(colorCode: 208)
         let custom = TerminalModifier.resetColors
     }
 

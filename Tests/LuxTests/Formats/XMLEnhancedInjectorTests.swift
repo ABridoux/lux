@@ -32,7 +32,7 @@ final class XMLEnhancedInjectorTests: XCTestCase {
         let comment = XMLEnhancedCategory.comment.terminalModifier.raw
         let header = XMLEnhancedCategory.header.terminalModifier.raw
         let key = XMLEnhancedCategory.keyDefault.terminalModifier.raw
-        let reset = Colors.terminalReset
+        let reset = TerminalModifier.resetColors.raw
 
         let expectedResult =
             """
