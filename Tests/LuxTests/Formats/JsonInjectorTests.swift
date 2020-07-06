@@ -11,6 +11,8 @@ final class JsonInjectorTests: XCTestCase {
         "Type": "Input",
         "InputType": "List",
         "IsAllowed": true
+        "Empty": ""
+        "EscapedQuotes": "Escaped \\"Quotes\\""
     }
     """
 
@@ -26,6 +28,8 @@ final class JsonInjectorTests: XCTestCase {
                 \(punctuation)"\(reset)\(keyName)Type\(reset)\(punctuation)":\(reset) \(keyValue)"Input"\(reset)\(punctuation),\(reset)
                 \(punctuation)"\(reset)\(keyName)InputType\(reset)\(punctuation)":\(reset) \(keyValue)"List"\(reset)\(punctuation),\(reset)
                 \(punctuation)"\(reset)\(keyName)IsAllowed\(reset)\(punctuation)":\(reset) \(keyValue)true\(reset)
+                \(punctuation)"\(reset)\(keyName)Empty\(reset)\(punctuation)":\(reset) \(keyValue)""\(reset)
+                \(punctuation)"\(reset)\(keyName)EscapedQuotes\(reset)\(punctuation)":\(reset) \(keyValue)"Escaped \\"Quotes\\""\(reset)
             \(punctuation)}\(reset)
             """
 
@@ -45,6 +49,8 @@ final class JsonInjectorTests: XCTestCase {
             <span class="\(punctuation)">"</span><span class="\(keyName)">Type</span><span class="\(punctuation)">":</span> <span class="\(keyValue)">"Input"</span><span class="\(punctuation)">,</span>
             <span class="\(punctuation)">"</span><span class="\(keyName)">InputType</span><span class="\(punctuation)">":</span> <span class="\(keyValue)">"List"</span><span class="\(punctuation)">,</span>
             <span class="\(punctuation)">"</span><span class="\(keyName)">IsAllowed</span><span class="\(punctuation)">":</span> <span class="\(keyValue)">true</span>
+            <span class="\(punctuation)">"</span><span class="\(keyName)">Empty</span><span class="\(punctuation)">":</span> <span class="\(keyValue)">""</span>
+            <span class="\(punctuation)">"</span><span class="\(keyName)">EscapedQuotes</span><span class="\(punctuation)">":</span> <span class="\(keyValue)">"Escaped \\"Quotes\\""</span>
         <span class="\(punctuation)">}</span>
         """
 
