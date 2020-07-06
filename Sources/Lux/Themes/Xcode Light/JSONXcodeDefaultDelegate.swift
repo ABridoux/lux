@@ -5,10 +5,10 @@ import AppKit
 #endif
 
 public extension JSONDelegate {
-    static var xcodeLight: JSONDelegate { XcodeLightDelegate() }
+    static var xcodeLight: JSONDelegate { JSONXcodeLightDelegate() }
 }
 
-final class XcodeLightDelegate: JSONDelegate, XcodeLightThemeInjectorDelegate {
+final class JSONXcodeLightDelegate: JSONDelegate, XcodeLightThemeInjectorDelegate {
 
     override func color(for category: JSONCategory) -> Color {
         switch category {

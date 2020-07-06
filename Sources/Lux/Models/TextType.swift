@@ -4,7 +4,7 @@ public enum TextType: String {
 
     var colorMarkEnd: String {
         switch self {
-        case .plain: return Colors.terminalReset
+        case .plain: return TerminalModifier.resetColors.raw
         case .html: return "</span>"
         }
     }

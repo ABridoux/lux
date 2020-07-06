@@ -20,7 +20,7 @@ final class JsonInjectorTests: XCTestCase {
         let punctuation = JSONCategory.punctuation.terminalModifier.raw
         let keyName = JSONCategory.keyName.terminalModifier.raw
         let keyValue = JSONCategory.keyValue.terminalModifier.raw
-        let reset = Colors.terminalReset
+        let reset = TerminalModifier.resetColors.raw
 
         let expectedResult =
             """

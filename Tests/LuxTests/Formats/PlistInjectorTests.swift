@@ -45,7 +45,7 @@ final class PlistInjectorTests: XCTestCase {
         let keyValue = PlistCategory.keyValueDefault.terminalModifier.raw
         let comment = PlistCategory.comment.terminalModifier.raw
         let header = PlistCategory.header.terminalModifier.raw
-        let reset = Colors.terminalReset
+        let reset = TerminalModifier.resetColors.raw
 
         let expectedResult =
             """
