@@ -5,10 +5,10 @@ import AppKit
 #endif
 
 public extension XMLEnhancedDelegate {
-    static var xcodeLight: XMLEnhancedDelegate { XmlEnhancedXcodeDefaultDelegate() }
+    static var xcodeLight: XMLEnhancedDelegate { XMLEnhancedXcodeLightDelegate() }
 }
 
-final class XmlEnhancedXcodeDefaultDelegate: XMLEnhancedDelegate, DraculaThemeInjectorDelegate {
+final class XMLEnhancedXcodeLightDelegate: XMLEnhancedDelegate, XcodeLightThemeInjectorDelegate {
 
     override func color(for category: XMLEnhancedCategory) -> Color {
         switch category {

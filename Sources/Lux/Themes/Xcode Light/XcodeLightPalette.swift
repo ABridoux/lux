@@ -4,10 +4,6 @@ import UIKit
 import AppKit
 #endif
 
-/*
- https://spec.draculatheme.com
- */
-
 extension TerminalModifier {
     struct XcodeLight {
         let plainText = TerminalModifier.resetColors
