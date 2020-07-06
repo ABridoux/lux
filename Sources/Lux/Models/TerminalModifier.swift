@@ -18,5 +18,7 @@ public struct TerminalModifier {
 }
 
 extension TerminalModifier {
+    
+    /// Terminal modifier to reset the color modification
     public static var resetColors: TerminalModifier { TerminalModifier(raw: "\u{001B}[0;0m") }
 }

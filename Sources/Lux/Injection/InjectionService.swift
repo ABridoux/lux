@@ -92,7 +92,7 @@ struct InjectionService {
         else { // no trimming was needed
             switch type {
             case .plain:
-                return stringToInject + text + Colors.terminalReset
+                return stringToInject + text + TerminalModifier.resetColors.raw
             case .html:
                 return #"<span class="\#(stringToInject)">\#(text)</span>"#
             }
@@ -103,7 +103,7 @@ struct InjectionService {
 
         switch type {
         case .plain:
-            match = stringToInject + match + Colors.terminalReset
+            match = stringToInject + match + TerminalModifier.resetColors.raw
         case .html:
             match = #"<span class="\#(stringToInject)">\#(match)</span>"#
         }

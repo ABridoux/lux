@@ -5,6 +5,7 @@ extension XMLEnhancedDelegate {
         switch theme {
         case .dracula: return .dracula
         case .xcodeLight: return .xcodeLight
+        case .xcodeDark: return .xcodeDark
         }
     }
 }

@@ -1,0 +1,15 @@
+/* COLORS */
+
+:root {
+  --xcode-dark-plaint-text: white;
+  --xcode-dark-keyword: rgb(252, 95, 163);
+  --xcode-dark-string: rgb(252, 108, 93);
+  --xcode-dark-url: rgb(83, 165, 251);
+  --xcode-dark-type: rgb(145, 212, 98);
+  --xcode-dark-call: rgb(145, 212, 98);
+  --xcode-dark-number: rgb(150, 134, 245);
+  --xcode-dark-property: rgb(145, 212, 98);
+  --xcode-dark-dot-access: rgb(145, 212, 98);
+  --xcode-dark-custom: white;
+  --xcode-dark-background: rgb(31, 31, 36);
+}
