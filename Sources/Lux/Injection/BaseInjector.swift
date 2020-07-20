@@ -15,12 +15,9 @@ open class BaseInjector<Cat: Category, Output: Appendable, Injection: InjectionT
     var textType: TextType
     var type: Injector
 
-    /// If true, the injector will find all HTML special characters and replace them before injecting. Useful for plain input which has to be rendered to HTML.
-    private var escapeHTML = false {
-        didSet {
-            textType = escapeHTML ? .plain : .html
-        }
-    }
+    /// If true, the injector will find all HTML special characters and replace them before injecting.
+    /// Useful for plain input which has to be rendered to HTML.
+    private(set) var escapeHTML = false
 
     public var delegate: Delegate
 
@@ -56,16 +53,25 @@ open class BaseInjector<Cat: Category, Output: Appendable, Injection: InjectionT
 
     // MARK: - Functions
 
-    static func lowercasedIdentifiers(for language: String) -> Set<String> { [language, "lang-\(language)", "language-\(language)"] }
+    static func lowercasedIdentifiers(for language: String) -> Set<String> { [language,
+                                                                              "lang-\(language)",
+                                                                                "language-\(language)"] }
 
     /// Inject modifiers to colorise an input String.
     /// - Parameter text: The text to colorise
     /// - Returns: The colorised text. The output type will depend of the Injector type you use: HTML String, Terminal: String, App: AttributedString. You can retrieve the `NSMutableString` value
     /// from an `AttributedString` with the `nsAttributedString` property.
-    open func inject(in text: String) -> Output {
-
+    public final func inject(in text: String) -> Output {
         let text = escapeHTML ? text.escapingHTMLEntities() : text
 
+        return inject(inEscapedHTMLEntities: text)
+    }
+
+    /// Inject modifiers to colorise an input String.
+    /// - Parameter text: The text to colorise, with escaped HTML entities if `escapeHTML` is `true`
+    /// - Returns: The colorised text. The output type will depend of the Injector type you use: HTML String, Terminal: String, App: AttributedString. You can retrieve the `NSMutableString` value
+    /// from an `AttributedString` with the `nsAttributedString` property.
+    func inject(inEscapedHTMLEntities text: String) -> Output {
         let modifiedInput = try? InjectionService.inject(Output.self, in: text, following: regexPattern) { match in
             let category = Cat(from: match)
 

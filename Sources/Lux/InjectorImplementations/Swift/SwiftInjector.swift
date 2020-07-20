@@ -34,7 +34,7 @@ public final class SwiftInjector<Output: Appendable, Injection: InjectionType, I
         return AttributedString(attributedString: nsAttrString)
     }
 
-    override public func inject(in text: String) -> Output {
+    override public func inject(inEscapedHTMLEntities text: String) -> Output {
         switch type {
         case is Terminal: return Output(injectString(in: text))
         case is Html: return Output(injectString(in: text))
