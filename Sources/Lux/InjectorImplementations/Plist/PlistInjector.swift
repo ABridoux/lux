@@ -15,7 +15,7 @@ open class PlistInjector<Output: Appendable, Injection: InjectionType, InjType: 
 
     // MARK: - Functions
 
-    override open func inject(in text: String) -> Output {
+    override public func inject(inEscapedHTMLEntities text: String) -> Output {
         var currentOpenTagIsKey = false
 
         let modifiedInput = try? InjectionService.inject(Output.self, in: text, following: regexPattern) { match in
