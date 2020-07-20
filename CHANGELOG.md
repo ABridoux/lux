@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file. `Lux` adheres to [Semantic Versioning](http://semver.org).
 
 ---
+## [0.4.0](https://github.com/ABridoux/lux/tree/0.4.0) (20/07/2020)
+
+### Changed
+- `BaseInjector` `inject(in:)` function now `final`. The function to override is now `inject(inEscapedHTMLEntities:)` [#71]
+
+### Fixed
+- `PlistInjector` can now handle the HTML entities escaping [#71]
+
 ## [0.3.7](https://github.com/ABridoux/lux/tree/0.3.7) (06/07/2020)
 
 ### Added
