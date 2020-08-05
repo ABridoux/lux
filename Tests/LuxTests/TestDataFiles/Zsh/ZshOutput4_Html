@@ -1,0 +1,9 @@
+<span class="zsh-comment">#!/bin/zsh</span>
+
+<span class="zsh-keyword">if</span> <span class="zsh-punctuation">[</span> <span class="zsh-option-flag">-f</span> <span class="zsh-string">"Octory_inputs.json"</span> <span class="zsh-punctuation">]</span> <span class="zsh-punctuation">;</span> <span class="zsh-keyword">then</span>
+    <span class="zsh-keyword">if</span> <span class="zsh-variable">secondSupply</span><span class="zsh-keyword">=</span><span class="zsh-keyword">$</span><span class="zsh-punctuation">(</span><span class="zsh-program">scout</span> <span class="zsh-option-flag">-i</span> <span class="zsh-command-option-value">Octory_inputs.json</span> <span class="zsh-string">"Supplies[1]"</span><span class="zsh-punctuation">)</span> <span class="zsh-punctuation">;</span> <span class="zsh-keyword">then</span>
+        <span class="zsh-program">echo</span> <span class="zsh-string">"</span><span class="zsh-variable">$secondSupply</span><span class="zsh-string">"</span>
+    <span class="zsh-keyword">else</span>
+        <span class="zsh-program">echo</span> <span class="zsh-string">"Not indicated"</span>
+    <span class="zsh-keyword">fi</span>
+<span class="zsh-keyword">fi</span>

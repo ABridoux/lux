@@ -1,4 +1,5 @@
 <p  align="center">
+<img src="Resources/Lux.png" />
 Swift package<br>
     <a href="#">
         <img src="https://img.shields.io/badge/Swift-5.1-orange.svg" />
@@ -17,7 +18,7 @@ Install<br/>
     <br/>
 </p>
 
-# Lux <a href="https://github.com/ABridoux/scout/releases"><img src="https://img.shields.io/github/v/release/Abridoux/lux?color=lightgrey&label=latest" /></a>
+# Lux <a href="https://github.com/ABridoux/scout/releases" style="vertical-align: center"><img src="https://img.shields.io/github/v/release/Abridoux/lux?color=lightgrey&label=latest" /></a>
 
 A Swift library with a dedicated command-line tool to colorise plain code (e.g. for terminal output), HTML files code blocks or attributed strings (e.g. for macOS or iOS apps).
 

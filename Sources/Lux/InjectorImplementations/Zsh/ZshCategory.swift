@@ -125,6 +125,7 @@ private extension String {
     var isVariable: Bool {
         let trimmed = self.trimmingCharacters(in: .whitespacesAndNewlines)
         return trimmed.hasSuffix("=")
+            || trimmed.hasSuffix("=$")
             || trimmed.hasPrefix("${") && trimmed.hasSuffix("}")
             || trimmed.hasPrefix("$") && !trimmed.hasPrefix("$(")
     }
