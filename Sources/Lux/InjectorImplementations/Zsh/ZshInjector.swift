@@ -4,15 +4,26 @@ import Foundation
 
 extension RegexPattern {
 
-    static let zsh = RegexPattern(
+    static let zshPlain = RegexPattern(
           #""[^"]*"|'[^']*'"# // strings
         + #"|\s?\x5C#[^\s]*|#.*(?=\n|\Z)"# // comments and escaped # signs
-        + #"|(\s?sudo|\$\(|\$|\[|`|\n|\r|\|)\h*[a-zA-Z0-9]{1}[a-zA-Z0-9_-]*=?"# // programs and variables defs
+        + #"|(\s?sudo|\$\(|\$|\[|`|\n|\r|\||\/)\h*[a-zA-Z0-9]{1}[a-zA-Z0-9\/\._-]*=?"# // programs and variables defs
         + #"|\s\h*[a-zA-Z0-9\/\.]{1}[^\s^`^\(^\)]*"# // commands and option values
         + #"|\s-{1,2}[a-zA-Z0-9_-]+"# // options and flags
         + #"|\$\{[a-zA-Z0-9_-]+\}|"# // variable with brackets ${variable}
         + #"\[|\]|;|\(|\)|\{|\}|`"#, // punctuation
         type: .plain)
+
+    static let zshHTML = RegexPattern(
+      #""[^"]*"|'[^']*'"# // strings
+    + #"|&lt;|&gt;"# //specific html keywords < and >
+    + #"|\s?\x5C#[^\s]*|#.*(?=\n|\Z)"# // comments and escaped # signs
+    + #"|(\s?sudo|\$\(|\$|\[|`|\n|\r|\||\/)\h*[a-zA-Z0-9]{1}[a-zA-Z0-9\/\._-]*=?"# // programs and variables defs
+    + #"|\s\h*[a-zA-Z0-9\/\.]{1}[^\s^`^\(^\)]*"# // commands and option values
+    + #"|\s-{1,2}[a-zA-Z0-9_-]+"# // options and flags
+    + #"|\$\{[a-zA-Z0-9_-]+\}|"# // variable with brackets ${variable}
+    + #"\[|\]|;|\(|\)|\{|\}|`"#, // punctuation
+    type: .plain)
 
     /// Find variables in a string in Zsh
     static let zshVariables = RegexPattern(
@@ -27,8 +38,8 @@ public final class ZshInjector<Output: Appendable, Injection: InjectionType, Inj
 
     // MARK: - Properties
 
-    override var plainRegexPattern: RegexPattern { .zsh }
-    override var htmlRegexPattern: RegexPattern { .zsh }
+    override var plainRegexPattern: RegexPattern { .zshPlain }
+    override var htmlRegexPattern: RegexPattern { .zshHTML }
 
     // MARK: - Initialisation
 
@@ -119,13 +130,19 @@ public final class ZshInjector<Output: Appendable, Injection: InjectionType, Inj
 
     func injectIn(variable match: String) -> Output {
 
+        let keywordSuffixes = match.hasSuffix("=$") ? 2 : (match.hasSuffix("=") ? 1 : 0)
+
         // colorise "=" as a keyword
-        if match.hasSuffix("=") {
+        if keywordSuffixes > 0 {
             var variable = match
-            variable.removeLast()
+            variable.removeLast(keywordSuffixes)
 
             var output = delegate.inject(.variable, in: type, variable)
             output += delegate.inject(.keyword, in: type, "=")
+
+            if keywordSuffixes == 2 {
+                output += delegate.inject(.keyword, in: type, "$")
+            }
 
             return output
         } else {

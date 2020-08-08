@@ -1,0 +1,9 @@
+#!/bin/zsh
+
+if [ -f "Octory_inputs.json" ] ; then
+    if secondSupply=$(scout -i Octory_inputs.json "Supplies[1]") ; then
+        echo "$secondSupply"
+    else
+        echo "Not indicated"
+    fi
+fi

@@ -36,4 +36,41 @@ extension XCTestCase {
 
         return try! String(contentsOf: outputFileWithTypeURL)
     }
+
+    /// Test a plain input file in the TestDataFiles folder, with its injector type version: Html or Terminal
+    /// - Parameters:
+    ///   - order: The file number
+    ///   - format: Language to test
+    ///   - folder: Folder inside TestDataFiles where the file is located
+    ///   - type: Html or Terminal
+    func test<Output: Appendable, Injection: InjectionType, InjType: InjectorType<Output, Injection>>(_ order: Int, th format: DataFormat, fileIn folder: String, folderWith type: InjType, file: StaticString = #file, line: UInt = #line) {
+        let input = inputTestFile(with: .zsh, in: folder, order: order, type: type.textType)
+        let expectedOutput = outputTestFile(with: .zsh, in: folder, order: order, type: type.textType)
+
+        // we use a delegate to ensure the colors and css classes used for the tests
+        guard let output = ZshInjector(type: type, delegate: ZshTestDelegate()).inject(in: input) as? String else {
+            fatalError("The output with Terminal or HTML should be a String")
+        }
+
+        guard output != expectedOutput else { return }
+
+        let resultLines = output.split(separator: "\n")
+        let expectedLines = expectedOutput.split(separator: "\n")
+
+        let resultLinesCount = resultLines.count
+        let expectedLinesCount = expectedLines.count
+
+        guard resultLinesCount == expectedLinesCount else {
+            XCTFail("Lines count not maching in output (\(resultLinesCount) lines) and expected output (\(expectedLinesCount) lines)", file: file, line: line)
+            return
+        }
+
+        var index = 1
+        for (resultLine, expectedLine) in zip(resultLines, expectedLines) {
+            if resultLine != expectedLine {
+                XCTFail("The lines \(index) are different.\nExpected: \(expectedLine)\nGot: \(resultLine)", file: file, line: line)
+            }
+            index += 1
+        }
+    }
 }
