@@ -197,6 +197,11 @@ You can then `import Lux` in a file.
 Thanks to all the contributors of Lux, especially to [Damien Rivet](https://github.com/Ethenyl) who makes code reviews when he has the time. Also, many thanks to the team behind [swift-argument-parser](https://github.com/apple/swift-argument-parser) who keeps doing an incredible work.
 Also, many thanks to John Sundell for his several articles regarding an API development, and for the [Splash](https://github.com/JohnSundell/Splash) library as well as all its contributors.
 
+### Acknowlegdments
+
+Font used for the logo: Flashlight by [Bexxtype](https://www.dafont.com/fr/syahputra.d7326)]
+
+
 ## Contributing
 
 ### Report a bug
