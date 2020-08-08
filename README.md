@@ -1,4 +1,5 @@
 <p  align="center">
+<img src="Resources/Lux.png" />
 Swift package<br>
     <a href="#">
         <img src="https://img.shields.io/badge/Swift-5.1-orange.svg" />
@@ -17,7 +18,7 @@ Install<br/>
     <br/>
 </p>
 
-# Lux <a href="https://github.com/ABridoux/scout/releases"><img src="https://img.shields.io/github/v/release/Abridoux/lux?color=lightgrey&label=latest" /></a>
+# Lux <a href="https://github.com/ABridoux/scout/releases" style="vertical-align: center"><img src="https://img.shields.io/github/v/release/Abridoux/lux?color=lightgrey&label=latest" /></a>
 
 A Swift library with a dedicated command-line tool to colorise plain code (e.g. for terminal output), HTML files code blocks or attributed strings (e.g. for macOS or iOS apps).
 
@@ -195,6 +196,11 @@ You can then `import Lux` in a file.
 
 Thanks to all the contributors of Lux, especially to [Damien Rivet](https://github.com/Ethenyl) who makes code reviews when he has the time. Also, many thanks to the team behind [swift-argument-parser](https://github.com/apple/swift-argument-parser) who keeps doing an incredible work.
 Also, many thanks to John Sundell for his several articles regarding an API development, and for the [Splash](https://github.com/JohnSundell/Splash) library as well as all its contributors.
+
+### Acknowlegdments
+
+Font used for the logo: Flashlight by [Bexxtype](https://www.dafont.com/fr/syahputra.d7326)]
+
 
 ## Contributing
 
