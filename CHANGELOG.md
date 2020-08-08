@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file. `Lux` adheres to [Semantic Versioning](http://semver.org).
 
 ---
+## [0.4.1](https://github.com/ABridoux/lux/tree/0.4.1) (08/08/2020)
+
+### Added
+- Lux logo
+
+### Fixed
+- Variables in a condition were not properly parsed [#76]
+- Zsh programs given as a path to an executale were not properly parsed
+- `<` ans `>` were not properly parsed with a HTML injector [#75]
+
 ## [0.4.0](https://github.com/ABridoux/lux/tree/0.4.0) (20/07/2020)
 
 ### Changed
