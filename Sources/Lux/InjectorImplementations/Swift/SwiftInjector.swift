@@ -17,7 +17,7 @@ public final class SwiftInjector<Output: Appendable, Injection: InjectionType, I
         switch textType {
 
         case .html:
-            let format = HTMLCustomCSSOutputFormat(classPrefix: "", delegate: delegate)
+            let format = HTMLCustomCSSOutputFormat(classPrefix: "swift-", delegate: delegate)
             let highlighter = SyntaxHighlighter(format: format)
             return highlighter.highlight(text)
 
