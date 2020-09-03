@@ -80,6 +80,7 @@ public enum ZshCategory: Category {
         case \.isVariable: self = .variable
         case \.isString: self = .string
         case \.isComment: self = .comment
+        case \.isProgram: self = .program
         case \.isCommandOrOptionValue: self = .commandOrOptionValue
         default: self = .program
         }
@@ -103,6 +104,7 @@ private extension String {
         || hasPrefix("|") && count > 1
         || hasPrefix("\n") && count > 1
         || hasPrefix("\r") && count > 1
+        || hasPrefix("./") && count > 2
     }
 
     var isCommandOrOptionValue: Bool {
