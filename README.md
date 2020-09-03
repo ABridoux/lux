@@ -163,6 +163,8 @@ install lux /usr/local/bin && \
 rm lux
 ```
 
+Lux 0.4.3 and later are compatible with Linux. You can download the `tar` archive "lux-linux" in the releases. In case you got an error regarding "libswiftCore.so" when executing the binary, you can checkout [this solution](https://stackoverflow.com/questions/48242496/how-to-build-a-swift-executable-for-linux-on-macos).
+
 ##### Note
 - To find all lux versions, please browse the [releases](https://github.com/ABridoux/lux/releases) page.
 - When deploying a package (with a MDM for example), it might be useful to add the version to the name. To get lux latest version: simply run `lux version` to get your **installed lux version**.
