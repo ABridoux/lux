@@ -105,6 +105,7 @@ private extension String {
         || hasPrefix("\n") && count > 1
         || hasPrefix("\r") && count > 1
         || hasPrefix("./") && count > 2
+        || hasPrefix("/") && count > 1
     }
 
     var isCommandOrOptionValue: Bool {
