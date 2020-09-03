@@ -10,6 +10,7 @@ public extension SwiftDelegate {
 
 final class SwiftXcodeDarkDelegate: SwiftDelegate, XcodeDarkThemeInjectorDelegate {
 
+    #if !os(Linux)
     override func color(for category: SwiftCategory) -> Color {
         switch category {
         case .plainText: return Color.xcodeDark.plainText
@@ -25,6 +26,7 @@ final class SwiftXcodeDarkDelegate: SwiftDelegate, XcodeDarkThemeInjectorDelegat
         case .type: return Color.xcodeDark.type
         }
     }
+    #endif
 
     override func terminalModifier(for category: SwiftCategory) -> TerminalModifier {
         switch category {

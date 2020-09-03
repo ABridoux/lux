@@ -1,10 +1,11 @@
-import Foundation
-import Splash
 #if os(iOS)
 import UIKit
-#else
+#elseif os(macOS)
 import AppKit
 #endif
+
+import Foundation
+import Splash
 
 public enum SwiftCategory: Hashable {
 
@@ -61,6 +62,7 @@ extension SwiftCategory: Category {
         }
     }
 
+    #if !os(Linux)
     public var color: Color {
         switch self {
         case .plainText: return .black
@@ -76,6 +78,7 @@ extension SwiftCategory: Category {
         case .custom: return .black
         }
     }
+    #endif
 
     public init(from match: String) {
         self = .custom(match)

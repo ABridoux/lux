@@ -13,8 +13,10 @@ public class InjectorType<Output: Appendable, Injection: InjectionType> {
     /// Type of injector to use when outputting in a HTML file. Will inject  `<span>` div with specific CSS classes
     public static var html: Html { Html(textType: .html) }
 
+    #if !os(Linux)
     /// Type of injector to use when outputting in an application with `NSAttributedString`. Will change the foreground color.
     public static var app: App { App(textType: .plain) }
+    #endif
 
     // MARK: - Properties
 
@@ -87,6 +89,7 @@ public final class Html: InjectorType<String, CSSClass> {
     }
 }
 
+#if !os(Linux)
 /// Type of injector to use when outputting in an application with NSAttributedString
 public final class App: InjectorType<AttributedString, Color> {
 
@@ -94,3 +97,4 @@ public final class App: InjectorType<AttributedString, Color> {
         return AttributedString(text, color: injection)
     }
 }
+#endif

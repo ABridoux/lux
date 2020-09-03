@@ -56,6 +56,7 @@ public enum ZshCategory: Category {
         }
     }
 
+    #if !os(Linux)
     public var color: Color {
         switch self {
         case .program: return .black
@@ -68,6 +69,7 @@ public enum ZshCategory: Category {
         case .comment: return .lightGray
         }
     }
+    #endif
 
     public init(from match: String) {
         switch match {

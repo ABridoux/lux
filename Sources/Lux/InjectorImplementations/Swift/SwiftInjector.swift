@@ -28,17 +28,21 @@ public final class SwiftInjector<Output: Appendable, Injection: InjectionType, I
         }
     }
 
+    #if !os(Linux)
     func injectAttributed(in text: String) -> AttributedString {
         let highlighter = SyntaxHighlighter(format: AttributedStringOutputFormat(theme: delegate.theme))
         let nsAttrString = highlighter.highlight(text)
         return AttributedString(attributedString: nsAttrString)
     }
+    #endif
 
     override public func inject(inEscapedHTMLEntities text: String) -> Output {
         switch type {
         case is Terminal: return Output(injectString(in: text))
         case is Html: return Output(injectString(in: text))
+        #if !os(Linux)
         case is App: return Output(attributedString: injectAttributed(in: text))
+        #endif
         default:
             assertionFailure("\(Output.self) not handled")
             return Output(text)
