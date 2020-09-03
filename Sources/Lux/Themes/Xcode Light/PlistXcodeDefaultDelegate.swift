@@ -10,6 +10,7 @@ public extension PlistDelegate {
 
 final class PlistXcodeLightDelegate: PlistDelegate, XcodeLightThemeInjectorDelegate {
 
+    #if !os(Linux)
     override func color(for category: PlistCategory) -> Color {
         switch category {
         case .keyName: return Color.xcodeLight.property
@@ -19,6 +20,7 @@ final class PlistXcodeLightDelegate: PlistDelegate, XcodeLightThemeInjectorDeleg
         case .header: return Color.xcodeLight.comment
         }
     }
+    #endif
 
     override func terminalModifier(for category: PlistCategory) -> TerminalModifier {
         switch category {

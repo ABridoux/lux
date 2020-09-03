@@ -27,6 +27,7 @@ extension TerminalModifier {
     static var dracula: Dracula { Dracula() }
 }
 
+#if !os(Linux)
 extension Color {
     struct Dracula {
         let plainText = Color.white
@@ -46,3 +47,4 @@ extension Color {
 
     static var dracula: Dracula { Dracula() }
 }
+#endif

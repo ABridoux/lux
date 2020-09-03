@@ -1,7 +1,6 @@
-import Foundation
 #if os(iOS)
 import UIKit
-#else
+#elseif os(macOS)
 import AppKit
 #endif
 
@@ -47,6 +46,7 @@ public enum PlistCategory: Category {
         }
     }
 
+    #if !os(Linux)
     public var color: Color {
         switch self {
         case .tag: return .darkGray
@@ -56,7 +56,8 @@ public enum PlistCategory: Category {
         case .comment: return Color(r: 100, g: 193, b: 82)
         }
     }
-
+    #endif
+    
     // MARK: - Initilisation
 
     public init(from match: String) {

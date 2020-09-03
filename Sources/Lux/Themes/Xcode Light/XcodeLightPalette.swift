@@ -22,6 +22,7 @@ extension TerminalModifier {
     static var xcodeLight: XcodeLight { XcodeLight() }
 }
 
+#if !os(Linux)
 extension Color {
     struct XcodeLight {
         let plainText = Color.black
@@ -41,3 +42,4 @@ extension Color {
 
     static var xcodeLight: XcodeLight { XcodeLight() }
 }
+#endif

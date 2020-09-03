@@ -10,6 +10,7 @@ public extension ZshDelegate {
 
 final class ZshDraculaDelegate: ZshDelegate, DraculaThemeInjectorDelegate {
 
+    #if !os(Linux)
     override func color(for category: ZshCategory) -> Color {
         switch category {
         case .program: return Color.dracula.function
@@ -22,6 +23,7 @@ final class ZshDraculaDelegate: ZshDelegate, DraculaThemeInjectorDelegate {
         case .comment: return Color.dracula.comment
         }
     }
+    #endif
 
     override func terminalModifier(for category: ZshCategory) -> TerminalModifier {
         switch category {

@@ -3,6 +3,7 @@ import Splash
 
 public typealias SwiftDelegate = InjectorDelegate<SwiftCategory>
 
+#if !os(Linux)
 extension SwiftDelegate {
 
     var theme: Theme { Theme(
@@ -21,6 +22,7 @@ extension SwiftDelegate {
     ]
     )}
 }
+#endif
 
 extension SwiftDelegate {
     public static func theme(_ theme: ColorTheme) -> SwiftDelegate {

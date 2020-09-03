@@ -13,8 +13,13 @@ open class InjectorDelegate<Cat: Category> {
 
     // MARK: - Functions
 
+    #if !os(Linux)
     //// Called by the injector to get the color to use for the given category when dealing with attributed output
     open func color(for category: Cat) -> Color { category.color }
+
+    /// The background color to use along with the color theme for an application
+    open var backgroundColor: Color { (self as? ThemeInjectorDelegate)?.themeBackgroundColor ?? .white }
+    #endif
 
     /// Called by the injector to get the CSS class to use for the given category when dealing with HTML output
     open func cssClass(for category: Cat) -> CSSClass { category.cssClass }
@@ -22,17 +27,18 @@ open class InjectorDelegate<Cat: Category> {
     /// Called by the injector to get the terminal modifier to use for the given category when dealing terminal output
     open func terminalModifier(for category: Cat) -> TerminalModifier { category.terminalModifier }
 
-    /// The background color to use along with the color theme for an application
-    open var backgroundColor: Color { (self as? ThemeInjectorDelegate)?.themeBackgroundColor ?? .white }
-
     /// Called by the injector to know what injection to use for a given category
     func injection<Injection: InjectionType, Output: Appendable>(for category: Cat, in injectorType: InjectorType<Output, Injection>) -> Injection {
+        #if !os(Linux)
+        if let color = color(for: category) as? Injection {
+            return color
+        }
+        #endif
+
         if let cssClass = cssClass(for: category) as? Injection {
             return cssClass
         } else if let terminalModifier = terminalModifier(for: category) as? Injection {
             return terminalModifier
-        } else if let color = color(for: category) as? Injection {
-            return color
         } else {
             assertionFailure("\(Injection.self) not handled")
             return Injection.none()

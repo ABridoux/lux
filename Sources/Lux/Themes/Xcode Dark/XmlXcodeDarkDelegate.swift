@@ -10,6 +10,7 @@ public extension XMLDelegate {
 
 final class XMLXcodeDarkDelegate: XMLDelegate, XcodeDarkThemeInjectorDelegate {
 
+    #if !os(Linux)
     override func color(for category: XMLCategory) -> Color {
         switch category {
         case .tag: return Color.xcodeDark.property
@@ -18,6 +19,7 @@ final class XMLXcodeDarkDelegate: XMLDelegate, XcodeDarkThemeInjectorDelegate {
         case .header: return Color.xcodeDark.comment
         }
     }
+    #endif
 
     override func terminalModifier(for category: XMLCategory) -> TerminalModifier {
         switch category {

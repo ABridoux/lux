@@ -71,6 +71,7 @@ public enum XMLEnhancedCategory: Category {
         }
     }
 
+    #if !os(Linux)
     public var color: Color {
         switch self {
         case .closingTag, .punctuation: return .darkGray
@@ -80,4 +81,5 @@ public enum XMLEnhancedCategory: Category {
         case .comment: return Color(r: 100, g: 193, b: 82)
         }
     }
+    #endif
 }

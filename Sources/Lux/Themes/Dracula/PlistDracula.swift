@@ -10,6 +10,7 @@ public extension PlistDelegate {
 
 final class PlistDraculaDelegate: PlistDelegate, DraculaThemeInjectorDelegate {
 
+    #if !os(Linux)
     override func color(for category: PlistCategory) -> Color {
         switch category {
         case .keyName: return Color.dracula.function
@@ -19,6 +20,7 @@ final class PlistDraculaDelegate: PlistDelegate, DraculaThemeInjectorDelegate {
         case .header: return Color.dracula.fileHeader
         }
     }
+    #endif
 
     override func terminalModifier(for category: PlistCategory) -> TerminalModifier {
         switch category {

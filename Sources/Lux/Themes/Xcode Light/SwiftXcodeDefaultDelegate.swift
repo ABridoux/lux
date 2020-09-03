@@ -10,6 +10,7 @@ public extension SwiftDelegate {
 
 final class SwiftXcodeLightDelegate: SwiftDelegate, XcodeLightThemeInjectorDelegate {
 
+    #if !os(Linux)
     override func color(for category: SwiftCategory) -> Color {
         switch category {
         case .plainText: return Color.xcodeLight.plainText
@@ -25,6 +26,7 @@ final class SwiftXcodeLightDelegate: SwiftDelegate, XcodeLightThemeInjectorDeleg
         case .type: return Color.xcodeLight.type
         }
     }
+    #endif
 
     override func terminalModifier(for category: SwiftCategory) -> TerminalModifier {
         switch category {
