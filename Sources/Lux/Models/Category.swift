@@ -4,7 +4,10 @@ public protocol Category {
 
     var cssClass: CSSClass { get }
     var terminalModifier: TerminalModifier { get }
+
+    #if !os(Linux)
     var color: Color { get }
+    #endif
 
     init(from match: String)
 }

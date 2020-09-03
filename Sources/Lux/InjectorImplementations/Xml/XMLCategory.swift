@@ -1,9 +1,10 @@
-import Foundation
 #if os(iOS)
 import UIKit
 #elseif os(macOS)
 import AppKit
 #endif
+
+import Foundation
 
 /// Categories for matches in a Plist format
 public enum XMLCategory: Category {
@@ -70,6 +71,7 @@ public enum XMLCategory: Category {
         }
     }
 
+    #if !os(Linux)
     public var color: Color {
         switch self {
         case .tag: return .red
@@ -78,6 +80,7 @@ public enum XMLCategory: Category {
         case .comment: return Color(r: 100, g: 193, b: 82)
         }
     }
+    #endif
 }
 
 private extension String {

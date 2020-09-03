@@ -10,6 +10,7 @@ public extension XMLEnhancedDelegate {
 
 final class XMLEnhancedXcodeLightDelegate: XMLEnhancedDelegate, XcodeLightThemeInjectorDelegate {
 
+    #if !os(Linux)
     override func color(for category: XMLEnhancedCategory) -> Color {
         switch category {
         case .openingTag: return Color.xcodeLight.property
@@ -19,6 +20,7 @@ final class XMLEnhancedXcodeLightDelegate: XMLEnhancedDelegate, XcodeLightThemeI
         case .header: return Color.xcodeLight.comment
         }
     }
+    #endif
 
     override func terminalModifier(for category: XMLEnhancedCategory) -> TerminalModifier {
         switch category {

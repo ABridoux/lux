@@ -38,8 +38,10 @@ open class BaseInjector<Cat: Category, Output: Appendable, Injection: InjectionT
         }
     }
 
+    #if !os(Linux)
     /// Color of the background to be used with the Injector
     public var backgroundColor: Color { delegate.backgroundColor }
+    #endif
 
     // MARK: - Intialisation
 

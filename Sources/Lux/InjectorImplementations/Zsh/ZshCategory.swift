@@ -56,6 +56,7 @@ public enum ZshCategory: Category {
         }
     }
 
+    #if !os(Linux)
     public var color: Color {
         switch self {
         case .program: return .black
@@ -68,6 +69,7 @@ public enum ZshCategory: Category {
         case .comment: return .lightGray
         }
     }
+    #endif
 
     public init(from match: String) {
         switch match {
@@ -78,6 +80,7 @@ public enum ZshCategory: Category {
         case \.isVariable: self = .variable
         case \.isString: self = .string
         case \.isComment: self = .comment
+        case \.isProgram: self = .program
         case \.isCommandOrOptionValue: self = .commandOrOptionValue
         default: self = .program
         }
@@ -101,6 +104,8 @@ private extension String {
         || hasPrefix("|") && count > 1
         || hasPrefix("\n") && count > 1
         || hasPrefix("\r") && count > 1
+        || hasPrefix("./") && count > 2
+        || hasPrefix("/") && count > 1
     }
 
     var isCommandOrOptionValue: Bool {

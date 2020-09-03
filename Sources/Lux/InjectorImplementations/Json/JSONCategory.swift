@@ -1,7 +1,6 @@
-import Foundation
 #if os(iOS)
 import UIKit
-#else
+#elseif os(macOS)
 import AppKit
 #endif
 
@@ -35,6 +34,7 @@ public enum JSONCategory: Category {
         }
     }
 
+    #if !os(Linux)
     public var color: Color {
         switch self {
         case .keyName: return .red
@@ -42,6 +42,7 @@ public enum JSONCategory: Category {
         case .punctuation: return .lightGray
         }
     }
+    #endif
 
     // MARK: - Initialisation
 

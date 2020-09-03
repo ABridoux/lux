@@ -10,6 +10,7 @@ public extension ZshDelegate {
 
 final class ZshXcodeDarkDelegate: ZshDelegate, XcodeDarkThemeInjectorDelegate {
 
+    #if !os(Linux)
     override func color(for category: ZshCategory) -> Color {
         switch category {
         case .program: return Color.xcodeDark.call
@@ -22,6 +23,7 @@ final class ZshXcodeDarkDelegate: ZshDelegate, XcodeDarkThemeInjectorDelegate {
         case .comment: return Color.xcodeDark.comment
         }
     }
+    #endif
 
     override func terminalModifier(for category: ZshCategory) -> TerminalModifier {
         switch category {

@@ -10,6 +10,7 @@ public extension XMLEnhancedDelegate {
 
 final class XMLEnhancedDraculaDelegate: XMLEnhancedDelegate, DraculaThemeInjectorDelegate {
 
+    #if !os(Linux)
     override func color(for category: XMLEnhancedCategory) -> Color {
         switch category {
         case .openingTag: return Color.dracula.function
@@ -19,6 +20,7 @@ final class XMLEnhancedDraculaDelegate: XMLEnhancedDelegate, DraculaThemeInjecto
         case .header: return Color.dracula.fileHeader
         }
     }
+    #endif
 
     override func terminalModifier(for category: XMLEnhancedCategory) -> TerminalModifier {
         switch category {

@@ -11,6 +11,7 @@ public struct AttributedString: Appendable {
 
     public var nsAttributedString: NSMutableAttributedString
 
+    #if !os(Linux)
     public var textColor: Color {
         get {
             nsAttributedString.attribute(.foregroundColor, at: 0, effectiveRange: nil) as? Color ?? .plainText
@@ -20,15 +21,18 @@ public struct AttributedString: Appendable {
             nsAttributedString.setAttributes([.foregroundColor: newValue], range: fullRange)
         }
     }
+    #endif
 
     public init(_ string: String) {
         nsAttributedString = NSMutableAttributedString(string: string)
     }
 
+    #if !os(Linux)
     public init(_ string: String, color: Color) {
         nsAttributedString = NSMutableAttributedString(string: string)
         textColor = color
     }
+    #endif
 
     public init(_ substring: Substring) {
         nsAttributedString = NSMutableAttributedString(string: String(substring))
@@ -50,9 +54,11 @@ public struct AttributedString: Appendable {
         self = attributedString
     }
 
+    #if !os(Linux)
     mutating public func append(_ string: String, with color: Color) {
         var attrString = AttributedString(string)
         attrString.textColor = color
         append(attrString)
     }
+    #endif
 }

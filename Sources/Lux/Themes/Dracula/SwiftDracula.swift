@@ -10,6 +10,7 @@ public extension SwiftDelegate {
 
 final class SwiftDraculaDelegate: SwiftDelegate, DraculaThemeInjectorDelegate {
 
+    #if !os(Linux)
     override func color(for category: SwiftCategory) -> Color {
         switch category {
         case .plainText: return Color.dracula.plainText
@@ -25,6 +26,7 @@ final class SwiftDraculaDelegate: SwiftDelegate, DraculaThemeInjectorDelegate {
         case .type: return Color.dracula.classOrType
         }
     }
+    #endif
 
     override func terminalModifier(for category: SwiftCategory) -> TerminalModifier {
         switch category {

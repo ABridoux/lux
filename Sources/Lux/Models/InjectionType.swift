@@ -20,12 +20,11 @@ extension UIColor: InjectionType {
     public static func none() -> Self { Self() }
 }
 
-#else
+#elseif os(macOS)
 
 extension NSColor: InjectionType {
     public static func none() -> Self { Self() }
 }
-
 #endif
 
 extension TerminalModifier: InjectionType {

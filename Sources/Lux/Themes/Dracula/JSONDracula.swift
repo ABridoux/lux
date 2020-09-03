@@ -10,6 +10,7 @@ public extension JSONDelegate {
 
 final class JSONDraculaDelegate: JSONDelegate, DraculaThemeInjectorDelegate {
 
+    #if !os(Linux)
     override func color(for category: JSONCategory) -> Color {
         switch category {
         case .keyName: return Color.dracula.function
@@ -17,6 +18,7 @@ final class JSONDraculaDelegate: JSONDelegate, DraculaThemeInjectorDelegate {
         case .punctuation: return Color.dracula.punctuation
         }
     }
+    #endif
 
     override func terminalModifier(for category: JSONCategory) -> TerminalModifier {
         switch category {

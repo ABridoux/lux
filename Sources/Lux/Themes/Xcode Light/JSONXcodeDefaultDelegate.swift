@@ -10,6 +10,7 @@ public extension JSONDelegate {
 
 final class JSONXcodeLightDelegate: JSONDelegate, XcodeLightThemeInjectorDelegate {
 
+    #if !os(Linux)
     override func color(for category: JSONCategory) -> Color {
         switch category {
         case .keyName: return Color.xcodeLight.property
@@ -17,6 +18,7 @@ final class JSONXcodeLightDelegate: JSONDelegate, XcodeLightThemeInjectorDelegat
         case .punctuation: return Color.xcodeLight.comment
         }
     }
+    #endif
 
     override func terminalModifier(for category: JSONCategory) -> TerminalModifier {
         switch category {
