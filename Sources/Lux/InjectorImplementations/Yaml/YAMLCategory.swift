@@ -1,11 +1,12 @@
-#if os(iOS)
+#if canImport(UIKit)
 import UIKit
-#elseif os(macOS)
+#elseif canImport(AppKit)
 import AppKit
 #endif
 
-/// Categories for matches in a Json format
-public enum JSONCategory: Category {
+import Foundation
+
+public enum YAMLCategory: Category {
 
     // MARK: - Constants
 
@@ -18,11 +19,13 @@ public enum JSONCategory: Category {
 
     // MARK: - Properties
 
+    // MARK: - Properties
+
     public var cssClass: String {
         switch self {
-        case .keyName: return "json-key-name"
-        case .keyValue: return "json-key-value"
-        case .punctuation: return "json-punctuation"
+        case .keyName: return "yaml-key-name"
+        case .keyValue: return "yaml-key-value"
+        case .punctuation: return "yaml-punctuation"
         }
     }
 
@@ -57,8 +60,8 @@ public enum JSONCategory: Category {
 
 private extension String {
 
-    static let punctuationSet: Set<String> = ["]", "[", "(", ")", "{", "}", ","]
+    static let punctuationSet: Set<String> = ["-"]
 
     var isPunctuation: Bool { Self.punctuationSet.contains(self) }
-    var isKeyName: Bool { hasPrefix("\"") && hasSuffix(":") }
+    var isKeyName: Bool { hasSuffix(":") }
 }

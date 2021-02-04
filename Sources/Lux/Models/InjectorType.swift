@@ -1,7 +1,7 @@
 import Foundation
 
 /// Phantom types of injector to use: **terminal**, **html** and **app**. Each one will have a specific output and injection types.
-/// For example, the terminal injector will inject `TerminalModifier`s and output `Strings while
+/// For example, the terminal injector will inject `TerminalModifier`s and output `String`s while
 /// the app injector will inject `Color`s (`NSColor` or `UIColor`) and output `AttributedString`s (wrapper around `NSMutableString`)
 public class InjectorType<Output: Appendable, Injection: InjectionType> {
 

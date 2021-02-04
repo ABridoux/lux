@@ -2,7 +2,7 @@ import Lux
 import ArgumentParser
 
 enum Format: String, ExpressibleByArgument {
-    case plist, xml, json, zsh, swift
+    case plist, xml, json, yaml, zsh, swift
 
     func injector<Injection: InjectionType>(injectorType: InjectorType<String, Injection>, theme: ColorTheme? = nil, escapingHTML: Bool = false) -> TextInjector {
         // Not possible to store a type to reuse it in generics
@@ -41,6 +41,17 @@ enum Format: String, ExpressibleByArgument {
                     delegate = .theme(theme)
                 }
                 injector = JSONInjector(type: .terminal, delegate: delegate)
+            }
+
+        case .yaml:
+            if injectorType is Html {
+                injector = YAMLInjector(type: .html).escapingHTML(escapingHTML)
+            } else {
+                var delegate = YAMLDelegate()
+                if let theme = theme {
+                    delegate = .theme(theme)
+                }
+                injector = YAMLInjector(type: .terminal, delegate: delegate)
             }
 
         case .zsh:

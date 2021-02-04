@@ -20,7 +20,7 @@ let package = Package(
             from: "0.0.1"),
         .package(
             url: "https://github.com/JohnSundell/Splash",
-            from: "0.10.0")
+            from: "0.15.0")
     ],
     targets: [
         .target(
