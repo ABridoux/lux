@@ -11,14 +11,14 @@ struct InjectCommand: ParsableCommand {
     @Option(name: [.short, .long], help: "Specify HTML or plain text type. Default is plain")
     var type: TextType?
 
-    @Option(name: [.short, .long], help: "plist, xml, json")
+    @Option(name: [.short, .long], help: "plist, xml, json, yaml, swift, zsh")
     var format: Format
 
     @Option(name: [.long], help: "Choose a theme to use when outputting the data")
     var theme: ColorTheme?
 
-    @Flag(name: [.long], default: true, inversion: .prefixedNo, help: "If true, the HTML special characters in the code blocks will be escaped when type is html")
-    var escapeHTML: Bool
+    @Flag(name: [.long], inversion: .prefixedNo, help: "If true, the HTML special characters in the code blocks will be escaped when type is html")
+    var escapeHTML = true
 
     func run() throws {
         // get the input

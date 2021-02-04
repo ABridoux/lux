@@ -1,12 +1,8 @@
 import Foundation
 
-// MARK: Regex
-
 extension RegexPattern {
     static let json = RegexPattern(#"\{|\}|\(|\)|\[|\]|,|"[^"]*"\s*:|"([^"]|\\")*[^\\]"|"""#, type: .plain)
 }
-
-// MARK: - Injector
 
 public final class JSONInjector<Output: Appendable, Injection: InjectionType, InjType: InjectorType<Output, Injection>>: BaseInjector<JSONCategory, Output, Injection, InjType> {
 
