@@ -46,7 +46,7 @@ public enum ZshCategory: Category {
     public var terminalModifier: TerminalModifier {
         switch self {
         case .program: return .resetColors
-        case .optionNameOrFlag: return TerminalModifier(colorCode: 107)
+        case .optionNameOrFlag: return TerminalModifier(colorCode: 28)
         case .commandOrOptionValue: return TerminalModifier(colorCode: 65)
         case .punctuation: return TerminalModifier(colorCode: 240)
         case .variable: return TerminalModifier(colorCode: 167)

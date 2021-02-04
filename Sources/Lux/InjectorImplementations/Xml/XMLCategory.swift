@@ -36,9 +36,9 @@ public enum XMLCategory: Category {
 
     public var terminalModifier: TerminalModifier {
         switch self {
-        case .tag: return TerminalModifier(colorCode: 166)
+        case .tag: return TerminalModifier(colorCode: 243)
         case .key: return .resetColors // standard color
-        case .header: return TerminalModifier(colorCode: 247)
+        case .header: return TerminalModifier(colorCode: 239)
         case .comment: return TerminalModifier(colorCode: 67)
         }
     }
