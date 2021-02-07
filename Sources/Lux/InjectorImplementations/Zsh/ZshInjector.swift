@@ -6,7 +6,7 @@ extension RegexPattern {
 
     static let zshPlain = RegexPattern(
       #""[^"]*"|'[^']*'"# // strings
-    + #"|\s?\x5C#[^\s]*|#.*(?=\n|\Z)"# // comments and escaped # signs
+    + #"|\s?\x5C#[^\s]*|(\{[\s]*#|#).*(?=\n|\Z)"# // comments and escaped # signs
     + #"|(\s?sudo|\$\(|\.\/|\$|\[|`|\n|\r|\||\/)\h*[a-zA-Z0-9]{1}[a-zA-Z0-9\/\._-]*=?"# // programs and variables defs
     + #"|\s\h*[a-zA-Z0-9\/\.\+]{1}[^\s^`^\(^\)]*"# // commands and option values
     + #"|\s-{1,2}[a-zA-Z0-9_-]+"# // options and flags
@@ -17,7 +17,7 @@ extension RegexPattern {
     static let zshHTML = RegexPattern(
       #""[^"]*"|'[^']*'"# // strings
     + #"|&lt;|&gt;"# //specific html keywords < and >
-    + #"|\s?\x5C#[^\s]*|#.*(?=\n|\Z)"# // comments and escaped # signs
+    + #"|\s?\x5C#[^\s]*|(\{[\s]*#|#).*(?=\n|\Z)"# // comments and escaped # signs
     + #"|(\s?sudo|\$\(|\.\/|\$|\[|`|\n|\r|\||\/)\h*[a-zA-Z0-9]{1}[a-zA-Z0-9\/\._-]*=?"# // programs and variables defs
     + #"|\s\h*[a-zA-Z0-9\/\.\+]{1}[^\s^`^\(^\)]*"# // commands and option values
     + #"|\s-{1,2}[a-zA-Z0-9_-]+"# // options and flags
@@ -68,7 +68,7 @@ public final class ZshInjector<Output: Appendable, Injection: InjectionType, Inj
 
         guard !program.isEmpty else { return Output(program) }
 
-        // colorise both sudo and the program name as programsprogram
+        // colorise both sudo and the program name as programs
         if program.hasPrefix("sudo") {
             return delegate.inject(.program, in: type, program)
         }
