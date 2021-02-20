@@ -89,10 +89,10 @@ public enum ZshCategory: Category {
 
 private extension String {
 
-    static let punctuationSet: Set<String> =  ["[", "]", "(", ")", ";", "`", "{", "}"]
+    static let punctuationSet: Set<String> =  ["[", "]", "(", ")", ";", "`", "{", "}", "\\"]
     static let keywordsSet: Set<String> = ["if", "fi", "elif", "do", "done", "then", "else", "for", "foreach",
                                            "while", "until", "repeat", "case", "select", "function", "time",
-                                           "&", "&amp", "&&", "&amp&amp", "|", "||",
+                                           "&", "&amp;", "&&", "&amp;&amp;", "|", "||",
                                            ">", "&gt;", ">>", "&gt;&gt;", "<", "&lt;", "<<", "&lt;&lt;",
                                            "$", "=", "==", "!="]
 

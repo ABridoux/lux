@@ -11,18 +11,18 @@ extension RegexPattern {
     + #"|\s\h*[a-zA-Z0-9\/\.\+]{1}[^\s^`^\(^\)]*"# // commands and option values
     + #"|\s-{1,2}[a-zA-Z0-9_-]+"# // options and flags
     + #"|\$\{[a-zA-Z0-9_-]+\}|"# // variable with brackets ${variable}
-    + #"\[|\]|;|\(|\)|\{|\}|`"#, // punctuation
+    + #"\[|\]|;|\(|\)|\{|\}|\\|`"#, // punctuation
     type: .plain)
 
     static let zshHTML = RegexPattern(
       #""[^"]*"|'[^']*'"# // strings
-    + #"|&lt;|&gt;"# //specific html keywords < and >
+    + #"|&amp;|&lt;|&gt;"# //specific html keywords &, < and >
     + #"|\s?\x5C#[^\s]*|(\{[\s]*#|#).*(?=\n|\Z)"# // comments and escaped # signs
     + #"|(\s?sudo|\$\(|\.\/|\$|\[|`|\n|\r|\||\/)\h*[a-zA-Z0-9]{1}[a-zA-Z0-9\/\._-]*=?"# // programs and variables defs
     + #"|\s\h*[a-zA-Z0-9\/\.\+]{1}[^\s^`^\(^\)]*"# // commands and option values
     + #"|\s-{1,2}[a-zA-Z0-9_-]+"# // options and flags
     + #"|\$\{[a-zA-Z0-9_-]+\}|"# // variable with brackets ${variable}
-    + #"\[|\]|;|\(|\)|\{|\}|`"#, // punctuation
+    + #"\[|\]|;|\(|\)|\{|\}|\\|`"#, // punctuation
     type: .plain)
 
     /// Find variables in a string in Zsh
