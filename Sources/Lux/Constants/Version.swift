@@ -1,3 +1,3 @@
-public struct Version {
+public enum Version {
     public static let current = "0.4.3"
 }

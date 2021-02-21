@@ -7,6 +7,7 @@ public final class XMLEnhancedInjector<Output: Appendable, Injection: InjectionT
 
     override var plainRegexPattern: RegexPattern { .plainXml }
     override var htmlRegexPattern: RegexPattern { .htmlXml }
+    public override var dataFormat: DataFormat { .xmlEnhanced }
 
     // MARK: - Initialisation
 
