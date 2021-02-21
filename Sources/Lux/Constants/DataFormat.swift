@@ -1,3 +1,3 @@
 public enum DataFormat: String {
-    case xml, xmlEnhanced, json, plist, zsh, swift
+    case xml, xmlEnhanced, json, plist, zsh, swift, yaml
 }

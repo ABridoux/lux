@@ -40,7 +40,6 @@ public final class ZshInjector<Output: Appendable, Injection: InjectionType, Inj
 
     override var plainRegexPattern: RegexPattern { .zshPlain }
     override var htmlRegexPattern: RegexPattern { .zshHTML }
-    public override var dataFormat: DataFormat { .zsh }
 
     // MARK: - Initialisation
 

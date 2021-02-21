@@ -6,7 +6,6 @@ open class PlistInjector<Output: Appendable, Injection: InjectionType, InjType: 
 
     override var plainRegexPattern: RegexPattern { .plainXml }
     override var htmlRegexPattern: RegexPattern { .htmlXml }
-    public override var dataFormat: DataFormat { .plist }
 
     // MARK: - Initialisation
 

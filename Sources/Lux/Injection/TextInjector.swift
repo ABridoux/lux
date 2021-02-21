@@ -12,4 +12,30 @@ public protocol TextInjector {
     var dataFormat: DataFormat { get }
 }
 
-extension BaseInjector: TextInjector where Output == String {}
+extension ZshInjector: TextInjector where Output == String {
+    public var dataFormat: DataFormat { .zsh }
+}
+
+extension SwiftInjector: TextInjector where Output == String {
+    public var dataFormat: DataFormat { .swift }
+}
+
+extension XMLInjector: TextInjector where Output == String {
+    public var dataFormat: DataFormat { .xml }
+}
+
+extension XMLEnhancedInjector: TextInjector where Output == String {
+    public var dataFormat: DataFormat { .xmlEnhanced }
+}
+
+extension PlistInjector: TextInjector where Output == String {
+    public var dataFormat: DataFormat { .plist }
+}
+
+extension YAMLInjector: TextInjector where Output == String {
+    public var dataFormat: DataFormat { .yaml }
+}
+
+extension JSONInjector: TextInjector where Output == String {
+    public var dataFormat: DataFormat { .json }
+}

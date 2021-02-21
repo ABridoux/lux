@@ -33,4 +33,3 @@ final class YAMLXcodeDarkDelegate: YAMLDelegate, XcodeDarkThemeInjectorDelegate 
         }
     }
 }
-
