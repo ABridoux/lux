@@ -16,7 +16,6 @@ public final class XMLInjector<Output: Appendable, Injection: InjectionType, Inj
 
     override var plainRegexPattern: RegexPattern { .plainXml }
     override var htmlRegexPattern: RegexPattern { .htmlXml }
-    public override var dataFormat: DataFormat { .xml }
 
     // MARK: - Initialisation
 

@@ -9,7 +9,7 @@ All notable changes to this project will be documented in this file. `Lux` adher
 - YAML support [#92]
 
 ### Changed
-- InjectionService: Use SwiftSoup to parse the HTML file
+- `FileInjectionService`: Use SwiftSoup to parse the HTML file
 
 ### Fixed
 - Zsh +option was not parsed properly [#91]

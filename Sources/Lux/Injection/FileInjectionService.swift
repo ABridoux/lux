@@ -24,7 +24,7 @@ public enum FileInjectionService {
             switch injector.dataFormat {
             case .plist, .xml, .xmlEnhanced:
                 modifiedCode = try injector.inject(in: codeBlock.outerHtml())
-            case .json, .zsh, .swift:
+            case .json, .yaml, .zsh, .swift:
                 modifiedCode = try injector.inject(in: codeBlock.text())
             }
             try codeBlock.html(modifiedCode)

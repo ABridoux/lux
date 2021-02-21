@@ -15,10 +15,6 @@ open class BaseInjector<Cat: Category, Output: Appendable, Injection: InjectionT
     var textType: TextType
     var type: Injector
 
-    public var dataFormat: DataFormat {
-        preconditionFailure("Should be overriden")
-    }
-
     /// If true, the injector will find all HTML special characters and replace them before injecting.
     /// Useful for plain input which has to be rendered to HTML.
     private(set) var escapeHTML = false
