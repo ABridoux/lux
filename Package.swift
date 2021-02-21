@@ -19,13 +19,16 @@ let package = Package(
             url: "https://github.com/apple/swift-argument-parser",
             from: "0.0.1"),
         .package(
+            url: "https://github.com/scinfu/SwiftSoup.git",
+            from: "1.7.4"),
+        .package(
             url: "https://github.com/JohnSundell/Splash",
             from: "0.15.0")
     ],
     targets: [
         .target(
             name: "Lux",
-            dependencies: ["Splash"]),
+            dependencies: ["Splash", "SwiftSoup"]),
         .target(
             name: "LuxCLT",
             dependencies: ["Lux", "ArgumentParser"]),

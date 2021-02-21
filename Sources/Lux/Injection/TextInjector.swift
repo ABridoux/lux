@@ -8,6 +8,8 @@ public protocol TextInjector {
     var languageIdentifiers: Set<String> { get set }
 
     func inject(in text: String) -> String
+
+    var dataFormat: DataFormat { get }
 }
 
 extension BaseInjector: TextInjector where Output == String {}

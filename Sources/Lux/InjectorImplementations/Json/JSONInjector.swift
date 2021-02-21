@@ -10,6 +10,7 @@ public final class JSONInjector<Output: Appendable, Injection: InjectionType, In
 
     override var plainRegexPattern: RegexPattern { .json }
     override var htmlRegexPattern: RegexPattern { .json }
+    public override var dataFormat: DataFormat { .zsh }
 
     // MARK: - Initialisation
 
