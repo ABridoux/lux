@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. `Lux` adheres to [Semantic Versioning](http://semver.org).
 
 ---
+## [0.5.0](https://github.com/ABridoux/lux/tree/0.5.0) (21/02/2021)
+
+### Added
+- YAML support [#92]
+
+### Changed
+- InjectionService: Use SwiftSoup to parse the HTML file
+
+### Fixed
+- Zsh +option was not parsed properly [#91]
+- Zsh '&' keyword was not parsed 
+
 ## [0.4.3](https://github.com/ABridoux/lux/tree/0.4.3) (02/09/2020)
 
 ### Fixed

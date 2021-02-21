@@ -57,7 +57,7 @@ public enum PlistCategory: Category {
         }
     }
     #endif
-    
+
     // MARK: - Initilisation
 
     public init(from match: String) {

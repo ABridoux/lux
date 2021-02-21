@@ -6,7 +6,7 @@ extension FileInjectionServiceTests {
     //   `swift test --generate-linuxmain`
     // to regenerate.
     static let __allTests__FileInjectionServiceTests = [
-        ("testInject1", testInject1),
+        ("testInject1", testInject1)
     ]
 }
 
@@ -15,7 +15,7 @@ extension InjectorTests {
     //   `swift test --generate-linuxmain`
     // to regenerate.
     static let __allTests__InjectorTests = [
-        ("testInjectorShouldInjectNA_Plain", testInjectorShouldInjectNA_Plain),
+        ("testInjectorShouldInjectNA_Plain", testInjectorShouldInjectNA_Plain)
     ]
 }
 
@@ -25,7 +25,7 @@ extension JsonInjectorTests {
     // to regenerate.
     static let __allTests__JsonInjectorTests = [
         ("testInjectCssClasses", testInjectCssClasses),
-        ("testInjectTerminalColor", testInjectTerminalColor),
+        ("testInjectTerminalColor", testInjectTerminalColor)
     ]
 }
 
@@ -35,7 +35,7 @@ extension PlistInjectorTests {
     // to regenerate.
     static let __allTests__PlistInjectorTests = [
         ("testInjectCssClasses", testInjectCssClasses),
-        ("testInjectTerminalColor", testInjectTerminalColor),
+        ("testInjectTerminalColor", testInjectTerminalColor)
     ]
 }
 
@@ -45,7 +45,7 @@ extension XMLEnhancedInjectorTests {
     // to regenerate.
     static let __allTests__XMLEnhancedInjectorTests = [
         ("testInjectCssClasses", testInjectCssClasses),
-        ("testInjectTerminalColor", testInjectTerminalColor),
+        ("testInjectTerminalColor", testInjectTerminalColor)
     ]
 }
 
@@ -55,7 +55,7 @@ extension XMLInjectorTests {
     // to regenerate.
     static let __allTests__XMLInjectorTests = [
         ("testInjectCssClasses", testInjectCssClasses),
-        ("testInjectTerminalColor", testInjectTerminalColor),
+        ("testInjectTerminalColor", testInjectTerminalColor)
     ]
 }
 
@@ -67,7 +67,7 @@ extension ZshInjectorTests {
         ("testFile1_Html", testFile1_Html),
         ("testFile2_Html", testFile2_Html),
         ("testFile3_Html", testFile3_Html),
-        ("testFile4_Html", testFile4_Html),
+        ("testFile4_Html", testFile4_Html)
     ]
 }
 
@@ -79,7 +79,7 @@ public func __allTests() -> [XCTestCaseEntry] {
         testCase(PlistInjectorTests.__allTests__PlistInjectorTests),
         testCase(XMLEnhancedInjectorTests.__allTests__XMLEnhancedInjectorTests),
         testCase(XMLInjectorTests.__allTests__XMLInjectorTests),
-        testCase(ZshInjectorTests.__allTests__ZshInjectorTests),
+        testCase(ZshInjectorTests.__allTests__ZshInjectorTests)
     ]
 }
 #endif

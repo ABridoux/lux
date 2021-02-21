@@ -29,6 +29,7 @@ Currently supported languages:
 - [x] Xml enhanced (better visualisation of the tags)
 - [x] Plist
 - [x] Json
+- [x] Yaml
 
 Currently offered themes:
 - [x] Dracula
