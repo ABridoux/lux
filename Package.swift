@@ -20,7 +20,7 @@ let package = Package(
             from: "0.0.1"),
         .package(
             url: "https://github.com/scinfu/SwiftSoup.git",
-            from: "1.7.4"),
+            from: "2.0.0"),
         .package(
             url: "https://github.com/JohnSundell/Splash",
             from: "0.15.0")

@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/apple/swift-argument-parser",
         "state": {
           "branch": null,
-          "revision": "9564d61b08a5335ae0a36f789a7d71493eacadfc",
-          "version": "0.3.2"
+          "revision": "69ddee8c323ed468539e3b05e8c01e3d5a37bf6a",
+          "version": "0.4.0"
         }
       },
       {
@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/scinfu/SwiftSoup.git",
         "state": {
           "branch": null,
-          "revision": "11da8c685ddde2d519fad04a7daf8485bbbc773e",
-          "version": "1.7.5"
+          "revision": "774dc9c7213085db8aa59595e27c1cd22e428904",
+          "version": "2.3.2"
         }
       }
     ]
