@@ -36,7 +36,7 @@ public enum FileInjectionService {
     /// - Parameters:
     ///   - languageIdentifier: The language identifier corresponding to one potential Injector
     ///   - injectors: List of potential injectors
-    /// - Returns: The Injector responsibme for the given language identifier
+    /// - Returns: The Injector responsible for the given language identifier
     static func getInjectorFor(languageIdentifier: String, from injectors: [TextInjector]) -> TextInjector? {
         for injector in injectors {
             if injector.languageIdentifiers.contains(languageIdentifier) {
